@@ -1,0 +1,9 @@
+.glow-pane {
+    -fx-background-color: #FFFFFF; /* Default background color */
+    -fx-border-color: #cccccc; /* Default border color */
+}
+
+.glow-pane:hover {
+    -fx-background-color: #FFF5EE; /* Glowing background color */
+    -fx-border-color: #FFC080; /* Glowing border color */
+}

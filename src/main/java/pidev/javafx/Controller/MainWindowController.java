@@ -68,5 +68,12 @@ public class MainWindowController implements Initializable {
         scrollPane.setPrefWidth( mainBorderPain.getPrefWidth()-sideBar.getPrefWidth() );
         mainBorderPain.setCenter(scrollPane);
     }
+    @FXML
+    public void onTransportClicked(ActionEvent event) throws IOException {
+        ScrollPane scrollPane = FXMLLoader.load(Objects.requireNonNull( getClass().getResource( "/fxml/Transport/transport.fxml" )));
+        scrollPane.setPrefHeight(mainBorderPain.getPrefHeight()  );
+        scrollPane.setPrefWidth( mainBorderPain.getPrefWidth()-sideBar.getPrefWidth() );
+        mainBorderPain.setCenter(scrollPane);
+    }
 
 }

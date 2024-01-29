@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<ScrollPane  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+             fx:controller="pidev.javafx.Controller.MainWindowController">
+
+    <ImageView fitHeight="242.0" fitWidth="478.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+          <Image url="@../../img/banana.png" />
+        </image>
+    </ImageView>
+</ScrollPane>

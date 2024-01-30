@@ -1,0 +1,52 @@
+#formBox .text-field {
+    /*-fx-background-color:  #deddd9;*/
+    -fx-background-color:  transparent;
+    /*-fx-border-color: grey;*/
+    /*-fx-border-width: 1px;*/
+    /*-fx-background-radius: 10px;*/
+    /*-fx-border-radius: 10px;*/
+    -fx-border-width: 1px;
+    -fx-border-color: transparent transparent black transparent;
+}
+
+#formBox .label{
+    -fx-padding: 0 0 0 8px;
+    -fx-border-width: 1px;
+    -fx-border-color: transparent transparent black transparent;
+}
+
+#dob .text-field,#sDate .text-field {
+    -fx-border-width: 1px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 10px 0 0 10px;
+}
+
+#dob,#sDate{
+    -fx-background-color:  #deddd9;
+    -fx-background-radius: 10px 0 0 10px;
+    -fx-border-width: 1px;
+    -fx-border-color: grey;
+    -fx-border-radius: 10px 0 0 10px;
+}
+/*#formBox .button {*/
+/*    -fx-background-color:  #deddd9;*/
+/*    -fx-border-color: grey grey grey transparent;*/
+/*    -fx-border-width: 1px;*/
+/*    -fx-background-radius: 0 10px 10px 0;*/
+/*    -fx-border-radius: 0 10px 10px 0;*/
+/*}*/
+
+/*#formBox .text-field {*/
+/*    -fx-background-color:  #deddd9;*/
+/*    -fx-border-color: grey transparent grey grey;*/
+/*    -fx-border-width: 1px;*/
+/*    -fx-background-radius: 10px 0 0 10px;*/
+/*    -fx-border-radius: 10px 0 0 10px;*/
+/*}*/
+
+/*#formBox {*/
+/*    !*-fx-border-radius: 10px;*!*/
+/*    -fx-background-color: red;*/
+/*}*/
+
+

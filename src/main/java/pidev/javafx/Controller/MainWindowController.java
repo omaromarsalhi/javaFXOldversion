@@ -41,7 +41,7 @@ public class MainWindowController implements Initializable {
     @FXML
     private BorderPane mainBorderPain;
     @FXML
-    private AnchorPane leftAnchorPane;
+    private AnchorPane MainAnchorPane;
     @FXML
     private MenuButton menubottons;
 
@@ -64,8 +64,8 @@ public class MainWindowController implements Initializable {
     @FXML
     public void onMarketPlaceBtnClicked(ActionEvent event) throws IOException {
         ScrollPane scrollPane = FXMLLoader.load(getClass().getResource( "/fxml/marketPlace/myMarket.fxml" ));
-        scrollPane.setPrefHeight(mainBorderPain.getPrefHeight()  );
-        scrollPane.setPrefWidth( mainBorderPain.getPrefWidth()-sideBar.getPrefWidth() );
+        scrollPane.setPrefHeight(MainAnchorPane.getPrefHeight()  );
+        scrollPane.setPrefWidth( MainAnchorPane.getPrefWidth());
         mainBorderPain.setCenter(scrollPane);
     }
 

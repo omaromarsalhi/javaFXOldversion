@@ -14,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import org.w3c.dom.NodeList;
@@ -63,10 +64,10 @@ public class MainWindowController implements Initializable {
 
     @FXML
     public void onMarketPlaceBtnClicked(ActionEvent event) throws IOException {
-        ScrollPane scrollPane = FXMLLoader.load(getClass().getResource( "/fxml/marketPlace/myMarket.fxml" ));
-        scrollPane.setPrefHeight(MainAnchorPane.getPrefHeight()  );
-        scrollPane.setPrefWidth( MainAnchorPane.getPrefWidth());
-        mainBorderPain.setCenter(scrollPane);
+        HBox hBox = FXMLLoader.load(getClass().getResource( "/fxml/marketPlace/myMarket.fxml" ));
+        hBox.setMaxHeight(MainAnchorPane.getPrefHeight()  );
+        hBox.setMaxWidth( MainAnchorPane.getPrefWidth());
+        mainBorderPain.setCenter(hBox);
     }
 
 }

@@ -70,6 +70,7 @@ public class MarketController implements Initializable {
         int column = 0;
         int row = 1;
         try {
+            System.out.println(biens.size());
             for (int i = 0; i < biens.size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/fxml/marketPlace/item.fxml"));
@@ -78,15 +79,14 @@ public class MarketController implements Initializable {
                 ItemController itemController = fxmlLoader.getController();
                 itemController.setData(biens.get(i),myListener);
 
-
                 if (column == 3) {
                     column = 0;
                     row++;
                 }
 
 //                grid.setGridLinesVisible( true );
-                grid.setHgap( 50 );
-                grid.setVgap( 20 );
+                grid.setHgap( 40 );
+                grid.setVgap( 40 );
 
                 grid.add(anchorPane, column++, row); //(child,column,row)
                 //set grid width
@@ -98,12 +98,11 @@ public class MarketController implements Initializable {
                 grid.setMinHeight(Region.USE_COMPUTED_SIZE);
                 grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
                 grid.setMaxHeight(Region.USE_PREF_SIZE);
-
-                GridPane.setMargin(anchorPane, new Insets(10));
+//                GridPane.setMargin(anchorPane, new Insets(10));
             }
             grid.setPrefHeight(670);
-            grid.setPrefWidth( 1040-20);
-            grid.setPadding( new Insets( 10,20,10,20 ) );
+            grid.setPrefWidth(760);
+            grid.setPadding( new Insets( -10,20,10,20 ));
 
         } catch (IOException e) {
             e.printStackTrace();

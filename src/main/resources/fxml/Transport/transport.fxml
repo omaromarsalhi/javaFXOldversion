@@ -1,15 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<ScrollPane  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-             fx:controller="pidev.javafx.Controller.MainWindowController">
-
-    <ImageView fitHeight="242.0" fitWidth="478.0" pickOnBounds="true" preserveRatio="true">
-        <image>
-          <Image url="@../../img/banana.png" />
-        </image>
-    </ImageView>
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidev.javafx.Controller.Transport.TransportController">
+   <content>
+      <AnchorPane prefHeight="601.0" prefWidth="798.0">
+         <children>
+            <VBox layoutX="232.0" layoutY="131.0" prefHeight="340.0" prefWidth="314.0">
+               <children>
+                  <HBox>
+                     <children>
+                        <Label text="Name" />
+                        <TextArea fx:id="Name_area" onInputMethodTextChanged="#onTextChanged" onKeyPressed="#onTextChanged" onKeyReleased="#onTextChanged" onKeyTyped="#onTextChanged" prefHeight="18.0" prefWidth="200.0" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label text="Lastname" />
+                        <TextArea fx:id="Name_area1" onInputMethodTextChanged="#onTextChanged" onKeyPressed="#onTextChanged" onKeyReleased="#onTextChanged" onKeyTyped="#onTextChanged" prefHeight="18.0" prefWidth="200.0" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label text="Adress" />
+                        <TextArea fx:id="Name_area2" onInputMethodTextChanged="#onTextChanged" onKeyPressed="#onTextChanged" onKeyReleased="#onTextChanged" onKeyTyped="#onTextChanged" prefHeight="18.0" prefWidth="200.0" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label text="In   " />
+                        <TextArea fx:id="Name_area3" onInputMethodTextChanged="#onTextChanged" onKeyPressed="#onTextChanged" onKeyReleased="#onTextChanged" onKeyTyped="#onTextChanged" prefHeight="18.0" prefWidth="200.0" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label text="Name" />
+                        <VBox>
+                           <children>
+                              <TextArea fx:id="Name_area4" onKeyPressed="#onTextChanged" onKeyReleased="#onTextChanged" prefHeight="18.0" prefWidth="200.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <Button fx:id="showBtn" mnemonicParsing="false" onAction="#afficher" text="Afficher" />
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </content>
 </ScrollPane>

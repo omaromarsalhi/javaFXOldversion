@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -9,78 +11,108 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="334.0" prefWidth="250.0" stylesheets="@../../style/styleShowItems.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidev.javafx.Controller.MarketPlace.ItemController">
+
+<AnchorPane fx:id="anchorPaneItem" prefHeight="332.0" prefWidth="210.0" stylesheets="@../../style/styleShowItems.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidev.javafx.Controller.MarketPlace.ItemController">
    <children>
-      <VBox alignment="TOP_CENTER" layoutX="63.0" layoutY="8.0" prefHeight="395.0" prefWidth="226.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="10.0">
+      <VBox prefHeight="332.0" prefWidth="210.0">
          <children>
-            <Label fx:id="nameLabel" alignment="CENTER" prefHeight="41.0" prefWidth="202.0" text="Cherry">
-               <font>
-                  <Font name="Cambria" size="24.0" />
-               </font>
-            </Label>
-            <ImageView fx:id="img" fitHeight="115.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../img/cherry.png" />
-               </image>
-            </ImageView>
-            <HBox alignment="CENTER" prefHeight="49.0" prefWidth="222.0">
+            <VBox fx:id="bascInfoItems" alignment="TOP_CENTER" prefHeight="319.0" prefWidth="240.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="49.0" prefWidth="101.0" text="Quantity :">
+                  <Label fx:id="nameLabel" alignment="CENTER" prefHeight="41.0" prefWidth="202.0" text="Cherry">
                      <font>
-                        <Font name="Cambria Bold" size="18.0" />
+                        <Font name="Cambria" size="24.0" />
                      </font>
                   </Label>
-                  <Label fx:id="quantityLabel" alignment="CENTER" prefHeight="49.0" prefWidth="101.0" text="120">
-                     <font>
-                        <Font name="Cambria Bold" size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="49.0" prefWidth="222.0">
-               <children>
-                  <Label alignment="CENTER" prefHeight="49.0" prefWidth="101.0" text="Price :">
-                     <font>
-                        <Font name="Cambria Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="priceLable" alignment="CENTER" prefHeight="49.0" prefWidth="101.0" text="\$0.99">
-                     <font>
-                        <Font name="Cambria Bold" size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="49.0" prefWidth="222.0">
-               <children>
-                  <Label fx:id="categoryLable" alignment="CENTER" prefHeight="49.0" prefWidth="212.0" text="Sport">
-                     <font>
-                        <Font name="Cambria Bold" size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="64.0" prefWidth="217.0">
-               <children>
-                  <ImageView fitHeight="58.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="img" fitHeight="115.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../img/omar.jpg" />
+                        <Image url="@../../img/cherry.png" />
                      </image>
                   </ImageView>
-                  <VBox alignment="CENTER" prefHeight="88.0" prefWidth="102.0">
+                  <HBox alignment="CENTER" prefHeight="49.0" prefWidth="222.0">
                      <children>
-                        <Label fx:id="firstNameLabel" alignment="CENTER" prefHeight="44.0" prefWidth="112.0">
+                        <Label alignment="CENTER" prefHeight="49.0" prefWidth="101.0" text="Quantity :">
                            <font>
                               <Font name="Cambria Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lastNameLabel" alignment="CENTER" prefHeight="49.0" prefWidth="101.0">
+                        <Label fx:id="quantityLabel" alignment="CENTER" prefHeight="49.0" prefWidth="101.0" text="120">
                            <font>
                               <Font name="Cambria Bold" size="18.0" />
                            </font>
                         </Label>
                      </children>
-                  </VBox>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="49.0" prefWidth="222.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="49.0" prefWidth="101.0" text="Price :">
+                           <font>
+                              <Font name="Cambria Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="priceLable" alignment="CENTER" prefHeight="49.0" prefWidth="101.0" text="\$0.99">
+                           <font>
+                              <Font name="Cambria Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="49.0" prefWidth="222.0">
+                     <children>
+                        <Label fx:id="categoryLable" alignment="CENTER" prefHeight="49.0" prefWidth="212.0" text="Sport">
+                           <font>
+                              <Font name="Cambria Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="64.0" prefWidth="217.0">
+                     <children>
+                        <ImageView fitHeight="58.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/omar.jpg" />
+                           </image>
+                        </ImageView>
+                        <VBox alignment="CENTER" prefHeight="88.0" prefWidth="102.0">
+                           <children>
+                              <Label fx:id="firstNameLabel" alignment="CENTER" prefHeight="44.0" prefWidth="112.0">
+                                 <font>
+                                    <Font name="Cambria Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lastNameLabel" alignment="CENTER" prefHeight="49.0" prefWidth="101.0">
+                                 <font>
+                                    <Font name="Cambria Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox fx:id="itemInfo" alignment="CENTER" prefHeight="62.0" prefWidth="202.0" spacing="10.0" style="-fx-background-radius: 30;" stylesheets="@../../style/styleShowItems.css">
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" />
+               </VBox.margin>
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="75.0" style="-fx-background-radius: 20; -fx-background-color: white;" text="Buy">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../gifs/shopping-cart-ezgif.com-resize.gif" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="34.0" prefWidth="94.0" style="-fx-background-radius: 20; -fx-background-color: white;" text="Trade">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../gifs/exchange-ezgif.com-resize.gif" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                </children>
             </HBox>
          </children>

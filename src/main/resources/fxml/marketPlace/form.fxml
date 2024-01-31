@@ -5,8 +5,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -29,8 +27,10 @@
                      <font>
                         <Font name="Candara Bold" size="19.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
                   </TextField>
-                  <ImageView fitHeight="41.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </HBox>
          </children>
@@ -59,13 +59,10 @@
                            <cursor>
                               <Cursor fx:constant="TEXT" />
                            </cursor>
+                           <HBox.margin>
+                              <Insets right="20.0" />
+                           </HBox.margin>
                         </TextField>
-                        <ImageView fitHeight="41.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fitHeight="41.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../gifs/check.gif" />
-                           </image>
-                        </ImageView>
                      </children>
                   </HBox>
                </children>
@@ -96,11 +93,6 @@
                   <Insets right="20.0" />
                </HBox.margin>
             </TextField>
-            <ImageView fitHeight="41.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../gifs/check.gif" />
-               </image>
-            </ImageView>
          </children>
          <VBox.margin>
             <Insets />
@@ -124,11 +116,6 @@
                   <Insets right="20.0" />
                </HBox.margin>
             </TextField>
-            <ImageView fitHeight="41.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../gifs/check.gif" />
-               </image>
-            </ImageView>
          </children>
          <VBox.margin>
             <Insets />
@@ -152,11 +139,6 @@
                   <Insets right="20.0" />
                </HBox.margin>
             </TextField>
-            <ImageView fitHeight="41.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../gifs/check.gif" />
-               </image>
-            </ImageView>
          </children>
          <VBox.margin>
             <Insets />

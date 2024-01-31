@@ -4,7 +4,6 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.chart.StackedBarChart?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,42 +12,45 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox prefHeight="670.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidev.javafx.Controller.MarketPlace.MarketController">
+<HBox prefHeight="670.0" prefWidth="1020.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidev.javafx.Controller.MarketPlace.MarketController">
    <children>
-      <VBox alignment="CENTER" prefHeight="653.0" prefWidth="250.0" spacing="20.0" style="-fx-background-color: #87878a;">
+      <VBox alignment="CENTER" prefHeight="653.0" prefWidth="250.0" spacing="5.0" style="-fx-background-color: #87878a;">
          <children>
-            <AnchorPane prefHeight="220.0" prefWidth="200.0" style="-fx-background-color: white;">
+            <AnchorPane prefHeight="220.0" prefWidth="200.0" style="-fx-background-color: #20749c; -fx-background-radius: 10;" />
+            <AnchorPane prefHeight="276.0" prefWidth="234.0" style="-fx-background-color: #87878a;">
                <children>
-                  <StackedBarChart prefHeight="204.0" prefWidth="230.0">
+                  <StackedBarChart fx:id="stachBarChart" layoutX="3.0" layoutY="2.0" prefHeight="230.0" prefWidth="230.0">
                     <xAxis>
-                      <CategoryAxis side="BOTTOM" />
+                      <CategoryAxis tickLabelFill="#1b1a1a" />
                     </xAxis>
                     <yAxis>
-                      <NumberAxis side="LEFT" />
+                      <NumberAxis prefHeight="200.0" prefWidth="40.0" side="LEFT" tickLabelFill="#181717" />
                     </yAxis>
+                     <padding>
+                        <Insets left="-10.0" />
+                     </padding>
                   </StackedBarChart>
                </children></AnchorPane>
-            <AnchorPane prefHeight="220.0" prefWidth="200.0" style="-fx-background-color: white;">
+            <AnchorPane prefHeight="220.0" prefWidth="200.0" style="-fx-background-color: #87878a;">
                <children>
-                  <PieChart layoutX="-1.0" prefHeight="203.0" prefWidth="230.0" />
-               </children></AnchorPane>
-            <AnchorPane prefHeight="220.0" prefWidth="200.0" style="-fx-background-color: white;">
-               <children>
-                  <LineChart layoutX="1.0" layoutY="1.0" prefHeight="203.0" prefWidth="230.0">
+                  <LineChart fx:id="lineChart" layoutX="1.0" layoutY="1.0" prefHeight="230.0" prefWidth="230.0" title="New Products/Day ">
                     <xAxis>
-                      <CategoryAxis side="BOTTOM" />
+                      <CategoryAxis side="BOTTOM" tickLabelFill="#101010" />
                     </xAxis>
                     <yAxis>
-                      <NumberAxis side="LEFT" />
+                      <NumberAxis side="LEFT" tickLabelFill="#1e1d1d" />
                     </yAxis>
+                     <padding>
+                        <Insets left="-10.0" />
+                     </padding>
                   </LineChart>
                </children></AnchorPane>
          </children>
          <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            <Insets bottom="10.0" left="6.0" right="10.0" top="10.0" />
          </padding>
       </VBox>
-      <ScrollPane fx:id="scroll" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="775.0" style="-fx-background-color: #87878a;">
+      <ScrollPane fx:id="scroll" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="775.0" style="-fx-background-color: #87878a;">
          <content>
             <GridPane fx:id="grid" prefHeight="670.0" prefWidth="762.0" style="-fx-background-color: #87878a;">
                <rowConstraints>

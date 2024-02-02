@@ -84,15 +84,23 @@ public class MarketController implements Initializable {
             }
             mainHbox.getChildren().add(hepfullBar);
             myListener = new MyListener() {
+                private VBox vBox;
                 @Override
                 public void onClickListener(Bien bien){
                     try {
-                        VBox vBox = FXMLLoader.load(getClass().getResource( "/fxml/marketPlace/itemInfo.fxml" ));
+                        vBox = FXMLLoader.load(getClass().getResource( "/fxml/marketPlace/itemInfo.fxml" ));
                         mainHbox.getChildren().remove(hepfullBar);
                         mainHbox.getChildren().add(vBox );
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                }
+
+                @Override
+                public void onClickListener2() {
+                    System.out.println("omar");
+                    mainHbox.getChildren().remove(vBox);
+                    mainHbox.getChildren().add(hepfullBar );
                 }
             };
         }

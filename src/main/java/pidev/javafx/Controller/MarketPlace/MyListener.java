@@ -7,4 +7,5 @@ import java.io.IOException;
 
 public interface MyListener {
     public void onClickListener(Bien bien);
+    public void onClickListener2();
 }

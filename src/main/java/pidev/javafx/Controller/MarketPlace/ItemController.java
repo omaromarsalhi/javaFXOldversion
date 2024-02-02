@@ -33,6 +33,8 @@ public class ItemController {
     @FXML
     private VBox bascInfoItems;
     @FXML
+    private Button exitBtn;
+    @FXML
     private VBox itemDeatails;
     @FXML
     private Button trade;
@@ -47,6 +49,10 @@ public class ItemController {
     @FXML
     public void onInfoBtnClicked(ActionEvent event){
         myListener.onClickListener(bien);
+    }
+    @FXML
+    public void onExitBtnClicked(ActionEvent event){
+        myListener.onClickListener2();
     }
 
     public void setData(Bien bien, MyListener myListener) {

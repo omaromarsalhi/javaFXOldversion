@@ -10,5 +10,6 @@ module pidev.javafx{
     opens pidev.javafx.Controller.MarketPlace to javafx.fxml;
     exports pidev.javafx.Model.MarketPlace;
     opens pidev.javafx.Model.MarketPlace to javafx.fxml;
+    opens pidev.javafx.Controller.User;
 }
 

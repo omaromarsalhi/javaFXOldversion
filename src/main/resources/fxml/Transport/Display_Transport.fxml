@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane id="scroll-pane" stylesheets="@../../style/Transport.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidev.javafx.Controller.Transport.VoyageController">
+   <content>
+      <AnchorPane prefHeight="670.0" prefWidth="1034.0" styleClass="anchor-pane" stylesheets="@../../style/Transport.css">
+         <children>
+            <Pane fx:id="displayTransport" layoutX="7.0" layoutY="5.0" prefHeight="672.0" prefWidth="1026.0" styleClass="pane" stylesheets="@../../style/Transport.css">
+               <children>
+                  <ListView fx:id="Transport_list" layoutX="81.0" layoutY="645.0" onEditStart="#show_Transport_ListView" onInputMethodTextChanged="#show_Transport_ListView1" onKeyPressed="#show_Transport_ListView1" onKeyReleased="#show_Transport_ListView1" onKeyTyped="#show_Transport_ListView1" prefHeight="424.0" prefWidth="801.0" />
+                  <Button layoutX="438.0" layoutY="54.0" mnemonicParsing="false" onAction="#show_Transport_ListView" text="Button" />
+                  <Line endX="52.60003662109375" layoutX="939.0" layoutY="120.0" startX="-900.0" stroke="#4e4545" />
+                  <ImageView fitHeight="106.0" fitWidth="90.0" layoutX="898.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/transport_header.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="42.0" layoutY="29.0" prefHeight="50.0" prefWidth="171.0" text="Transports">
+                     <font>
+                        <Font name="Souliyo Unicode" size="30.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="42.0" layoutY="54.0" prefHeight="50.0" prefWidth="233.0" text="tous les details du transport">
+                     <font>
+                        <Font name="Souliyo Unicode" size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField layoutX="652.0" layoutY="126.0" prefHeight="20.0" prefWidth="306.0" promptText="Search...." styleClass="SearchBar">
+                     <font>
+                        <Font name="Souliyo Unicode" size="13.0" />
+                     </font>
+                  </TextField>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="925.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/202.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="50.0" layoutY="126.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../icons/436.png" />
+                     </image>
+                  </ImageView>
+                  <ComboBox layoutX="84.0" layoutY="127.0" prefWidth="150.0" promptText="By Name" styleClass="SearchBar" />
+                  <TableView layoutX="24.0" layoutY="170.0" prefHeight="483.0" prefWidth="982.0" styleClass="TableView">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="C1" />
+                      <TableColumn prefWidth="75.0" text="C2" />
+                    </columns>
+                  </TableView>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+   </content>
+</ScrollPane>

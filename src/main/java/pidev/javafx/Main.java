@@ -2,10 +2,12 @@ package pidev.javafx;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
 import java.io.IOException;
+
+import javafx.stage.StageStyle;
 
 public class Main extends Application {
     @Override
@@ -20,6 +22,7 @@ public class Main extends Application {
         stage.setResizable( true );
 //        stage.setWidth( 950 );
 //        stage.setHeight(600);
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
         stage.show();
         stage.setOnCloseRequest(event -> javafx.application.Platform.exit());

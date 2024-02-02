@@ -1,25 +1,20 @@
 package pidev.javafx.Controller;
 
-import javafx.animation.FadeTransition;
-import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
-import org.w3c.dom.NodeList;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.*;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -28,12 +23,16 @@ public class MainWindowController implements Initializable {
     private boolean isSideBarOpen;
     @FXML
     private Button sideBarBtn;
-    @FXML
-    private Button showEmp;
+
     @FXML
     private Button btn2;
     @FXML
     private Button marketPlaceBtn;
+
+    @FXML
+    private Button VoyageBtn;
+    @FXML
+    private Button GareBtn;
     @FXML
     private VBox sideBar;
     @FXML
@@ -45,8 +44,13 @@ public class MainWindowController implements Initializable {
     @FXML
     private MenuButton menubottons;
 
+    private ListView Transport_list;
+    private Connection connect;
+    private Statement statement;
+    private PreparedStatement prepare;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 //    btns that changes the scenes
     @FXML
@@ -69,11 +73,17 @@ public class MainWindowController implements Initializable {
         mainBorderPain.setCenter(scrollPane);
     }
     @FXML
-    public void onTransportClicked(ActionEvent event) throws IOException {
-        ScrollPane scrollPane = FXMLLoader.load(Objects.requireNonNull( getClass().getResource( "/fxml/Transport/transport.fxml" )));
+    public void onVoyageClicked(ActionEvent event) throws IOException {
+        ScrollPane scrollPane = FXMLLoader.load(Objects.requireNonNull( getClass().getResource("/fxml/Transport/Voyage.fxml")));
         scrollPane.setPrefHeight(mainBorderPain.getPrefHeight()  );
         scrollPane.setPrefWidth( mainBorderPain.getPrefWidth()-sideBar.getPrefWidth() );
         mainBorderPain.setCenter(scrollPane);
     }
+    @FXML
+    public void onGareClicked(ActionEvent event) throws IOException{
+        ScrollPane scrollPane = FXMLLoader.load(Objects.requireNonNull( getClass().getResource("/fxml/Transport/Display_Transport.fxml")));
+        scrollPane.setPrefHeight(mainBorderPain.getPrefHeight() );
+        scrollPane.setPrefWidth( mainBorderPain.getPrefWidth()-sideBar.getPrefWidth() );
+        mainBorderPain.setCenter(scrollPane);
 
-}
+}}

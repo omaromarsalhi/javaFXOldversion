@@ -15,7 +15,16 @@
 #sideBarBtn{
     -fx-background-color:  transparent;
 }
-
+.button:hover,#zipSideBar .button:hover{
+    -fx-background-color:  white;
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+}
+#sideBarBtn{
+    -fx-background-color:  transparent;
+}
 
 
 

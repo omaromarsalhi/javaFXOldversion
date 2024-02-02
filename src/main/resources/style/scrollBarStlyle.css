@@ -1,0 +1,16 @@
+.thumb{
+    -fx-background-color:  #20749c;
+    -fx-background-radius: 50;
+}
+
+.track{
+    -fx-background-color: transparent;
+}
+
+.increment-button{
+    -fx-background-color: transparent;
+}
+
+.decrement-button{
+    -fx-background-color: transparent;
+}

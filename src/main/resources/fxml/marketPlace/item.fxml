@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane fx:id="anchorPaneItem" prefHeight="332.0" prefWidth="210.0" stylesheets="@../../style/styleShowItems.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidev.javafx.Controller.MarketPlace.ItemController">
    <children>
       <VBox prefHeight="332.0" prefWidth="210.0">
@@ -95,20 +94,29 @@
                   <Insets left="5.0" right="5.0" />
                </VBox.margin>
                <children>
-                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="75.0" style="-fx-background-radius: 20; -fx-background-color: white;" text="Buy">
+                  <Button fx:id="add2Card" mnemonicParsing="false" prefHeight="26.0" prefWidth="50.0" style="-fx-background-radius: 20; -fx-background-color: white; -fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20;">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../gifs/shopping-cart-ezgif.com-resize.gif" />
+                              <Image url="@../../namedIcons/buy.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="34.0" prefWidth="94.0" style="-fx-background-radius: 20; -fx-background-color: white;" text="Trade">
+                  <Button fx:id="trade" alignment="CENTER" mnemonicParsing="false" prefHeight="35.0" prefWidth="50.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 20;">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../gifs/exchange-ezgif.com-resize.gif" />
+                              <Image url="@../../namedIcons/exchange.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="info" alignment="CENTER" mnemonicParsing="false" onAction="#onInfoBtnClicked" prefHeight="35.0" prefWidth="50.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 20;">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../namedIcons/interface.png" />
                            </image>
                         </ImageView>
                      </graphic>

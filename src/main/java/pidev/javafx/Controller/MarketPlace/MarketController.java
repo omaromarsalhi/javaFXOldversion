@@ -11,13 +11,11 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import pidev.javafx.Model.MarketPlace.Bien;
 import pidev.javafx.Model.MarketPlace.Categorie;
-import pidev.javafx.MyListener;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -28,9 +26,9 @@ public class MarketController implements Initializable {
     @FXML
     private ScrollPane scroll;
     @FXML
-    private LineChart<?,?> lineChart;
+    private HBox mainHbox;
     @FXML
-    private StackedBarChart<?, ?> stachBarChart;
+    private VBox hepfullBar;
     @FXML
     private Button addBien;
 
@@ -44,8 +42,14 @@ public class MarketController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        try {
+            hepfullBar = FXMLLoader.load(getClass().getResource( "/fxml/marketPlace/helpfullBar.fxml" ));
+        } catch (IOException e) {
+//            e.printStackTrace();
+            System.out.println("omar");
+        }
         showGridPane();
-        getCharts();
+        System.out.println("omar");
     }
 
 
@@ -68,70 +72,30 @@ public class MarketController implements Initializable {
         return biens;
     }
 
-    private void getCharts() {
-        lineChart.getYAxis().setLabel("Product Number");
-        var serie = new XYChart.Series();
-        serie.setName("This week");
-        serie.getData().add(new XYChart.Data("Mo", 100 ));
-        serie.getData().add(new XYChart.Data("Tu", 45 ));
-        serie.getData().add(new XYChart.Data("We", 20 ));
-        serie.getData().add(new XYChart.Data("Th", 110 ));
-        serie.getData().add(new XYChart.Data("Fr", 60 ));
-        serie.getData().add(new XYChart.Data("Sa", 66 ));
-        serie.getData().add(new XYChart.Data("Su", 13 ));
-
-        lineChart.getData().addAll(serie);
-        lineChart.getStylesheets().add( String.valueOf( getClass().getResource("/style/lineChartStyle.css") ) );
 
 
-        stachBarChart.getYAxis().setLabel("value in $");
-        var selled = new XYChart.Series();
-        var purshased = new XYChart.Series();
-        var traded = new XYChart.Series();
-
-        selled.setName("Selled");
-        selled.getData().add(new XYChart.Data("Mo", 100 ));
-        selled.getData().add(new XYChart.Data("Tu", 45 ));
-        selled.getData().add(new XYChart.Data("We", 20 ));
-        selled.getData().add(new XYChart.Data("Th", 110 ));
-        selled.getData().add(new XYChart.Data("Fr", 60 ));
-        selled.getData().add(new XYChart.Data("Sa", 66 ));
-        selled.getData().add(new XYChart.Data("Su", 13 ));
-
-        purshased.setName("Purshased");
-        purshased.getData().add(new XYChart.Data("Mo", 10 ));
-        purshased.getData().add(new XYChart.Data("Tu", 80 ));
-        purshased.getData().add(new XYChart.Data("We", 70 ));
-        purshased.getData().add(new XYChart.Data("Th", 31 ));
-        purshased.getData().add(new XYChart.Data("Fr", 16 ));
-        purshased.getData().add(new XYChart.Data("Sa", 120 ));
-        purshased.getData().add(new XYChart.Data("Su", 95 ));
-
-        traded.setName("Traded");
-        traded.getData().add(new XYChart.Data("Mo", 59 ));
-        traded.getData().add(new XYChart.Data("Tu", 45 ));
-        traded.getData().add(new XYChart.Data("We", 73 ));
-        traded.getData().add(new XYChart.Data("Th", 110 ));
-        traded.getData().add(new XYChart.Data("Fr", 120 ));
-        traded.getData().add(new XYChart.Data("Sa", 88 ));
-        traded.getData().add(new XYChart.Data("Su", 14 ));
-
-
-        stachBarChart.getData().addAll(selled,purshased,traded);
-        stachBarChart.getStylesheets().add( String.valueOf( getClass().getResource("/style/lineChartStyle.css") ) );
-
-    }
     public void showGridPane(){
         biens.addAll(getData());
-//        if (fruits.size() > 0) {
-//            setChosenFruit(fruits.get(0));
-//            myListener = new MyListener() {
-//                @Override
-//                public void onClickListener(Fruit fruit) {
-//                    setChosenFruit(fruit);
-//                }
-//            };
-//        }
+        if (biens.size() > 0) {
+            try {
+                hepfullBar = FXMLLoader.load(getClass().getResource( "/fxml/marketPlace/helpfullBar.fxml" ));
+            } catch (IOException e) {
+                throw new RuntimeException( e );
+            }
+            mainHbox.getChildren().add(hepfullBar);
+            myListener = new MyListener() {
+                @Override
+                public void onClickListener(Bien bien){
+                    try {
+                        VBox vBox = FXMLLoader.load(getClass().getResource( "/fxml/marketPlace/itemInfo.fxml" ));
+                        mainHbox.getChildren().remove(hepfullBar);
+                        mainHbox.getChildren().add(vBox );
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+        }
         int column = 0;
         int row = 1;
         try {

@@ -1,0 +1,32 @@
+.custom-hbox .text-field{
+    -fx-background-color: #1e1e1f;
+    -fx-border-radius: 10px ;
+    -fx-border-width: 1px;
+    -fx-border-color: #494949;
+    -fx-font-size: 15;
+
+}
+.btn1{
+
+        -fx-background-color: transparent;
+        -fx-border-width: 0;
+        -fx-text-fill:#E7E7E7;
+        -fx-font-size: 10px;
+
+}
+.btn-login{
+
+    -fx-background-color:#20749C;
+    -fx-border-radius: 20px ;
+    -fx-border-width: 1px;
+    -fx-text-fill:#E7E7E7;
+    -fx-font-size: 14px;
+}
+.btn-signup{
+
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-text-fill: #20749C;
+    -fx-padding: 0px 0px; /* Marge intérieure (haut, droite, bas, gauche) */
+    -fx-font-size: 14px;
+}

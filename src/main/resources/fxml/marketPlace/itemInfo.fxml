@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="itemDeatails" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="200.0" prefHeight="653.0" prefWidth="250.0" style="-fx-background-color: #f4f4f4;" stylesheets="@../../style/Buttons.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="pidev.javafx.Controller.MarketPlace.ItemInfoController">
+<VBox fx:id="itemDeatails" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="200.0" prefHeight="653.0" prefWidth="250.0" spacing="6.0" style="-fx-background-color: #f4f4f4; -fx-background-radius: 20; -fx-border-radius: 20;" stylesheets="@../../style/Buttons.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidev.javafx.Controller.MarketPlace.ItemInfoController">
    <children>
       <Button fx:id="exit" mnemonicParsing="false" onAction="#onExitBtnClicked" prefHeight="34.0" prefWidth="26.0">
          <graphic>
@@ -20,7 +20,7 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <ImageView fx:id="itemImage" fitHeight="317.0" fitWidth="257.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="itemImage" fitHeight="216.0" fitWidth="238.0" pickOnBounds="true" preserveRatio="true" style="-fx-rotate: -15;">
          <image>
             <Image url="@../../img/mySelf.jpg" />
          </image>
@@ -30,28 +30,96 @@
       </ImageView>
       <HBox alignment="CENTER_LEFT" prefHeight="87.0" prefWidth="250.0">
          <children>
-            <ImageView fx:id="userImage" fitHeight="86.0" fitWidth="106.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="userImage" fitHeight="86.0" fitWidth="106.0" pickOnBounds="true" preserveRatio="true" style="-fx-rotate: 10;">
                <image>
                   <Image url="@../../img/mySelf.jpg" />
                </image>
             </ImageView>
-            <VBox alignment="CENTER" prefHeight="87.0" prefWidth="186.0">
+            <VBox alignment="CENTER" prefHeight="70.0" prefWidth="166.0">
                <children>
-                  <Label fx:id="userFirstName" alignment="CENTER" prefHeight="40.0" prefWidth="174.0">
+                  <Label alignment="CENTER" prefHeight="31.0" prefWidth="166.0" text="Owner Name ">
                      <font>
                         <Font name="Cambria Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="userLastName" alignment="CENTER" prefHeight="49.0" prefWidth="250.0">
+                  <Label fx:id="userName" alignment="CENTER" prefHeight="32.0" prefWidth="166.0">
                      <font>
                         <Font name="Cambria Bold" size="18.0" />
                      </font>
                   </Label>
                </children>
+               <HBox.margin>
+                  <Insets top="6.0" />
+               </HBox.margin>
             </VBox>
          </children>
       </HBox>
-      <Label alignment="CENTER" prefHeight="42.0" prefWidth="248.0" text="DESCREPTION" textAlignment="CENTER" />
-      <TextArea fx:id="itemDesc" prefHeight="211.0" prefWidth="250.0" style="-fx-background-color: #f4f4f4;" wrapText="true" />
+      <HBox alignment="CENTER" prefHeight="70.0" prefWidth="218.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="42.0" prefWidth="102.0" text="State :">
+               <font>
+                  <Font name="Cambria Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="stateLabel" alignment="CENTER" prefHeight="42.0" prefWidth="102.0" text="in Stock">
+               <font>
+                  <Font name="Cambria Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="70.0" prefWidth="222.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="49.0" prefWidth="101.0" text="Price :">
+               <font>
+                  <Font name="Cambria Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="priceLable" alignment="CENTER" prefHeight="49.0" prefWidth="101.0" text="\$0.99">
+               <font>
+                  <Font name="Cambria Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="70.0" prefWidth="222.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="49.0" prefWidth="101.0" text="Quantity :">
+               <font>
+                  <Font name="Cambria Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="quantityLable" alignment="CENTER" prefHeight="49.0" prefWidth="101.0" text="\$0.99">
+               <font>
+                  <Font name="Cambria Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="70.0" prefWidth="222.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="49.0" prefWidth="101.0" text="Category :">
+               <font>
+                  <Font name="Cambria Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="categoryLable" alignment="CENTER" prefHeight="26.0" prefWidth="134.0" text="sport">
+               <font>
+                  <Font name="Cambria Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <Label alignment="CENTER" prefHeight="66.0" prefWidth="230.0" text="DESCREPTION" textAlignment="CENTER">
+         <font>
+            <Font name="Cambria Bold" size="18.0" />
+         </font></Label>
+      <TextArea fx:id="itemDesc" prefHeight="211.0" prefWidth="250.0" style="-fx-background-color: #f4f4f4; -fx-border-color: #f4f4f4; -fx-background-radius: 20; -fx-border-radius: 20;" wrapText="true" />
    </children>
+   <padding>
+      <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
+   </padding>
 </VBox>

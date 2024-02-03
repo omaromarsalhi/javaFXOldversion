@@ -58,6 +58,7 @@ public class MarketController implements Initializable {
             e.printStackTrace();
         }
         showGridPane();
+//        scroll.get
     }
 
 
@@ -77,6 +78,14 @@ public class MarketController implements Initializable {
             bien=new Bien(i,1,"Product_"+i,"/icons/"+i+".png",i*25f,20f,false,new Timestamp(System.currentTimeMillis()), Categorie.ENTERTAINMENT );
             biens.add( bien );
         }
+        biens.get( 0 ).setImgSource( "/img/banana.png" );
+        biens.get( 1 ).setImgSource( "/img/cherry.png" );
+        biens.get( 2 ).setImgSource( "/img/coconut.png" );
+        biens.get( 3 ).setImgSource( "/img/grapes.png" );
+        biens.get( 4).setImgSource( "/img/ic_cart.png" );
+        biens.get( 5 ).setImgSource( "/img/ic_delivery.png" );
+        biens.get( 6 ).setImgSource( "/img/kiwi.png" );
+        biens.get( 7 ).setImgSource( "/img/mango.png" );
         return biens;
     }
 
@@ -147,8 +156,8 @@ public class MarketController implements Initializable {
                     column = 0;
                     row++;
                 }
-                grid.setHgap( 40 );
-                grid.setVgap( 40 );
+                grid.setHgap( 25 );
+                grid.setVgap( 25 );
 
                 grid.add(anchorPane, column++, row);
                 grid.setMinWidth(Region.USE_COMPUTED_SIZE);
@@ -161,13 +170,12 @@ public class MarketController implements Initializable {
                 grid.setMaxHeight(Region.USE_PREF_SIZE);
             }
             grid.setPrefHeight(670);
-            grid.setPrefWidth(760);
-            grid.setPadding( new Insets( -10,20,10,20 ));
+            grid.setPrefWidth(800);
+            grid.setPadding( new Insets( -10,0,10,20 ));
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
 

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -11,11 +9,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPaneItem" prefHeight="278.0" prefWidth="210.0" style="-fx-background-color: white;" stylesheets="@../../style/styleShowItems.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidev.javafx.Controller.MarketPlace.ItemController">
+<AnchorPane fx:id="anchorPaneItem" prefHeight="278.0" prefWidth="217.0" style="-fx-background-color: white;" stylesheets="@../../style/styleShowItems.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidev.javafx.Controller.MarketPlace.ItemController">
    <children>
-      <VBox prefHeight="274.0" prefWidth="210.0">
+      <VBox fx:id="vboxItem" prefHeight="274.0" prefWidth="217.0" spacing="6.0">
          <children>
-            <VBox fx:id="bascInfoItems" alignment="TOP_CENTER" prefHeight="262.0" prefWidth="210.0">
+            <VBox fx:id="bascInfoItems" alignment="TOP_CENTER" prefHeight="356.0" prefWidth="218.0">
                <children>
                   <Label fx:id="nameLabel" alignment="CENTER" prefHeight="41.0" prefWidth="202.0" text="Cherry">
                      <font>
@@ -27,14 +25,14 @@
                         <Image url="@../../img/cherry.png" />
                      </image>
                   </ImageView>
-                  <HBox alignment="CENTER" prefHeight="49.0" prefWidth="222.0">
+                  <HBox alignment="CENTER" prefHeight="64.0" prefWidth="218.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="49.0" prefWidth="101.0" text="Quantity :">
+                        <Label alignment="CENTER" prefHeight="42.0" prefWidth="102.0" text="State :">
                            <font>
                               <Font name="Cambria Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="quantityLabel" alignment="CENTER" prefHeight="49.0" prefWidth="101.0" text="120">
+                        <Label fx:id="stateLabel" alignment="CENTER" prefHeight="42.0" prefWidth="102.0" text="in Stock">
                            <font>
                               <Font name="Cambria Bold" size="18.0" />
                            </font>
@@ -66,43 +64,6 @@
                   </HBox>
                </children>
             </VBox>
-            <HBox fx:id="itemInfo" alignment="CENTER" prefHeight="50.0" prefWidth="201.0" spacing="10.0" style="-fx-background-radius: 30;" stylesheets="@../../style/styleShowItems.css">
-               <VBox.margin>
-                  <Insets bottom="10.0" left="5.0" right="5.0" />
-               </VBox.margin>
-               <children>
-                  <Button fx:id="add2Card" mnemonicParsing="false" prefHeight="26.0" prefWidth="50.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20;">
-                     <graphic>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../namedIcons/buy.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="trade" alignment="CENTER" mnemonicParsing="false" prefHeight="35.0" prefWidth="50.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 20; -fx-background-radius: 20;">
-                     <graphic>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../namedIcons/exchange.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="info" alignment="CENTER" mnemonicParsing="false" onAction="#onInfoBtnClicked" prefHeight="35.0" prefWidth="50.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 20; -fx-background-radius: 20;">
-                     <graphic>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../namedIcons/interface.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-               </children>
-               <padding>
-                  <Insets top="2.0" />
-               </padding>
-            </HBox>
          </children>
       </VBox>
    </children>

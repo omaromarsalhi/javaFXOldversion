@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPaneItem" prefHeight="332.0" prefWidth="210.0" stylesheets="@../../style/styleShowItems.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidev.javafx.Controller.MarketPlace.ItemController">
+<AnchorPane fx:id="anchorPaneItem" prefHeight="278.0" prefWidth="210.0" style="-fx-background-color: white;" stylesheets="@../../style/styleShowItems.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidev.javafx.Controller.MarketPlace.ItemController">
    <children>
-      <VBox prefHeight="332.0" prefWidth="210.0">
+      <VBox prefHeight="274.0" prefWidth="210.0">
          <children>
-            <VBox fx:id="bascInfoItems" alignment="TOP_CENTER" prefHeight="319.0" prefWidth="240.0">
+            <VBox fx:id="bascInfoItems" alignment="TOP_CENTER" prefHeight="262.0" prefWidth="210.0">
                <children>
                   <Label fx:id="nameLabel" alignment="CENTER" prefHeight="41.0" prefWidth="202.0" text="Cherry">
                      <font>
@@ -64,37 +64,14 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="64.0" prefWidth="217.0">
-                     <children>
-                        <ImageView fitHeight="58.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../img/omar.jpg" />
-                           </image>
-                        </ImageView>
-                        <VBox alignment="CENTER" prefHeight="88.0" prefWidth="102.0">
-                           <children>
-                              <Label fx:id="firstNameLabel" alignment="CENTER" prefHeight="44.0" prefWidth="112.0">
-                                 <font>
-                                    <Font name="Cambria Bold" size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="lastNameLabel" alignment="CENTER" prefHeight="49.0" prefWidth="101.0">
-                                 <font>
-                                    <Font name="Cambria Bold" size="18.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </VBox>
-                     </children>
-                  </HBox>
                </children>
             </VBox>
-            <HBox fx:id="itemInfo" alignment="CENTER" prefHeight="62.0" prefWidth="202.0" spacing="10.0" style="-fx-background-radius: 30;" stylesheets="@../../style/styleShowItems.css">
+            <HBox fx:id="itemInfo" alignment="CENTER" prefHeight="50.0" prefWidth="201.0" spacing="10.0" style="-fx-background-radius: 30;" stylesheets="@../../style/styleShowItems.css">
                <VBox.margin>
-                  <Insets left="5.0" right="5.0" />
+                  <Insets bottom="10.0" left="5.0" right="5.0" />
                </VBox.margin>
                <children>
-                  <Button fx:id="add2Card" mnemonicParsing="false" prefHeight="26.0" prefWidth="50.0" style="-fx-background-radius: 20; -fx-background-color: white; -fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20;">
+                  <Button fx:id="add2Card" mnemonicParsing="false" prefHeight="26.0" prefWidth="50.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20;">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -103,7 +80,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="trade" alignment="CENTER" mnemonicParsing="false" prefHeight="35.0" prefWidth="50.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 20;">
+                  <Button fx:id="trade" alignment="CENTER" mnemonicParsing="false" prefHeight="35.0" prefWidth="50.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 20; -fx-background-radius: 20;">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -112,7 +89,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="info" alignment="CENTER" mnemonicParsing="false" onAction="#onInfoBtnClicked" prefHeight="35.0" prefWidth="50.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 20;">
+                  <Button fx:id="info" alignment="CENTER" mnemonicParsing="false" onAction="#onInfoBtnClicked" prefHeight="35.0" prefWidth="50.0" style="-fx-background-color: white; -fx-border-color: black; -fx-border-radius: 20; -fx-background-radius: 20;">
                      <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -122,6 +99,9 @@
                      </graphic>
                   </Button>
                </children>
+               <padding>
+                  <Insets top="2.0" />
+               </padding>
             </HBox>
          </children>
       </VBox>

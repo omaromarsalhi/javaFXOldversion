@@ -1,23 +1,27 @@
 package pidev.javafx.Controller.MarketPlace;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.chart.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.util.Duration;
 import pidev.javafx.Model.MarketPlace.Bien;
 import pidev.javafx.Model.MarketPlace.Categorie;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class MarketController implements Initializable {
 
@@ -31,6 +35,10 @@ public class MarketController implements Initializable {
     private VBox hepfullBar;
     @FXML
     private Button addBien;
+    @FXML
+    private Button exitBtn;
+    private VBox vBox;
+
 
 
     private List<Bien> biens = new ArrayList<>();
@@ -40,16 +48,16 @@ public class MarketController implements Initializable {
 
 
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        vBox=null;
         try {
             hepfullBar = FXMLLoader.load(getClass().getResource( "/fxml/marketPlace/helpfullBar.fxml" ));
         } catch (IOException e) {
-//            e.printStackTrace();
-            System.out.println("omar");
+            e.printStackTrace();
         }
         showGridPane();
-        System.out.println("omar");
     }
 
 
@@ -72,6 +80,22 @@ public class MarketController implements Initializable {
         return biens;
     }
 
+    public void animateChanges(Node node1, Node node2){
+        FadeTransition fade1 = new FadeTransition( Duration.seconds( 0.4 ), node1);
+        fade1.setFromValue( 1 );
+        fade1.setToValue( 0 );
+        FadeTransition fade2 = new FadeTransition( Duration.seconds( 0.4), node2 );
+        fade2.setFromValue( 0 );
+        fade2.setToValue( 0.99);
+
+        fade1.play();
+        fade1.setOnFinished(event ->{
+            mainHbox.getChildren().remove( node1 );
+            mainHbox.getChildren().add( node2 );
+            fade2.play();
+        });
+    }
+
 
 
     public void showGridPane(){
@@ -79,28 +103,32 @@ public class MarketController implements Initializable {
         if (biens.size() > 0) {
             try {
                 hepfullBar = FXMLLoader.load(getClass().getResource( "/fxml/marketPlace/helpfullBar.fxml" ));
+                mainHbox.getChildren().add(hepfullBar);
             } catch (IOException e) {
                 throw new RuntimeException( e );
             }
-            mainHbox.getChildren().add(hepfullBar);
             myListener = new MyListener() {
-                private VBox vBox;
                 @Override
                 public void onClickListener(Bien bien){
+                    mainHbox.getChildren().remove(vBox);
                     try {
-                        vBox = FXMLLoader.load(getClass().getResource( "/fxml/marketPlace/itemInfo.fxml" ));
-                        mainHbox.getChildren().remove(hepfullBar);
-                        mainHbox.getChildren().add(vBox );
+                        FXMLLoader fxmlLoader = new FXMLLoader();
+                        fxmlLoader.setLocation( getClass().getResource( "/fxml/marketPlace/itemInfo.fxml" ) );
+                        vBox = fxmlLoader.load();
+                        ItemInfoController itemInfoController = fxmlLoader.getController();
+                        myListener = new MyListener() {
+                            @Override
+                            public void exit() {
+                                animateChanges(vBox,hepfullBar);
+                            }
+                        };
+
+                        itemInfoController.setData( bien, myListener );
+                        animateChanges(hepfullBar,vBox);
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                }
-
-                @Override
-                public void onClickListener2() {
-                    System.out.println("omar");
-                    mainHbox.getChildren().remove(vBox);
-                    mainHbox.getChildren().add(hepfullBar );
                 }
             };
         }
@@ -119,12 +147,10 @@ public class MarketController implements Initializable {
                     column = 0;
                     row++;
                 }
-//                grid.setGridLinesVisible( true );
                 grid.setHgap( 40 );
                 grid.setVgap( 40 );
 
-                grid.add(anchorPane, column++, row); //(child,column,row)
-                //set grid width
+                grid.add(anchorPane, column++, row);
                 grid.setMinWidth(Region.USE_COMPUTED_SIZE);
                 grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
                 grid.setMaxWidth(Region.USE_PREF_SIZE);
@@ -133,7 +159,6 @@ public class MarketController implements Initializable {
                 grid.setMinHeight(Region.USE_COMPUTED_SIZE);
                 grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
                 grid.setMaxHeight(Region.USE_PREF_SIZE);
-//                GridPane.setMargin(anchorPane, new Insets(10));
             }
             grid.setPrefHeight(670);
             grid.setPrefWidth(760);

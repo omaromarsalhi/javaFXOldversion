@@ -17,10 +17,6 @@ public class ItemController {
     @FXML
     private Label quantityLabel;
     @FXML
-    private Label firstNameLabel;
-    @FXML
-    private Label lastNameLabel;
-    @FXML
     private Label categoryLable;
     @FXML
     private Label priceLable;
@@ -32,10 +28,6 @@ public class ItemController {
     private AnchorPane anchorPaneItem;
     @FXML
     private VBox bascInfoItems;
-    @FXML
-    private Button exitBtn;
-    @FXML
-    private VBox itemDeatails;
     @FXML
     private Button trade;
     @FXML
@@ -50,22 +42,19 @@ public class ItemController {
     public void onInfoBtnClicked(ActionEvent event){
         myListener.onClickListener(bien);
     }
-    @FXML
-    public void onExitBtnClicked(ActionEvent event){
-        myListener.onClickListener2();
-    }
+
+
 
     public void setData(Bien bien, MyListener myListener) {
-        itemInfo.setPrefHeight( 0 );
-        bascInfoItems.setPrefHeight( 330 );
-        anchorPaneItem.setPrefHeight( 340 );
+        itemInfo.setPrefHeight(0);
+        bascInfoItems.setPrefHeight(270);
+        anchorPaneItem.setPrefHeight(274);
         this.bien = bien;
+        System.out.println("Omar2");
         this.myListener = myListener;
         nameLabel.setText(bien.getName());
         priceLable.setText( "$"+bien.getPrice());
         quantityLabel.setText(Float.toString(bien.getQuantity()));
-        firstNameLabel.setText( "Omar" );
-        lastNameLabel.setText("Salhi"  );
         categoryLable.setText(bien.getCategorie().name());
         Image image = new Image(getClass().getResourceAsStream(bien.getImgSource()));
         img.setImage(image);
@@ -74,14 +63,14 @@ public class ItemController {
 
     public void showTransitionInfo(Boolean state){
         if(state){
-            anchorPaneItem.setPrefHeight( 360 );
-            bascInfoItems.setPrefHeight( 308 );
-            itemInfo.setPrefHeight(55 );
+            anchorPaneItem.setPrefHeight( 274 );
+            bascInfoItems.setPrefHeight( 220 );
+            itemInfo.setPrefHeight(50 );
         }
         else{
             itemInfo.setPrefHeight( 0 );
-            bascInfoItems.setPrefHeight( 330 );
-            anchorPaneItem.setPrefHeight( 340 );
+            bascInfoItems.setPrefHeight( 270 );
+            anchorPaneItem.setPrefHeight( 274 );
         }
 
         itemInfo.setVisible( state );

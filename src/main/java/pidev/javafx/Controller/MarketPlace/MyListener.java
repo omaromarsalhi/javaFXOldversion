@@ -6,6 +6,6 @@ import pidev.javafx.Model.MarketPlace.Fruit;
 import java.io.IOException;
 
 public interface MyListener {
-    public void onClickListener(Bien bien);
-    public void onClickListener2();
+    default void onClickListener(Bien bien){}
+     default void exit(){}
 }

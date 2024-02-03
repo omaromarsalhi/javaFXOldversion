@@ -9,7 +9,7 @@
    <children>
       <ScrollPane fx:id="scroll" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="775.0" style="-fx-background-color: #87878a;" stylesheets="@../../style/scrollBarStlyle.css">
          <content>
-            <GridPane fx:id="grid" prefHeight="670.0" prefWidth="762.0" style="-fx-background-color: #87878a;">
+            <GridPane fx:id="grid" prefHeight="670.0" prefWidth="762.0" style="-fx-background-color: #fdc847;">
                <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                </rowConstraints>

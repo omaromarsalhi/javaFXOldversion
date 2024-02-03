@@ -73,15 +73,17 @@ public class MainWindowController implements Initializable {
         mainBorderPain.setCenter(scrollPane);
     }
     @FXML
-    public void onVoyageClicked(ActionEvent event) throws IOException {
-        ScrollPane scrollPane = FXMLLoader.load(Objects.requireNonNull( getClass().getResource("/fxml/Transport/Voyage.fxml")));
+    public void onTransportClicked(ActionEvent event) throws IOException {
+        ScrollPane scrollPane = FXMLLoader.load(Objects.requireNonNull( getClass().getResource("/fxml/Transport/Display_Transport.fxml")));
         scrollPane.setPrefHeight(mainBorderPain.getPrefHeight()  );
         scrollPane.setPrefWidth( mainBorderPain.getPrefWidth()-sideBar.getPrefWidth() );
         mainBorderPain.setCenter(scrollPane);
     }
     @FXML
     public void onGareClicked(ActionEvent event) throws IOException{
-        ScrollPane scrollPane = FXMLLoader.load(Objects.requireNonNull( getClass().getResource("/fxml/Transport/Display_Transport.fxml")));
+       // ScrollPane scrollPane = FXMLLoader.load(Objects.requireNonNull( getClass().getResource("/fxml/Transport/Display_Transport.fxml")));
+        ScrollPane scrollPane = FXMLLoader.load(Objects.requireNonNull( getClass().getResource("/fxml/Transport/Abonnement.fxml")));
+
         scrollPane.setPrefHeight(mainBorderPain.getPrefHeight() );
         scrollPane.setPrefWidth( mainBorderPain.getPrefWidth()-sideBar.getPrefWidth() );
         mainBorderPain.setCenter(scrollPane);

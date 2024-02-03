@@ -1,25 +1,24 @@
 package pidev.javafx.Controller.Transport;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
 import pidev.javafx.Controller.ConnectionDB;
+
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.Statement;
 
 
 import java.sql.ResultSet;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import javafx.scene.input.KeyEvent;
 
-public class VoyageController {
+public class TranportController {
 
 @FXML
 private ListView Transport_list;
@@ -28,13 +27,12 @@ private ListView Transport_list;
 private TableView Transport_table;
 
 
-
+@FXML
+private ScrollPane mainBorderPain;
 
 
         @FXML
         private TextArea Referance_text;
-
-
 
         @FXML
         private Button showBtn;
@@ -45,16 +43,19 @@ private TableView Transport_table;
         private TableView TableView;
 
         private Connection connect;
-        private Statement statement;
+
         private PreparedStatement prepare;
 
 
 
 
     Set<String> resultSetItems = new HashSet<>();
-    public VoyageController() {
+    ObservableList<String> data = show_Transport_ListView() ;
+    public TranportController() {
         Transport_list = new ListView<>();
         Transport_table = new TableView<>();
+        Transport_table.setItems(data);
+
     }
 
 
@@ -94,50 +95,44 @@ private TableView Transport_table;
 
         @FXML
         public void supprimer(){
-            String sql = "DELETE FROM name WHERE aa = ? ";
-
-            connect = ConnectionDB.connectDb();
-
-            try {
-                prepare = connect.prepareStatement(sql);
-                prepare.setString(1,  Referance_text.getText());
-
-
-                prepare.executeUpdate();
-                System.out.println(  " row(s) deleted.");
-
-            } catch (Exception e) {
-//            System.out.println("error");
-                System.out.println(e.getMessage());
-            }
+//            String sql = "DELETE FROM name WHERE aa = ? ";
+//
+//            connect = ConnectionDB.connectDb();
+//
+//            try {
+//                prepare = connect.prepareStatement(sql);
+//                prepare.setString(1,  Referance_text.getText());
+//
+//
+//                prepare.executeUpdate();
+//                System.out.println(  " row(s) deleted.");
+//
+//            } catch (Exception e) {
+////            System.out.println("error");
+//                System.out.println(e.getMessage());
+//            }
 
         };
 
-        public List<String> show_Transport_ListView() {
-            String sql = "SELECT * FROM name";
-            connect = ConnectionDB.connectDb();
-
-            try (
-                    PreparedStatement preparedStatement = connect.prepareStatement(sql);
-                    ResultSet resultSet = preparedStatement.executeQuery()) {
-
-                while (resultSet.next()) {
-
-                    String value = resultSet.getString("aa");
-                    resultSetItems.add(value);
-
-
-                }
-                ObservableList<String> items = FXCollections.observableArrayList(resultSetItems);
-                Transport_list.getItems().addAll(items);
-              //  Transport_table.getItems().addAll(items);
-                System.out.println(Transport_table.getItems());
-             //   System.out.println(Transport_table);
-
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-            return null;
+        public ObservableList<String> show_Transport_ListView() {
+//            String sql = "SELECT * FROM name";
+//            connect = ConnectionDB.connectDb();
+//
+//            try (
+//                    PreparedStatement preparedStatement = connect.prepareStatement(sql);
+//                    ResultSet resultSet = preparedStatement.executeQuery()) {
+//
+//                while (resultSet.next()) {
+//
+//                    String name = resultSet.getString("aa");
+//                    String prename = resultSet.getString("bb");
+//                    resultSetItems.add(name);
+//                    resultSetItems.add(prename);
+//                }
+//            } catch (Exception e) {
+//                System.out.println(e.getMessage());
+//            }
+           return data;
         }
 
 
@@ -149,7 +144,18 @@ private TableView Transport_table;
             System.out.println(keyPressed);
         }
     }
-}
+
+
+
+        public void onVoyageClicked(ActionEvent event) throws IOException {
+            ScrollPane scrollPane = FXMLLoader.load(Objects.requireNonNull( getClass().getResource("/fxml/Transport/AddTransport.fxml")));
+            scrollPane.setPrefHeight(mainBorderPain.getPrefHeight()  );
+            scrollPane.setPrefWidth( mainBorderPain.getPrefWidth() );
+            mainBorderPain.setContent(scrollPane);
+        }
+        }
+
+
 
 
 

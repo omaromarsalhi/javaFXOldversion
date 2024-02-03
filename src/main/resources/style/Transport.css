@@ -6,74 +6,66 @@
 
 .anchor-pane {
     -fx-background-color: #F1F1F1; /* Set background color */
-   /* -fx-border-color:
-            #D9D9D9; /* Set border color */
-
+    /* -fx-border-color: #D9D9D9; /* Set border color */
 }
 
-  .pane {
-      -fx-background-color: #D9D9D9;
-      -fx-border-width: 2px; /* Set border width */
-      -fx-background-radius: 10px; /* Set background radius */
+.pane {
+    -fx-background-color: #D9D9D9;
+    -fx-border-width: 2px; /* Set border width */
+    -fx-background-radius: 10px; /* Set background radius */
 }
-  .SearchBar{
 
-      -fx-background-color: transperant;
-      -fx-border-radius: 10;
-      -fx-border-color: #474749;
-  }
+.SearchBar {
+    -fx-background-color: transparent; /* Correct the spelling of 'transparent' */
+    -fx-border-radius: 10;
+    -fx-border-color: #474749;
+}
 
-.TableView{
-
-    -fx-background-color: transperant;
+.TableView {
+    -fx-background-color: transparent; /* Correct the spelling of 'transparent' */
     -fx-border-radius: 10;
     -fx-border-color: #474749;
 }
 
 .table-view {
-    -fx-background-color: #transperant; /* Set background color */
+    -fx-background-color: transparent; /* Correct the spelling of 'transparent' */
 }
 
 /* Apply styles to TableView header */
 .TableView .column-header-background {
     -fx-background-color: #333; /* Set header background color */
-    -fx-border-color: transperant;
+    -fx-border-color: transparent; /* Correct the spelling of 'transparent' */
 }
 
 .TableView .column-header,
 .TableView .filler,
 .TableView .column-header-background {
-    -fx-background-color: trannsperant;
-    -fx-border-color: #666; /* Set header border color */
+    -fx-background-color: transparent; /* Correct the spelling of 'transparent' */
+    -fx-border-color: transparent; /* Correct the spelling of 'transparent' */
     -fx-border-width: 0.5px; /* Set header border width */
 }
 
 /* Apply styles to TableView cells */
 .TableView .table-row-cell {
     -fx-background-color: #ffffff; /* Set cell background color */
-    -fx-border-color: #ccc; /* Set cell border color */
+    -fx-border-color: #D9D9D9; /* Set cell border color */
     -fx-border-width: 0.5px; /* Set cell border width */
 }
 
 .TableView .table-row-cell:odd {
-    -fx-background-color: #464545; /* Set alternate row background color */
-}
-/* Styles for child nodes within AnchorPane */
-/*.anchor-pane .label {
-    -fx-text-fill: #555555; /* Set text color for labels */
-/*}
-
-/*.anchor-pane .button {
-    /*-fx-background-color: #4caf50; /* Set background color for buttons */
-    /*-fx-text-fill: #ffffff; /* Set text color for buttons */
-    /*-fx-border-color: #388e3c; /* Set border color for buttons */
-  /*  -fx-border-width: 1px; /* Set border width for buttons */
-  /*  -fx-border-radius: 3px; /* Set border radius for buttons */
-/*
+    -fx-background-color: #494949; /* Set alternate row background color */
 }
 
+.Button_abonnement {
+    -fx-background-color: transparent; /* Correct the spelling of 'transparent' */
+}
 
+.rounded-image {
+    -fx-background-radius: 200px;
+}
 
-
-
-
+.Button_ajouter {
+    -fx-background-color: #20749C;
+    -fx-border-radius: 15px;
+    -fx-border-color: transparent; /* Correct the spelling of 'transparent' */
+}

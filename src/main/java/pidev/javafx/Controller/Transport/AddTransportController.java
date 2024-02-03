@@ -1,10 +1,9 @@
 package pidev.javafx.Controller.Transport;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import pidev.javafx.Controller.ConnectionDB;
@@ -14,8 +13,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.HashSet;
-import java.util.Set;
+import java.sql.SQLException;
+import java.util.*;
 
 public class AddTransportController {
 
@@ -43,9 +42,13 @@ public class AddTransportController {
     String imagePath;
     private Stage primaryStage;
 
+    @FXML
+    private ScrollPane mainBorderPain;
     Set<String> resultSetItems = new HashSet<>();
 
+    void AnimationTimer() {
 
+    }
 
     //////Fonctions pour loader les parametrre du page insert
     public Set<String> Load_Locations(){
@@ -114,40 +117,53 @@ public void insert_Image(){
     if (selectedFile != null) {
         // Set the selected file path on the button
         Ajouter_imageBtn.setText(selectedFile.getAbsolutePath());
-imagePath=selectedFile.getAbsolutePath();
+imagePath=selectedFile.getAbsolutePath() ;
         System.out.println(imagePath);
     }
 
 }
+
+
     @FXML
-    protected boolean insertTransport(){
-        int Reference = Integer.parseInt(ReferenceText.getText());
-        int Num_Ligne=Integer.parseInt(NumLigneText.getText());
-        String Type=BoxTypeVehicule.getValue().toString();
-        String  DEPART=Depart.getValue().toString();
-        String ARRIVEE=Arrive.getValue().toString();
+    protected boolean insertTransport() throws IOException {
 
-        Transport T=new Transport(Reference,Type,Num_Ligne,DEPART,ARRIVEE,imagePath);
-        String sql = "insert INTO transport(reference,Type_Vehicule,Num_Ligne,Depart,Arivee,Vehicule_Image) VALUES (?,?,?,?,?,?) ";
+        String Type = BoxTypeVehicule.getValue().toString();
+        String DEPART = Depart.getValue().toString();
+        String ARRIVEE = Arrive.getValue().toString();
 
-        connect = ConnectionDB.connectDb();
+        if (ReferenceText.getText().matches("1") || NumLigneText.getText() ==null  ) {
 
-        try {
-            prepare = connect.prepareStatement(sql);
-            prepare.setInt(1, T.getIdTransport());
-            prepare.setString(2,T.getType_vehicule());
-            prepare.setInt(3,T.getNum_ligne());
-            prepare.setString(4,T.getDepart());
-            prepare.setString(5,T.getArivee());
-            prepare.setString(6,T.getVehicule_Image());
-            prepare.executeUpdate();
-            System.out.println(  " row(s) Inserted.");
 
-        } catch (Exception e) {
-//            System.out.println("error");
-            System.out.println(e.getMessage());
+            System.out.println("Condition not met.");
+            return false;
+        } else {
+            int Reference = Integer.parseInt(ReferenceText.getText());
+            int Num_Ligne = Integer.parseInt(NumLigneText.getText());
+            Transport T = new Transport(Reference, Type, Num_Ligne, DEPART, ARRIVEE, imagePath);
+            connect = ConnectionDB.connectDb();
+            String sql = "INSERT INTO transport(reference, Type_Vehicule, Num_Ligne, Depart, Arivee, Vehicule_Image) VALUES (?,?,?,?,?,?) ";
+
+            try {
+                prepare = connect.prepareStatement(sql);
+                prepare.setInt(1, T.getIdTransport());
+                prepare.setString(2, T.getType_vehicule());
+                prepare.setInt(3, T.getNum_ligne());
+                prepare.setString(4, T.getDepart());
+                prepare.setString(5, T.getArivee());
+                prepare.setString(6, T.getVehicule_Image());
+                prepare.executeUpdate();
+                System.out.println("Row(s) Inserted.");
+
+                Pane scrollPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/Transport/added_succesfully.fxml")));
+                scrollPane.setPrefHeight(mainBorderPain.getPrefHeight());
+                scrollPane.setPrefWidth(mainBorderPain.getPrefWidth());
+                mainBorderPain.setContent(scrollPane);
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Error inserting data.");
+            }
+            return true;
         }
-return true;
-
     }
 }
+

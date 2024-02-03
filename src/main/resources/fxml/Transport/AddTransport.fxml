@@ -17,7 +17,7 @@
    <content>
       <AnchorPane prefHeight="669.0" prefWidth="1039.0" styleClass="anchor-pane">
          <children>
-            <Pane layoutX="7.0" layoutY="10.0" prefHeight="672.0" prefWidth="1026.0" styleClass="pane">
+            <Pane fx:id="Pane" layoutX="7.0" layoutY="10.0" prefHeight="672.0" prefWidth="1026.0" styleClass="pane">
                <children>
                   <Label layoutX="47.0" layoutY="22.0" text="Insert Transport">
                      <font>

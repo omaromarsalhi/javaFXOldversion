@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidev.javafx.Controller.User.listUserController">
+   <children>
+      <Pane prefHeight="402.0" prefWidth="126.0" style="-fx-background-color: #171718;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="477.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="42.0" fitWidth="120.0" layoutX="21.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/logo2.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <SplitPane fx:id="splitpane" dividerPositions="0.16" layoutX="125.0" orientation="VERTICAL" prefHeight="402.0" prefWidth="475.0" style="-fx-background-color: #D9D9D9;" styleClass="split-pane-divider" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="52.0" prefWidth="473.0">
+               <children>
+                  <Line endX="270.0" layoutX="182.0" layoutY="53.0" startX="-170.0" />
+                  <HBox layoutX="10.0" layoutY="13.0" prefHeight="35.0" prefWidth="455.0">
+                     <children>
+                        <ImageView fitHeight="24.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../icons/users.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets top="5.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Users" wrappingWidth="129.13671875">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Text>
+                        <ImageView fitHeight="28.0" fitWidth="77.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets left="240.0" top="5.0" />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../../img/ll.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="333.0" prefWidth="485.0">
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+               <children>
+                  <ListView fx:id="listview" layoutY="27.0" prefHeight="331.0" prefWidth="493.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

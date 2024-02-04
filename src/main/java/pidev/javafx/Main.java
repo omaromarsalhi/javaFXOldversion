@@ -5,20 +5,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import pidev.javafx.Controller.ConnectionDB;
-
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
+
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 //FXMLLoader fxmlLoader = new FXMLLoader( Main.class.getResource( "/fxml/mainWindow.fxml" ));
-       FXMLLoader fxmlLoader = new FXMLLoader( Main.class.getResource( "/fxml/User/ListeUser.fxml" ));
+       FXMLLoader fxmlLoader = new FXMLLoader( Main.class.getResource( "/fxml/User/signup.fxml" ));
    //FXMLLoader fxmlLoader = new FXMLLoader( Main.class.getResource( "/fxml/User/signup .fxml" ));
         Scene scene = new Scene(fxmlLoader.load());
      //scene.getStylesheets().add( String.valueOf( getClass().getResource("/style/styleAccount.css") ) );
-      scene.getStylesheets().add( String.valueOf( getClass().getResource("/style/styleLogin.css") ) );
+     scene.getStylesheets().add( String.valueOf( getClass().getResource("/style/styleSignup.css") ) );
       //scene.getStylesheets().add( String.valueOf( getClass().getResource("/style/styleShowItems.css") ) );
       // scene.getStylesheets().add(String.valueOf(getClass().getResource("/style/styleAccount.css")));
        // stage.setTitle("Hello!");
@@ -26,6 +23,7 @@ public class Main extends Application {
     // stage.setWidth( 200 );
 //     stage.setHeight(500);
     stage.setScene(scene);
+
         stage.show();
         stage.setOnCloseRequest(event -> javafx.application.Platform.exit());
     }

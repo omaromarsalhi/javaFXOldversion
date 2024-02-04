@@ -17,6 +17,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
+import javafx.animation.FadeTransition;
 
 public class listUserController implements Initializable {
     @FXML
@@ -45,23 +48,28 @@ public class listUserController implements Initializable {
 
 
         try {
-            // Charger le fichier FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/User/Account.fxml"));
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/User/Details.fxml"));
+
             Parent root = loader.load();
-
-            // Créer une nouvelle scène
             Scene scene = new Scene(root);
+            scene.getRoot().setStyle("-fx-padding: 5px;");
+           scene.getStylesheets().add( String.valueOf( getClass().getResource("/style/styleLogin.css") ) );
+            FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), root);
+            fadeIn.setFromValue(0.0);
+            fadeIn.setToValue(1.0);
+            fadeIn.play();
 
-            // Créer une nouvelle fenêtre de dialogue modale
             Stage dialogStage = new Stage();
             dialogStage.setScene(scene);
             dialogStage.setTitle("Détails");
             dialogStage.initModality(Modality.APPLICATION_MODAL);
-
-            // Afficher la fenêtre de dialogue
+            dialogStage.initStyle(StageStyle.UNDECORATED);
+            DetailsController detailsController = loader.getController();
+            detailsController.setScene(scene);
             dialogStage.showAndWait();
         } catch (Exception e) {
-            // Gérer les erreurs
+
             e.printStackTrace();
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Erreur");

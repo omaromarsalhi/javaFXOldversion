@@ -1,27 +1,33 @@
 package pidev.javafx.Controller.Transport;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import pidev.javafx.Controller.ConnectionDB;
 import pidev.javafx.Model.Transport.Transport;
 import pidev.javafx.Model.Transport.Type_Vehicule;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.net.URL;
+import java.sql.*;
 import java.util.*;
+import java.sql.Time;
+import java.time.LocalTime;
 
-public class AddTransportController {
+import static javafx.stage.StageStyle.UNDECORATED;
+
+public class AddTransportController implements Initializable {
 
     @FXML
     private TextField ReferenceText;
     @FXML
-    private TextField NumLigneText;
+    private TextField PrixText;
     @FXML
     private ComboBox Depart;
     @FXML
@@ -45,11 +51,33 @@ public class AddTransportController {
     @FXML
     private ScrollPane mainBorderPain;
     Set<String> resultSetItems = new HashSet<>();
+    ActionEvent event;
+    @FXML
+    private Spinner<Integer> timeSpinner;
 
-    void AnimationTimer() {
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // Set up custom Spinner Value Factory for time (0-23 for hours, 0-59 for minutes)
 
+        SpinnerValueFactory<Integer> timeFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(7 * 60 , 19 * 60 , 0,30);
+        timeSpinner.setValueFactory(timeFactory);
+
+        // Customize the editor to display hours and minutes
+        timeSpinner.valueProperty().addListener((obs, oldValue, newValue) -> {
+            int hours = newValue / 60;
+            int minutes = newValue % 60;
+            timeSpinner.getEditor().setText(String.format("%02d:%02d", hours, minutes));
+        });
+
+        // Customize the increment and decrement buttons (optional)
+        timeSpinner.getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_VERTICAL);
     }
 
+
+    public void main(String[] args) {
+        int selectedHour = timeSpinner.getValue();
+        System.out.println("Selected Hour: " + selectedHour);
+    }
     //////Fonctions pour loader les parametrre du page insert
     public Set<String> Load_Locations(){
 
@@ -95,7 +123,7 @@ public class AddTransportController {
         String[] text = new String[10];
 
         text[1] = ReferenceText.getText();
-        text[2]= NumLigneText.getText();
+        text[2]= PrixText.getText();
 
         if (text[1].matches("[a-zA-Z0-9]*"))
             ReferenceText.setStyle("-fx-text-fill: #25c12c;");
@@ -103,9 +131,9 @@ public class AddTransportController {
             ReferenceText.setStyle("-fx-text-fill: #bb2020;");
 
         if (text[2].matches("[0-9]+"))
-            NumLigneText.setStyle("-fx-text-fill: #25c12c");
+            PrixText.setStyle("-fx-text-fill: #25c12c");
         else
-            NumLigneText.setStyle("-fx-text-fill: #bb2020 ");
+            PrixText.setStyle("-fx-text-fill: #bb2020 ");
     }
 
 public void insert_Image(){
@@ -120,9 +148,7 @@ public void insert_Image(){
 imagePath=selectedFile.getAbsolutePath() ;
         System.out.println(imagePath);
     }
-
 }
-
 
     @FXML
     protected boolean insertTransport() throws IOException {
@@ -130,34 +156,44 @@ imagePath=selectedFile.getAbsolutePath() ;
         String Type = BoxTypeVehicule.getValue().toString();
         String DEPART = Depart.getValue().toString();
         String ARRIVEE = Arrive.getValue().toString();
+        Time Temp;
+        int totalMinutes = timeSpinner.getValue();
+        int hours = totalMinutes / 60;
+        int minutes = totalMinutes % 60;
+        LocalTime localTime = LocalTime.of(hours, minutes);
 
-        if (ReferenceText.getText().matches("1") || NumLigneText.getText() ==null  ) {
+         Time time = Time.valueOf(localTime);
+
+        if (ReferenceText.getText().matches("1") ||PrixText.getText() ==null  ) {
 
 
             System.out.println("Condition not met.");
             return false;
         } else {
-            int Reference = Integer.parseInt(ReferenceText.getText());
-            int Num_Ligne = Integer.parseInt(NumLigneText.getText());
-            Transport T = new Transport(Reference, Type, Num_Ligne, DEPART, ARRIVEE, imagePath);
+            String Reference = ReferenceText.getText();
+            Float Prix = Float.parseFloat(PrixText.getText());
+            Transport T = new Transport(    Type,  DEPART, ARRIVEE, Reference, imagePath, Prix,time );
             connect = ConnectionDB.connectDb();
-            String sql = "INSERT INTO transport(reference, Type_Vehicule, Num_Ligne, Depart, Arivee, Vehicule_Image) VALUES (?,?,?,?,?,?) ";
+            String sql = "INSERT INTO transport(Type_Vehicule,Depart,Arivee,Reference,Vehicule_Image,Prix,Heure) VALUES (?,?,?,?,?,?,?) ";
 
             try {
                 prepare = connect.prepareStatement(sql);
-                prepare.setInt(1, T.getIdTransport());
-                prepare.setString(2, T.getType_vehicule());
-                prepare.setInt(3, T.getNum_ligne());
-                prepare.setString(4, T.getDepart());
-                prepare.setString(5, T.getArivee());
-                prepare.setString(6, T.getVehicule_Image());
+                prepare.setString(1, T.getType_vehicule());
+                prepare.setString(2, T.getDepart());
+                prepare.setString(3, T.getArivee());
+                prepare.setString(4, T.getReference());
+                prepare.setString(5, T.getVehicule_Image());
+                prepare.setFloat(6, T.getPrix());
+                prepare.setTime(7, T.getHeure());
                 prepare.executeUpdate();
-                System.out.println("Row(s) Inserted.");
+
 
                 Pane scrollPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/Transport/added_succesfully.fxml")));
                 scrollPane.setPrefHeight(mainBorderPain.getPrefHeight());
                 scrollPane.setPrefWidth(mainBorderPain.getPrefWidth());
                 mainBorderPain.setContent(scrollPane);
+                Return(event);
+              //  showDialog();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
                 System.out.println("Error inserting data.");
@@ -165,5 +201,43 @@ imagePath=selectedFile.getAbsolutePath() ;
             return true;
         }
     }
+
+
+    Dialog<String> dialog = new Dialog<>();
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Transport/exceptions/Dialog.fxml"));
+    Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+@FXML
+public void showDialog() {
+         try {
+            AnchorPane dialogContent = loader.load();
+            dialog.getDialogPane().setContent(dialogContent);
+            dialog.setHeight(dialogContent.getHeight());
+            dialog.setWidth(dialogContent.getWidth());
+
+            stage.initStyle(UNDECORATED);
+            dialog.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    public void closeDialog() {
+        try {
+            Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+            stage.close();
+            System.out.println("Closed");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void Return(ActionEvent event) throws IOException {
+        ScrollPane scrollPane = FXMLLoader.load(Objects.requireNonNull( getClass().getResource("/fxml/Transport/Display_Transport.fxml")));
+        scrollPane.setPrefHeight(mainBorderPain.getPrefHeight()  );
+        scrollPane.setPrefWidth( mainBorderPain.getPrefWidth() );
+        mainBorderPain.setContent(scrollPane);
+    }
+
+
 }
 

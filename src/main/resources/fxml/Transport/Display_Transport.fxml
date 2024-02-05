@@ -18,7 +18,7 @@
    <content>
       <AnchorPane prefHeight="670.0" prefWidth="1034.0" styleClass="anchor-pane" stylesheets="@../../style/Transport.css">
          <children>
-            <Pane fx:id="displayTransport" layoutX="7.0" layoutY="10.0" prefHeight="672.0" prefWidth="1026.0" styleClass="pane" stylesheets="@../../style/Transport.css">
+            <Pane fx:id="displayTransport" layoutX="7.0" layoutY="7.0" prefHeight="660.0" prefWidth="1026.0" styleClass="pane" stylesheets="@../../style/Transport.css">
                <children>
                   <Line endX="52.60003662109375" layoutX="939.0" layoutY="120.0" startX="-900.0" stroke="#4e4545" />
                   <ImageView fitHeight="106.0" fitWidth="90.0" layoutX="898.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
@@ -52,7 +52,7 @@
                      </image>
                   </ImageView>
                   <ComboBox layoutX="84.0" layoutY="131.0" prefHeight="33.0" prefWidth="118.0" promptText="By Name" styleClass="SearchBar" />
-                  <Button fx:id="insert" layoutX="213.0" layoutY="133.0" mnemonicParsing="false" onAction="#onVoyageClicked" prefHeight="31.0" prefWidth="26.0" styleClass="SearchBar">
+                  <Button fx:id="insert" layoutX="213.0" layoutY="133.0" mnemonicParsing="false" onAction="#onInsertClicked" prefHeight="31.0" prefWidth="26.0" styleClass="SearchBar">
                      <graphic>
                         <ImageView fitHeight="22.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -60,12 +60,25 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <TableView fx:id="Transport_table" layoutX="23.0" layoutY="182.0" prefHeight="463.0" prefWidth="974.0" styleClass="TableView">
+                  <TableView fx:id="Transport_table" layoutX="17.0" layoutY="181.0" prefHeight="477.0" prefWidth="996.0" styleClass="TableView">
                     <columns>
-                      <TableColumn prefWidth="75.0" />
-                      <TableColumn prefWidth="75.0" />
+                      <TableColumn fx:id="ReferenceCol" maxWidth="155.0" minWidth="155.0" prefWidth="155.0" resizable="false" text="Reference" />
+                      <TableColumn fx:id="DepartCol" maxWidth="155.0" minWidth="155.0" prefWidth="155.0" resizable="false" text="Depart" />
+                        <TableColumn fx:id="ArriveCol" maxWidth="155.0" minWidth="155.0" prefWidth="155.0" resizable="false" text="Arrivé" />
+                        <TableColumn fx:id="HeureCol" maxWidth="155.0" minWidth="155.0" prefWidth="155.0" resizable="false" text="Heure" />
+                        <TableColumn fx:id="PrixCol" maxWidth="155.0" minWidth="155.0" prefWidth="155.0" resizable="false" text="Prix" />
+                        <TableColumn fx:id="TypeCol" maxWidth="155.0" minWidth="155.0" prefWidth="155.0" resizable="false" text="Type" />
                     </columns>
                   </TableView>
+                  <Button fx:id="insertStation" layoutX="253.0" layoutY="133.0" mnemonicParsing="false" onAction="#onInsertStationClicked" prefHeight="31.0" prefWidth="26.0" styleClass="SearchBar">
+                     <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../icons/231.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                </children>
             </Pane>
          </children>

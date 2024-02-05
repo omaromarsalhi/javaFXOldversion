@@ -3,6 +3,7 @@ module pidev.javafx{
     requires javafx.fxml;
     requires java.sql;
 
+
     opens pidev.javafx to javafx.fxml;
     exports pidev.javafx;
     exports pidev.javafx.Controller;
@@ -12,5 +13,6 @@ module pidev.javafx{
     opens pidev.javafx.Model.MarketPlace to javafx.fxml;
     exports pidev.javafx.Controller.Transport;
     opens pidev.javafx.Controller.Transport to javafx.fxml;
+    opens pidev.javafx.Model.Transport to javafx.base;
 }
 

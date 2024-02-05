@@ -15,7 +15,7 @@
     <content>
         <AnchorPane prefHeight="670.0" prefWidth="1034.0" styleClass="anchor-pane" stylesheets="@../../style/Transport.css">
             <children>
-                <Pane fx:id="displayTransport" layoutX="7.0" layoutY="10.0" prefHeight="672.0" prefWidth="1026.0" styleClass="pane" stylesheets="@../../style/Transport.css">
+                <Pane fx:id="displayTransport" layoutX="7.0" layoutY="7.0" prefHeight="660.0" prefWidth="1026.0" styleClass="pane" stylesheets="@../../style/Transport.css">
                     <children>
                         <Line endX="52.60003662109375" layoutX="939.0" layoutY="120.0" startX="-900.0" stroke="#4e4545" />
                         <ImageView fitHeight="106.0" fitWidth="90.0" layoutX="898.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">

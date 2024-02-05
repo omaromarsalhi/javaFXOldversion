@@ -37,25 +37,47 @@
     -fx-border-color: transparent; /* Correct the spelling of 'transparent' */
 }
 
+
+
 .TableView .column-header,
 .TableView .filler,
 .TableView .column-header-background {
+    -fx-font-size: 25px;
+    -fx-font-family: "Souliyo Unicode", sans-serif;
     -fx-background-color: transparent; /* Correct the spelling of 'transparent' */
     -fx-border-color: transparent; /* Correct the spelling of 'transparent' */
     -fx-border-width: 0.5px; /* Set header border width */
 }
 
-/* Apply styles to TableView cells */
+ .TableView .table-row-cell:odd {
+    -fx-font-size: 20px;
+    -fx-background-color: transparent;
+     -fx-border-color: transparent;
+    -fx-border-width: 0.5px;
+     -fx-font-family: "Souliyo Unicode", sans-serif;
+}
+
 .TableView .table-row-cell {
-    -fx-background-color: #ffffff; /* Set cell background color */
-    -fx-border-color: #D9D9D9; /* Set cell border color */
-    -fx-border-width: 0.5px; /* Set cell border width */
-}
 
-.TableView .table-row-cell:odd {
-    -fx-background-color: #494949; /* Set alternate row background color */
-}
 
+    -fx-font-family: "Souliyo Unicode", sans-serif;
+    -fx-background-color: #C8C8C8;
+    -fx-font-size: 20px;
+     -fx-border-radius: 20px;
+    -fx-border: transparent;
+    -fx-background-radius: 10;
+
+}
+.TableView .table-cell{
+    -fx-alignment:center;
+    -fx-border-color: transparent;
+
+}
+.Spinner{
+
+    -fx-background-color: transperant;
+    -fx-border-radius: 15;
+}
 .Button_abonnement {
     -fx-background-color: transparent; /* Correct the spelling of 'transparent' */
 }
@@ -68,4 +90,13 @@
     -fx-background-color: #20749C;
     -fx-border-radius: 15px;
     -fx-border-color: transparent; /* Correct the spelling of 'transparent' */
+}
+
+.dialog{
+    -fx-background-color: #ffce1b;
+
+    -fx-border-radius: 19px;
+
+
+
 }

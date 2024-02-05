@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import pidev.javafx.Model.MarketPlace.Bien;
 
@@ -45,6 +46,8 @@ public class ItemInfoController {
 
     @FXML
     private Label userName;
+    @FXML
+    private HBox userInfo;
 
 
 
@@ -55,7 +58,20 @@ public class ItemInfoController {
         this.bien=bien;
         this.myListener=myListener;
         userName.setText("Omar Salhi");
+
         itemImage.setImage(new Image(getClass().getResourceAsStream( bien.getImgSource())));
+        itemDesc.setText( "qsfdgoauiehrtgpbea ufhgae ouifehg dfvb ae rhtgqfvhbj aert qfvhuaerçtg" );
+        priceLable.setText( Float.toString(bien.getPrice()) );
+        quantityLable.setText(Float.toString(bien.getQuantity())   );
+        stateLabel.setText((bien.getState())?"In Stock":"Out Of Stock");
+    }
+
+    public void setDataForLocalUser(Bien bien,double width) {
+        itemDeatails.getChildren().remove(exit);
+        itemDeatails.getChildren().remove(userInfo);
+        this.bien=bien;
+        itemImage.setFitWidth( width );
+        itemImage.setImage(new Image(getClass().getResourceAsStream( bien.getImgSource()),width,width,false,false));
         itemDesc.setText( "qsfdgoauiehrtgpbea ufhgae ouifehg dfvb ae rhtgqfvhbj aert qfvhuaerçtg" );
         priceLable.setText( Float.toString(bien.getPrice()) );
         quantityLable.setText(Float.toString(bien.getQuantity())   );

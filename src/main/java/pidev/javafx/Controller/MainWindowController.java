@@ -40,6 +40,8 @@ public class MainWindowController implements Initializable {
     @FXML
     private VBox zipSideBar;
     @FXML
+    private Button MPD;
+    @FXML
     private BorderPane mainBorderPain;
     @FXML
     private AnchorPane MainAnchorPane;
@@ -57,9 +59,9 @@ public class MainWindowController implements Initializable {
     }
 
     @FXML
-    public void onBtn2Clicked(ActionEvent event) throws IOException {
-        AnchorPane showEmpAnchorPane = FXMLLoader.load(getClass().getResource( "/fxml/Employe/btn2.fxml" ));
-        mainBorderPain.setCenter(showEmpAnchorPane);
+    public void onMPDClicked(ActionEvent event) throws IOException {
+        HBox hBox = FXMLLoader.load(getClass().getResource( "/fxml/userMarketDashbord/userMainDashbord.fxml" ));
+        mainBorderPain.setCenter(hBox);
     }
 
     @FXML

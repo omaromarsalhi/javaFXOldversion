@@ -41,12 +41,7 @@ public class ItemController {
 
 
     public void setData(Bien bien, MyListener myListener) {
-//        itemInfo.setPrefHeight(0);
-////        bascInfoItems.setPrefHeight(278);
-//        anchorPaneItem.setPrefHeight(278);
-//        vboxItem.setPrefHeight(278);
         this.bien = bien;
-        System.out.println("Omar2");
         this.myListener = myListener;
         nameLabel.setText(bien.getName());
         priceLable.setText( "$"+bien.getPrice());

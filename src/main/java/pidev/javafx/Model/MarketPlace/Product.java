@@ -1,21 +1,26 @@
 package pidev.javafx.Model.MarketPlace;
 
+import javafx.scene.image.ImageView;
+
 import java.sql.Timestamp;
 
 public class Product {
     private int id;
     private int idUser;
     private String name;
+    private String descreption;
     private String imgSource;
     private Float price;
     private Float quantity;
     private Boolean state;
     private Timestamp timestamp;
+    private ImageView image;
 
-    public Product(int id, int idUser, String name, String imgSource, Float price, Float quantity, Boolean state, Timestamp timestamp) {
+    public Product(int id, int idUser, String name, String descreption, String imgSource, Float price, Float quantity, Boolean state, Timestamp timestamp) {
         this.id = id;
         this.idUser = idUser;
         this.name = name;
+        this.descreption = descreption;
         this.imgSource = imgSource;
         this.price = price;
         this.quantity = quantity;
@@ -85,6 +90,22 @@ public class Product {
 
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getDescreption() {
+        return descreption;
+    }
+
+    public void setDescreption(String descreption) {
+        this.descreption = descreption;
+    }
+
+    public ImageView getImage() {
+        return image;
+    }
+
+    public void setImage(ImageView image) {
+        this.image = image;
     }
 
 

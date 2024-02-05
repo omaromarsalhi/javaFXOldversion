@@ -18,7 +18,6 @@ public class FormController {
     @FXML
     private TextField Pname;
 
-
     private Connection connect;
     private Statement statement;
     private PreparedStatement prepare;

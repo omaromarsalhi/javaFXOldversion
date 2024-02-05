@@ -24,7 +24,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btn2" mnemonicParsing="false" onAction="#onBtn2Clicked" prefWidth="110.0" text="Button 2">
+                  <Button fx:id="btn2" mnemonicParsing="false" prefWidth="110.0" text="Button 2">
                      <graphic>
                         <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -42,7 +42,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" prefWidth="110.0" text="Button">
+                  <Button fx:id="MPD" mnemonicParsing="false" onAction="#onMPDClicked" prefWidth="110.0" text="MPD">
                      <graphic>
                         <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -92,7 +92,7 @@
       </VBox>
    </left>
    <center>
-      <AnchorPane fx:id="MainAnchorPane" prefHeight="670.0" prefWidth="1040.0" style="-fx-background-color: #f4f4f4; -fx-background-radius: 10;" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="MainAnchorPane" prefHeight="670.0" prefWidth="1040.0" style="-fx-background-color: #f4f4f4; -fx-background-radius: 20; -fx-border-color: black; -fx-border-radius: 20;" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="10.0" right="20.0" top="10.0" />
          </BorderPane.margin>

@@ -22,7 +22,7 @@ public class Main extends Application {
 //        stage.setHeight(600);
         stage.setScene(scene);
         stage.show();
-        stage.setOnCloseRequest(event -> javafx.application.Platform.exit());
+        stage.setOnCloseRequest(event -> System.exit(0));
     }
 
 

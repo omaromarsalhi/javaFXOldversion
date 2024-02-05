@@ -75,7 +75,7 @@ public class MarketController implements Initializable {
         List<Bien> biens = new ArrayList<>();
         Bien bien;
         for(int i=0;i<12;i++){
-            bien=new Bien(i,1,"Product_"+i,"/icons/"+i+".png",i*25f,20f,false,new Timestamp(System.currentTimeMillis()), Categorie.ENTERTAINMENT );
+            bien=new Bien(i,1,"Product_"+i,"zetgrtgh ergh ey hnrtuj yuikj,r tyhn","/icons/"+i+".png",i*25f,20f,false,new Timestamp(System.currentTimeMillis()), Categorie.ENTERTAINMENT );
             biens.add( bien );
         }
         biens.get( 0 ).setImgSource( "/img/banana.png" );

@@ -25,7 +25,7 @@
     -fx-border-radius: 10px;
 }
 
-#itemInfo .button{
+#itemInfo .button , #btnHolder .button {
     -fx-background-color:  white;
     -fx-border-color: black;
     -fx-border-width: 1px;
@@ -33,7 +33,7 @@
     -fx-border-radius: 20;
 }
 
-#itemInfo .button:hover{
+#itemInfo .button:hover , #btnHolder .button:hover {
     -fx-border-color: #fdc847;
 }
 

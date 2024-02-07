@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,10 +10,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="1040.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidev.javafx.Controller.Demande.DemandeController">
    <children>
-      <Pane fx:id="box1" layoutX="104.0" layoutY="280.0" prefHeight="251.0" prefWidth="200.0" style="-fx-background-color: DEB887; -fx-background-radius: 55;" stylesheets="@../../../java/pidev/javafx/Controller/Demande/menuDemande.css">
-         <effect>
-            <Glow level="0.0" />
-         </effect>
+      <Pane fx:id="box1" layoutX="104.0" layoutY="280.0" prefHeight="251.0" prefWidth="200.0" style="-fx-background-color: FAEBD7; -fx-background-radius: 55;" stylesheets="@../../../java/pidev/javafx/Controller/Demande/menuDemande.css">
          <children>
             <Label layoutX="21.0" layoutY="14.0" text="Total reclamtion">
                <font>
@@ -25,7 +21,7 @@
             <Button fx:id="showmore" layoutX="64.0" layoutY="193.0" mnemonicParsing="false" onAction="#getBoton_on_click_add" text="View more" />
          </children>
       </Pane>
-      <Pane fx:id="box2" layoutX="419.0" layoutY="290.0" prefHeight="251.0" prefWidth="200.0" style="-fx-background-color: DEB887; -fx-background-radius: 55;">
+      <Pane fx:id="box2" layoutX="419.0" layoutY="290.0" prefHeight="251.0" prefWidth="200.0" style="-fx-background-color: FAEBD7; -fx-background-radius: 55;">
          <children>
             <Label layoutX="22.0" layoutY="14.0" text=" Problem solved">
                <font>
@@ -36,7 +32,7 @@
             <Button fx:id="showmore1" layoutX="64.0" layoutY="187.0" mnemonicParsing="false" onAction="#getBoton_on_click_add1" text="View more" />
          </children>
       </Pane>
-      <Pane fx:id="box3" layoutX="709.0" layoutY="290.0" prefHeight="251.0" prefWidth="200.0" style="-fx-background-color: DEB887; -fx-background-radius: 55;">
+      <Pane fx:id="box3" layoutX="709.0" layoutY="290.0" prefHeight="251.0" prefWidth="200.0" style="-fx-background-color: FAEBD7; -fx-background-radius: 55;">
          <children>
             <Label layoutX="17.0" layoutY="14.0" text="Total reservation">
                <font>
@@ -57,9 +53,14 @@
             <Font name="DG Heaven" size="23.0" />
          </font>
       </Label>
-      <ImageView fitHeight="72.0" fitWidth="72.0" layoutX="436.0" layoutY="122.0" smooth="false">
+      <ImageView fitHeight="72.0" fitWidth="72.0" layoutX="436.0" layoutY="122.0" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../../Downloads/la-protection-sociale.png" />
+            <Image url="@../../img/avertissement.gif" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="582.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../Downloads/pouces-vers-le-haut.gif" />
          </image>
       </ImageView>
    </children>

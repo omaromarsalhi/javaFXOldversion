@@ -127,4 +127,10 @@ int droit_acces;
 String password;
 String date;
 
+    public user(String firstname, String lastname, String email, int num) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.num = num;
+    }
 }

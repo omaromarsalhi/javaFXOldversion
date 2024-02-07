@@ -1,50 +1,112 @@
 package pidev.javafx.Controller.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SplitPane;
+import javafx.scene.control.*;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.Modality;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.text.Text;
+
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import javafx.animation.FadeTransition;
+import javafx.scene.image.ImageView;
+
+import java.net.URL;
+
+
+import javafx.scene.control.cell.PropertyValueFactory;
+
+import pidev.javafx.Model.user.user;
 
 public class listUserController implements Initializable {
-    @FXML
-    ListView<String> listview;
 
 
 
     @FXML
     SplitPane splitpane;
+    @FXML
+    private TableView<user> tableview;
+
+   @FXML
+    private TableColumn<String,String> image;
+
+    @FXML
+    private TableColumn<user,String> firstname;
+
+    @FXML
+    private TableColumn<user,String> lastname;
+
+    @FXML
+    private TableColumn<user,String> email;
+
+    @FXML
+    private TableColumn<user,Integer> phonenumber;
+    ObservableList<user> users = FXCollections.observableArrayList(
+            new user("latifa","benzaied","latifa.benzaied@esprit.tn",54066077),
+            new user("latifa","benzaied","latifa.benzaied@esprit.tn",54066077),
+            new user("latifa","benzaied","latifa.benzaied@esprit.tn",54066077)
+
+    );
+   private Image loadImage() {
+        return new Image(getClass().getResourceAsStream("/icons/test.png"));
+
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        listview.getItems().addAll("latifa","omar");
-        listview.setOnMouseClicked(event -> {
+        firstname.setCellValueFactory(new PropertyValueFactory<user,String>("firstname"));
+        lastname.setCellValueFactory(new PropertyValueFactory<user,String>("lastname"));
+        email.setCellValueFactory(new PropertyValueFactory<user,String>("email"));
+        phonenumber.setCellValueFactory(new PropertyValueFactory<user,Integer>("num"));
+        tableview.setItems(users);
+       Image defaultImage = loadImage();
+         final ImageView imageView=new ImageView();
+        image.setCellFactory(column -> new TableCell<>() {
+            private final ImageView imageView = new ImageView(defaultImage);
+
+
+            @Override
+          protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(imageView);
+                    imageView.setFitWidth(10);
+                    imageView.setFitHeight(10);
+
+                }
+            }
+
+        });
+        Tooltip tooltip = new Tooltip("Description de l'image");
+
+// Associez le tooltip à l'imageView
+        Tooltip.install(imageView, tooltip);
+
+        tableview.setOnMouseClicked(event -> {
             if (event.getClickCount() == 1) {
-                String selectedItem = listview.getSelectionModel().getSelectedItem();
+                String selectedItem = String.valueOf(tableview.getSelectionModel().getSelectedItem());
                 if (selectedItem != null) {
                     showDetails(selectedItem);
                 }
             }
         });
-    }
-    private void showDetails(String details) {
 
+    }
+
+
+
+    private void showDetails(String details) {
 
 
         try {
@@ -54,7 +116,7 @@ public class listUserController implements Initializable {
             Parent root = loader.load();
             Scene scene = new Scene(root);
             scene.getRoot().setStyle("-fx-padding: 5px;");
-           scene.getStylesheets().add( String.valueOf( getClass().getResource("/style/styleLogin.css") ) );
+            scene.getStylesheets().add(String.valueOf(getClass().getResource("/style/styleDetails.css")));
             FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), root);
             fadeIn.setFromValue(0.0);
             fadeIn.setToValue(1.0);
@@ -79,3 +141,4 @@ public class listUserController implements Initializable {
         }
     }
 }
+

@@ -8,7 +8,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 import pidev.javafx.Controller.ConnectionDB;
 import pidev.javafx.Model.Transport.Transport;
@@ -20,8 +23,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.stream.Collectors;
 
- public class TranportController implements Initializable  {
+
+public class TranportController implements Initializable  {
 
 @FXML
 private ListView Transport_list;
@@ -63,73 +68,80 @@ private ScrollPane mainBorderPain;
 
     @FXML
     private TableColumn<Transport, String> ReferenceCol;
-     private TableColumn<Transport, Void> FunctionsCol;
+    @FXML
+    private TableColumn<Transport, String> ImageCol;
+     TableColumn<Transport, Void> functionCol = new TableColumn<>("");
+
+@FXML
+    TextField SearchText;
 
 
 
-
-
-    Set<String> resultSetItems = new HashSet<>();
+     Set<String> resultSetItems = new HashSet<>();
     private Transport data  =new Transport();
     private URL url;
     private ResourceBundle resourceBundle;
      FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Transport/Buttons/Delete.fxml"));
      Button btn = new Button();
 
+Transport t;
+     int selectedRow=0;
 
-int selectedRow=0;
 
-     @Override
+
+     @FXML
      public void initialize(URL url, ResourceBundle resourceBundle) {
          afficher();
          btn.setStyle("-fx-background-color: #bb2020; " +
-                 "-fx-text-fill: white; -fx-font-size: 14px;" + "-fx-border-radius: 15px;"+
-                 " -fx-padding: 10 20;");
-         TableColumn<Transport, Void> functionCol = new TableColumn<>("");
+                 "-fx-text-fill: white; -fx-font-size: 14px;" + "-fx-border-radius: 15px;" + "-fx-background-color: transparent");
 
-         functionCol.setCellFactory( new Callback<TableColumn<Transport, Void>, TableCell<Transport, Void>>() {
-                     @Override
-                     public TableCell<Transport, Void> call(TableColumn<Transport, Void> param) {
-                         return new TableCell<Transport, Void>() {
-                              Button btn = new Button();
-
-                             {
-                                 btn.setOnAction((ActionEvent event) -> {
-                                      Transport data = getTableView().getItems().get(getIndex());
-                                      selectedRow= data.getIdTransport();
-                                     Supprimer(selectedRow);
-                                     afficher();
-                                   });
-                             }
-
-                             @Override
-                             protected void updateItem(Void item, boolean empty) {
-                                 super.updateItem(item, empty);
-                                 if (empty) {
-                                     setGraphic(null);
-                                 } else {
-                                     setGraphic(btn);
-                                 }
-                             }
-                         };
-                     }
-                 } );
-
-         TableColumn<Transport, Void> functionCol_ = new TableColumn<>("");
-         functionCol_.setCellFactory( new Callback<TableColumn<Transport, Void>, TableCell<Transport, Void>>() {
+         functionCol.setCellFactory(new Callback<TableColumn<Transport, Void>, TableCell<Transport, Void>>() {
              @Override
              public TableCell<Transport, Void> call(TableColumn<Transport, Void> param) {
                  return new TableCell<Transport, Void>() {
-
-
+                     HBox hbox = new HBox();
 
                      {
-                         btn.setOnAction((ActionEvent event) -> {
+                         Button Deletebtn = new Button();
+                         Button Updatebtn = new Button();
+                         ImageView deleteIcon = new ImageView(new Image(getClass().getResourceAsStream("/icons/Delete-button.svg.png")));
+                         ImageView updateIcon = new ImageView(new Image(getClass().getResourceAsStream("/icons/EditIcon.png")));
+
+                         deleteIcon.setFitWidth(20); // Set your desired width
+                         deleteIcon.setFitHeight(20);
+                         updateIcon.setFitWidth(20); // Set your desired width
+                         updateIcon.setFitHeight(20);
+                         Deletebtn.setGraphic(deleteIcon);
+                       Deletebtn.setStyle("-fx-background-color: transparent");
+                       Updatebtn.setGraphic(updateIcon);
+                       Updatebtn.setStyle("-fx-background-color: transparent");
+
+
+                         Deletebtn.setOnAction((ActionEvent event) -> {
                              Transport data = getTableView().getItems().get(getIndex());
-                             selectedRow= data.getIdTransport();
+                             selectedRow = data.getIdTransport();
+
                              Supprimer(selectedRow);
                              afficher();
                          });
+
+                         Updatebtn.setOnAction((ActionEvent event) -> {
+                             Transport data = getTableView().getItems().get(getIndex());
+                             selectedRow = data.getIdTransport();
+                             t=data;
+
+
+                             try{
+                                 onUpdateButtonClicked(t);
+
+                            }
+
+                          catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                         });
+
+                         hbox.getChildren().addAll(Deletebtn, Updatebtn);
                      }
 
                      @Override
@@ -138,15 +150,14 @@ int selectedRow=0;
                          if (empty) {
                              setGraphic(null);
                          } else {
-                             setGraphic(btn);
+                             setGraphic(hbox);
                          }
                      }
                  };
              }
-         } );
+         });
 
          Transport_table.getColumns().add(functionCol);
-         Transport_table.getColumns().add(functionCol_);
 
      }
 
@@ -174,8 +185,10 @@ int selectedRow=0;
                  data.setArivee(resultSet.getString("Arivee"));
                  data.setPrix((resultSet.getFloat("Prix")));
                  data.setHeure((resultSet.getTime("Heure")));
+                 data.setVehicule_Image((resultSet.getString("Vehicule_Image")));
 
                  dataList.add(data);
+
              }
 
 
@@ -187,9 +200,32 @@ int selectedRow=0;
              ArriveCol.setCellValueFactory(new PropertyValueFactory<>("arivee"));
              TypeCol.setCellValueFactory(new PropertyValueFactory<>("type_vehicule"));
              PrixCol.setCellValueFactory(new PropertyValueFactory<>("Prix"));
+              ImageCol.setCellValueFactory(new PropertyValueFactory<>("vehicule_Image"));
 
+             // Set the cell factory for rendering the image
+             ImageCol.setCellFactory(param -> new TableCell<>() {
+                 private final ImageView imageView = new ImageView();
 
+                 {
+                     imageView.setFitWidth(50);
+                     imageView.setFitHeight(50);
+                 }
 
+                 @Override
+                 protected void updateItem(String imagePath, boolean empty) {
+                     super.updateItem(imagePath, empty);
+
+                     if (empty || imagePath == null) {
+                         setGraphic(null);
+                     } else {
+                         // Set the image for the ImageView
+                         Image image = new Image(imagePath);
+                         imageView.setImage(image);
+                         imageView.setStyle("-fx-border-radius: 12px; -fx-background-color: blue;");
+                         setGraphic(imageView);
+                     }
+                 }
+             });
 
              Transport_table.setItems(dataList);
 
@@ -197,9 +233,86 @@ int selectedRow=0;
              System.out.println(e.getMessage());
          }
 
-         System.out.println("Data loaded into TableView");
-     }
+      }
 
+      public void Recherche(){
+
+
+          String sql = "SELECT * FROM transport WHERE Type_Vehicule=?  ";
+
+          connect = ConnectionDB.connectDb();
+
+          System.out.println(SearchText.getText());
+          try (PreparedStatement preparedStatement = connect.prepareStatement(sql);
+
+               ResultSet resultSet = preparedStatement.executeQuery()) {
+              prepare = connect.prepareStatement(sql);
+              prepare.setString(1,SearchText.getText());
+
+              // Create an ObservableList to store your data
+              ObservableList<Transport> dataList = FXCollections.observableArrayList();
+
+              while (resultSet.next()) {
+                  Transport data = new Transport();
+
+                  data.setIdTransport(Integer.parseInt(resultSet.getString("idTransport")));
+                  data.setType_vehicule(resultSet.getString("Type_Vehicule"));
+                  data.setReference(resultSet.getString("Reference"));
+                  data.setDepart(resultSet.getString("Depart"));
+                  data.setArivee(resultSet.getString("Arivee"));
+                  data.setPrix((resultSet.getFloat("Prix")));
+                  data.setHeure((resultSet.getTime("Heure")));
+                  data.setVehicule_Image((resultSet.getString("Vehicule_Image")));
+
+                  dataList.add(data);
+
+              }
+
+
+  List<String> nameList = dataList.stream()
+           .map(Transport::getArivee)
+           .collect(Collectors.toList());
+              nameList.stream().anyMatch( str -> str.equals(SearchText.getText()));
+
+              ReferenceCol.setCellValueFactory(new PropertyValueFactory<>("Reference"));
+              HeureCol.setCellValueFactory(new PropertyValueFactory<>("Heure"));
+              DepartCol.setCellValueFactory(new PropertyValueFactory<>("depart"));
+              ArriveCol.setCellValueFactory(new PropertyValueFactory<>("arivee"));
+              TypeCol.setCellValueFactory(new PropertyValueFactory<>("type_vehicule"));
+              PrixCol.setCellValueFactory(new PropertyValueFactory<>("Prix"));
+              ImageCol.setCellValueFactory(new PropertyValueFactory<>("vehicule_Image"));
+
+              // Set the cell factory for rendering the image
+              ImageCol.setCellFactory(param -> new TableCell<>() {
+                  private final ImageView imageView = new ImageView();
+
+                  {
+                      imageView.setFitWidth(50);
+                      imageView.setFitHeight(50);
+                  }
+
+                  @Override
+                  protected void updateItem(String imagePath, boolean empty) {
+                      super.updateItem(imagePath, empty);
+
+                      if (empty || imagePath == null) {
+                          setGraphic(null);
+                      } else {
+                          // Set the image for the ImageView
+                          Image image = new Image(imagePath);
+                          imageView.setImage(image);
+                          imageView.setStyle("-fx-border-radius: 12px; -fx-background-color: blue;");
+                          setGraphic(imageView);
+                      }
+                  }
+              });
+
+              Transport_table.setItems(dataList);
+
+          } catch (Exception e) {
+              System.out.println(e.getMessage());
+          }
+      }
 
         public void update() {
             String sql = "UPDATE  transport SET   WHERE ";
@@ -231,7 +344,7 @@ int selectedRow=0;
         System.out.println(e.getMessage());
     }
 
-    System.out.println("Data loaded into TableView");
+
 }
 
 
@@ -277,6 +390,14 @@ int selectedRow=0;
          scrollPane.setPrefWidth( mainBorderPain.getPrefWidth() );
          mainBorderPain.setContent(scrollPane);
      };
+     public void onUpdateButtonClicked(Transport t)  throws IOException {
+         UpdateTransport.setData(t);
+         ScrollPane scrollPane = FXMLLoader.load(Objects.requireNonNull( getClass().getResource("/fxml/Transport/UpdateTransport.fxml")));
+          scrollPane.setPrefHeight(mainBorderPain.getPrefHeight()  );
+         scrollPane.setPrefWidth( mainBorderPain.getPrefWidth() );
+         mainBorderPain.setContent(scrollPane);
+     };
+
      
 
 

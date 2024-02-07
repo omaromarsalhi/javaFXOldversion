@@ -18,6 +18,7 @@ public class Main extends Application {
         Scene scene = new Scene(fxmlLoader.load());
 //        scene.getStylesheets().add( String.valueOf( getClass().getResource("/style/Buttons.css") ) );
 //        scene.getStylesheets().add( String.valueOf( getClass().getResource("/style/styleShowItems.css") ) );
+
         stage.setTitle("Hello!");
         stage.setResizable( true );
 //        stage.setWidth( 950 );

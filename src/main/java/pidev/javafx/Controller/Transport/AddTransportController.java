@@ -5,9 +5,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import pidev.javafx.Controller.ConnectionDB;
@@ -54,32 +55,33 @@ public class AddTransportController implements Initializable {
     ActionEvent event;
     @FXML
     private Spinner<Integer> timeSpinner;
+    @FXML
+    private ImageView Image;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Set up custom Spinner Value Factory for time (0-23 for hours, 0-59 for minutes)
+ intialiase_timer();
 
-        SpinnerValueFactory<Integer> timeFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(7 * 60 , 19 * 60 , 0,30);
-        timeSpinner.setValueFactory(timeFactory);
-
-        // Customize the editor to display hours and minutes
-        timeSpinner.valueProperty().addListener((obs, oldValue, newValue) -> {
-            int hours = newValue / 60;
-            int minutes = newValue % 60;
-            timeSpinner.getEditor().setText(String.format("%02d:%02d", hours, minutes));
-        });
-
-        // Customize the increment and decrement buttons (optional)
-        timeSpinner.getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_VERTICAL);
     }
 
 
-    public void main(String[] args) {
-        int selectedHour = timeSpinner.getValue();
-        System.out.println("Selected Hour: " + selectedHour);
-    }
-    //////Fonctions pour loader les parametrre du page insert
-    public Set<String> Load_Locations(){
+
+public  void intialiase_timer(){
+    SpinnerValueFactory<Integer> timeFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(7 * 60 , 19 * 60 , 0,30);
+    timeSpinner.setValueFactory(timeFactory);
+
+     timeSpinner.valueProperty().addListener((obs, oldValue, newValue) -> {
+        int hours = newValue / 60;
+        int minutes = newValue % 60;
+        timeSpinner.getEditor().setText(String.format("%02d:%02d", hours, minutes));
+    });
+
+     timeSpinner.getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_VERTICAL);
+}
+
+
+
+     public Set<String> Load_Locations(){
 
         String sql = "SELECT * FROM stations";
         connect = ConnectionDB.connectDb();
@@ -130,23 +132,25 @@ public class AddTransportController implements Initializable {
         else
             ReferenceText.setStyle("-fx-text-fill: #bb2020;");
 
-        if (text[2].matches("[0-9]+"))
+        if (text[2].matches("[0-9 -.]+"))
             PrixText.setStyle("-fx-text-fill: #25c12c");
         else
             PrixText.setStyle("-fx-text-fill: #bb2020 ");
     }
 
+
+
 public void insert_Image(){
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Choose a File");
-
-    // Show the file dialog
     var selectedFile = fileChooser.showOpenDialog(primaryStage);
     if (selectedFile != null) {
-        // Set the selected file path on the button
-        Ajouter_imageBtn.setText(selectedFile.getAbsolutePath());
 imagePath=selectedFile.getAbsolutePath() ;
-        System.out.println(imagePath);
+         Image image = new Image(imagePath);
+        Image.setFitHeight(114);
+        Image.setFitWidth(114);
+        Image.setImage(image);
+
     }
 }
 

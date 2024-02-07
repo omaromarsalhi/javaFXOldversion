@@ -1,13 +1,14 @@
 package pidev.javafx.Model.Transport;
 
-import javafx.scene.shape.FillRule;
 import pidev.javafx.Controller.ConnectionDB;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Time;
-import java.util.Date;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Transport {
 private int idTransport;
@@ -16,7 +17,21 @@ private String type_vehicule;
     public   String arivee;
 private String Reference;
 
-private String Vehicule_Image;
+    @Override
+    public String toString() {
+        return "Transport{" +
+                "idTransport=" + idTransport +
+                ", type_vehicule='" + type_vehicule + '\'' +
+                ", depart='" + depart + '\'' +
+                ", arivee='" + arivee + '\'' +
+                ", Reference='" + Reference + '\'' +
+                ", Vehicule_Image='" + Vehicule_Image + '\'' +
+                ", Prix=" + Prix +
+                ", Heure=" + Heure +
+                '}';
+    }
+
+    private String Vehicule_Image;
 
 private Float Prix;
 
@@ -118,4 +133,7 @@ private Time Heure;
 
     public void getReference(String reference) {
     }
+
+
+
 }

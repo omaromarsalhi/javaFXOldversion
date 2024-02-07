@@ -16,13 +16,13 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane fx:id="mainBorderPain" stylesheets="@../../style/Transport.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidev.javafx.Controller.Transport.AddTransportController">
+<ScrollPane fx:id="mainBorderPain" prefHeight="672.0" prefWidth="1042.0" stylesheets="@../../style/Transport.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidev.javafx.Controller.Transport.UpdateTransport">
    <content>
       <AnchorPane prefHeight="670.0" prefWidth="1040.0" styleClass="anchor-pane">
          <children>
             <Pane fx:id="Pane" layoutX="7.0" layoutY="5.0" prefHeight="660.0" prefWidth="1026.0" styleClass="pane">
                <children>
-                  <Label layoutX="47.0" layoutY="22.0" text="Insert Transport">
+                  <Label layoutX="47.0" layoutY="22.0" text="Mettre à jour le Transport">
                      <font>
                         <Font name="Souliyo Unicode" size="30.0" />
                      </font>
@@ -47,13 +47,12 @@
                         </Label>
                         <HBox>
                            <children>
-                              <TextField fx:id="ReferenceText" minWidth="-Infinity" onInputMethodTextChanged="#onTextChanged" onKeyPressed="#onTextChanged" onKeyReleased="#onTextChanged" onKeyTyped="#onTextChanged" prefHeight="65.0" prefWidth="399.0" promptText="Entrer la reference" styleClass="FormInputs">
+                              <TextField fx:id="ReferenceText" editable="false" minWidth="-Infinity" prefHeight="65.0" prefWidth="399.0" promptText="Entrer la reference" styleClass="FormInputs">
                                  <font>
                                     <Font name="Souliyo Unicode" size="15.0" />
                                  </font>
                               </TextField>
-            
-                              <Button mnemonicParsing="false" onAction="#showDialog" prefHeight="39.0" prefWidth="32.0" styleClass="SearchBar" stylesheets="@../../style/Transport.css">
+                              <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="32.0" styleClass="SearchBar" stylesheets="@../../style/Transport.css">
                                  <graphic>
                                     <ImageView fitHeight="24.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -85,7 +84,7 @@
                         </Label>
                         <HBox>
                            <children>
-                              <TextField fx:id="PrixText" onInputMethodTextChanged="#onTextChanged" onKeyPressed="#onTextChanged" onKeyReleased="#onTextChanged" onKeyTyped="#onTextChanged" prefHeight="40.0" prefWidth="399.0" promptText="Entrer le num de la ligne" styleClass="SearchBar">
+                              <TextField fx:id="PrixText" onKeyTyped="#onTextChanged" prefHeight="40.0" prefWidth="399.0" promptText="Entrer le num de la ligne" styleClass="SearchBar">
                                  <font>
                                     <Font name="Souliyo Unicode" size="15.0" />
                                  </font>
@@ -123,7 +122,7 @@
                         <ComboBox fx:id="BoxTypeVehicule" onShown="#Load_types" prefHeight="39.0" prefWidth="886.0" promptText="Choisir le type de la vehicule" styleClass="SearchBar" />
                      </children>
                   </VBox>
-                  <Button layoutX="715.0" layoutY="563.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#insertTransport" prefHeight="65.0" prefWidth="217.0" styleClass="Button_ajouter" text="Ajouter" textFill="WHITE">
+                  <Button layoutX="715.0" layoutY="563.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#update" prefHeight="65.0" prefWidth="217.0" styleClass="Button_ajouter" text="Update" textFill="WHITE">
                      <font>
                         <Font name="Souliyo Unicode" size="25.0" />
                      </font>
@@ -168,5 +167,4 @@
          </children>
       </AnchorPane>
    </content>
-
 </ScrollPane>

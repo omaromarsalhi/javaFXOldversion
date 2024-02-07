@@ -5,36 +5,48 @@
 }
 
 .anchor-pane {
-    -fx-background-color: #F1F1F1; /* Set background color */
-    /* -fx-border-color: #D9D9D9; /* Set border color */
+    -fx-background-color: #F1F1F1;
+
 }
 
 .pane {
     -fx-background-color: #D9D9D9;
-    -fx-border-width: 2px; /* Set border width */
-    -fx-background-radius: 10px; /* Set background radius */
+    -fx-border-width: 2px;
+    -fx-background-radius: 10px;
 }
 
 .SearchBar {
-    -fx-background-color: transparent; /* Correct the spelling of 'transparent' */
+    -fx-background-color: transparent;
     -fx-border-radius: 10;
     -fx-border-color: #474749;
 }
+.FormInputs{
+    -fx-border-radius: 5px;
+    -fx-border-color: #494949;
+    -fx-border-width: 1px;
+    -fx-background-color: transparent;
 
+
+}
+.Image-View{
+    -fx-border-radius: 50%; /* Set to 50% to create a circular shape */
+    -fx-background-radius: 50%; /* Additional property for background */
+    -fx-background-color: #bb2020;
+}
 .TableView {
-    -fx-background-color: transparent; /* Correct the spelling of 'transparent' */
+    -fx-background-color: transparent;
     -fx-border-radius: 10;
     -fx-border-color: #474749;
 }
 
-.table-view {
-    -fx-background-color: transparent; /* Correct the spelling of 'transparent' */
-}
 
-/* Apply styles to TableView header */
+
+
 .TableView .column-header-background {
-    -fx-background-color: #333; /* Set header background color */
-    -fx-border-color: transparent; /* Correct the spelling of 'transparent' */
+    -fx-alignment:center;
+
+    -fx-background-color: #333;
+    -fx-border-color: transparent;
 }
 
 
@@ -42,44 +54,78 @@
 .TableView .column-header,
 .TableView .filler,
 .TableView .column-header-background {
+    -fx-alignment: center;
     -fx-font-size: 25px;
     -fx-font-family: "Souliyo Unicode", sans-serif;
-    -fx-background-color: transparent; /* Correct the spelling of 'transparent' */
-    -fx-border-color: transparent; /* Correct the spelling of 'transparent' */
-    -fx-border-width: 0.5px; /* Set header border width */
-}
-
- .TableView .table-row-cell:odd {
-    -fx-font-size: 20px;
     -fx-background-color: transparent;
-     -fx-border-color: transparent;
+    -fx-border-color: transparent;
     -fx-border-width: 0.5px;
-     -fx-font-family: "Souliyo Unicode", sans-serif;
 }
 
+/*.TableView .table-row-cell:odd {*/
+/*    -fx-font-size: 20px;*/
+/*    -fx-background-color: transparent;*/
+/*    -fx-border-color: transparent;*/
+/*    -fx-text-fill: #000000;*/
+
+/*    -fx-border-width: 0.5px;*/
+/*    -fx-font-family: "Souliyo Unicode", sans-serif;*/
+/*    -fx-background-radius: 20px;*/
+/*    -fx-border-radius: 10;*/
+/* }*/
+
+/*.TableView .table-row-cell {*/
+
+
+/*    -fx-font-family: "Souliyo Unicode", sans-serif;*/
+/*    -fx-background-color: #C8C8C8;*/
+/*    -fx-font-size: 20px;*/
+/*    -fx-text-fill: #000000;*/
+/*    -fx-border-radius: 20px;*/
+/*    -fx-border: transparent;*/
+/*    -fx-background-radius: 10;*/
+
+/*}*/
 .TableView .table-row-cell {
+    -fx-font-family: "Souliyo Unicode", sans-serif;
+    -fx-font-size: 20px;
+    -fx-text-fill: #000000;
+    -fx-background-color: #C8C8C8;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 10;
+ }
+
+.TableView .table-row-cell:odd {
+    -fx-background-color: transparent;
+}
+
+
+.TableView .table-row-cell:selected {
 
 
     -fx-font-family: "Souliyo Unicode", sans-serif;
-    -fx-background-color: #C8C8C8;
+    -fx-background-color: #ffce1a;
     -fx-font-size: 20px;
-     -fx-border-radius: 20px;
+    -fx-text-fill: #000000;
+    -fx-border-radius: 20px;
     -fx-border: transparent;
     -fx-background-radius: 10;
 
 }
+
 .TableView .table-cell{
     -fx-alignment:center;
     -fx-border-color: transparent;
 
 }
+
 .Spinner{
 
-    -fx-background-color: transperant;
+    -fx-background-color: transparent;
     -fx-border-radius: 15;
 }
 .Button_abonnement {
-    -fx-background-color: transparent; /* Correct the spelling of 'transparent' */
+    -fx-background-color: transparent;
 }
 
 .rounded-image {
@@ -89,9 +135,13 @@
 .Button_ajouter {
     -fx-background-color: #20749C;
     -fx-border-radius: 15px;
-    -fx-border-color: transparent; /* Correct the spelling of 'transparent' */
+    -fx-border-color: transparent;
 }
-
+.paney{
+    -fx-background-color: #ffce1b;
+    -fx-border-width: 2px;
+    -fx-background-radius: 10px;
+}
 .dialog{
     -fx-background-color: #ffce1b;
 

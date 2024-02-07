@@ -75,9 +75,15 @@
     -fx-font-size: 14px;
 }
 .custom-layer1 .label {
-    -fx-font-size: 14px;
-    -fx-font-family: Arial, sans-serif;
-    -fx-text-fill: #F6F6F6;
-    -fx-font-weight: bold;
+    -fx-font-family: "Souliyo Unicode";
+    -fx-font-size: 9px;
+    -fx-fill: #F6F6F6;
 
+}
+.custom-layer2 .button{
+    -fx-background-color:#20749C;
+    -fx-border-radius: 20px ;
+    -fx-border-width: 1px;
+    -fx-text-fill:#E7E7E7;
+    -fx-font-size: 14px;
 }

@@ -73,9 +73,9 @@ public class LoginSignupController implements Initializable {
         TranslateTransition slide =new TranslateTransition();
         slide.setDuration(Duration.seconds(0.7));
         slide.setNode(layer2);
-        slide.setToX(491);
+        slide.setToX(470);
         slide.play();
-        layer1.setTranslateX(-230);//-290
+        layer1.setTranslateX(-233);//-290
         //layer2.setTranslateX(600);
 
 
@@ -99,7 +99,7 @@ public class LoginSignupController implements Initializable {
     @FXML
     void btn2(MouseEvent event) {
         TranslateTransition slide =new TranslateTransition();
-        slide.setDuration(Duration.seconds(0.7));
+        slide.setDuration(Duration.seconds(0.5));
 
 
         slide.setNode(layer2);

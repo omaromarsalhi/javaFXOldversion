@@ -1,112 +1,118 @@
 package pidev.javafx.Controller.User;
+import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
-import javafx.stage.Modality;
-import javafx.scene.control.Alert.AlertType;
 
-import javafx.stage.StageStyle;
-import javafx.util.Duration;
-import javafx.animation.FadeTransition;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+
+
 
 import java.net.URL;
 
 
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
+import pidev.javafx.Main;
 import pidev.javafx.Model.user.user;
 
 public class listUserController implements Initializable {
-
-
-
     @FXML
-    SplitPane splitpane;
+    private VBox Userlayout;
     @FXML
-    private TableView<user> tableview;
+    private TextField bar_recherche;
 
-   @FXML
-    private TableColumn<String,String> image;
-
-    @FXML
-    private TableColumn<user,String> firstname;
-
-    @FXML
-    private TableColumn<user,String> lastname;
-
-    @FXML
-    private TableColumn<user,String> email;
-
-    @FXML
-    private TableColumn<user,Integer> phonenumber;
-    ObservableList<user> users = FXCollections.observableArrayList(
-            new user("latifa","benzaied","latifa.benzaied@esprit.tn",54066077),
-            new user("latifa","benzaied","latifa.benzaied@esprit.tn",54066077),
-            new user("latifa","benzaied","latifa.benzaied@esprit.tn",54066077)
-
-    );
-   private Image loadImage() {
-        return new Image(getClass().getResourceAsStream("/icons/test.png"));
-
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+List<user> user=new ArrayList<>(users());
+for(int i=0;i< user.size();i++)
+{
+    FXMLLoader fxmlLoader=new FXMLLoader();
+     fxmlLoader.setLocation(getClass().getResource( "/fxml/User/user_item.fxml" ));
+    try {
+        HBox hBox=fxmlLoader.load();
+        UseritemController useritem =fxmlLoader.getController();
+        useritem.setData(user.get(i));
+        HBox.setMargin(hBox,new Insets(70,0,0,0));
+        Userlayout.getChildren().add(hBox);
 
-        firstname.setCellValueFactory(new PropertyValueFactory<user,String>("firstname"));
-        lastname.setCellValueFactory(new PropertyValueFactory<user,String>("lastname"));
-        email.setCellValueFactory(new PropertyValueFactory<user,String>("email"));
-        phonenumber.setCellValueFactory(new PropertyValueFactory<user,Integer>("num"));
-        tableview.setItems(users);
-       Image defaultImage = loadImage();
-         final ImageView imageView=new ImageView();
-        image.setCellFactory(column -> new TableCell<>() {
-            private final ImageView imageView = new ImageView(defaultImage);
 
 
-            @Override
-          protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    setGraphic(imageView);
-                    imageView.setFitWidth(10);
-                    imageView.setFitHeight(10);
-
-                }
-            }
-
-        });
-        Tooltip tooltip = new Tooltip("Description de l'image");
-
-// Associez le tooltip à l'imageView
-        Tooltip.install(imageView, tooltip);
-
-        tableview.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 1) {
-                String selectedItem = String.valueOf(tableview.getSelectionModel().getSelectedItem());
-                if (selectedItem != null) {
-                    showDetails(selectedItem);
-                }
-            }
-        });
-
+    } catch (IOException e) {
+        throw new RuntimeException(e);
     }
 
+}
 
 
-    private void showDetails(String details) {
+    }
+    private void fadeIn(TextField node) {
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), node);
+        fadeTransition.setFromValue(0);
+        fadeTransition.setToValue(1);
+        fadeTransition.play();
+        node.setVisible(true);
+    }
+
+    private void fadeOut(TextField node) {
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), node);
+        fadeTransition.setFromValue(1);
+        fadeTransition.setToValue(0);
+        fadeTransition.setOnFinished(event -> node.setVisible(false));
+        fadeTransition.play();
+    }
+    private List<user> users(){
+List<user> ls=new ArrayList<>();
+user user1=new user("latiffa","benzaied","latifabenzaied@esprit.tn");
+ls.add(user1);
+        user user2=new user("latifa","benzaied","latifabenzaied@esprit.tn");
+        ls.add(user2);
+        user user3=new user("latifa","benzaied","latifabenzaied@esprit.tn");
+        ls.add(user2);
+        user user4=new user("latifa","benzaied","latifabenzaied@esprit.tn");
+        ls.add(user2);
+        user user5=new user("latifa","benzaied","latifabenzaied@esprit.tn");
+        ls.add(user2);
+        user user6=new user("latifa","benzaied","latifabenzaied@esprit.tn");
+        ls.add(user2);
+        user user7=new user("latifa","benzaied","latifabenzaied@esprit.tn");
+        ls.add(user2);
+        user user8=new user("latifa","benzaied","latifabenzaied@esprit.tn");
+        ls.add(user2);
+        user user9=new user("latifa","benzaied","latifabenzaied@esprit.tn");
+        ls.add(user2);
+        return ls;
+    }
+
+@FXML
+    public void onclick(ActionEvent actionEvent) {
+    showDetails();
+    }
+
+    private void showDetails() {
 
 
         try {
@@ -133,7 +139,7 @@ public class listUserController implements Initializable {
         } catch (Exception e) {
 
             e.printStackTrace();
-            Alert alert = new Alert(AlertType.ERROR);
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur");
             alert.setHeaderText(null);
             alert.setContentText("Une erreur s'est produite lors de l'affichage de la boîte de dialogue.");

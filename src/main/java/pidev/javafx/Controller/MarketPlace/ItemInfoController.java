@@ -2,7 +2,6 @@ package pidev.javafx.Controller.MarketPlace;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -10,10 +9,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import pidev.javafx.Model.MarketPlace.Bien;
-
-import java.net.URL;
-import java.util.ResourceBundle;
+import pidev.javafx.Controller.Tools.MyListener;
+import pidev.javafx.Model.MarketPlace.Product;
 
 public class ItemInfoController {
 
@@ -43,7 +40,8 @@ public class ItemInfoController {
 
     @FXML
     private ImageView userImage;
-
+    @FXML
+    private Label prodName;
     @FXML
     private Label userName;
     @FXML
@@ -52,30 +50,35 @@ public class ItemInfoController {
 
 
     private MyListener myListener;
-    private Bien bien;
+    private Product product;
 
-    public void setData(Bien bien,MyListener myListener) {
-        this.bien=bien;
+    public void setData(Product product,MyListener myListener) {
+        this.product=product;
         this.myListener=myListener;
         userName.setText("Omar Salhi");
-
-        itemImage.setImage(new Image(getClass().getResourceAsStream( bien.getImgSource())));
+        prodName.setText( product.getName() );
+        itemImage.setImage(new Image(getClass().getResourceAsStream( product.getImgSource())));
         itemDesc.setText( "qsfdgoauiehrtgpbea ufhgae ouifehg dfvb ae rhtgqfvhbj aert qfvhuaerçtg" );
-        priceLable.setText( Float.toString(bien.getPrice()) );
-        quantityLable.setText(Float.toString(bien.getQuantity())   );
-        stateLabel.setText((bien.getState())?"In Stock":"Out Of Stock");
+        priceLable.setText( Float.toString(product.getPrice()) );
+        quantityLable.setText(Float.toString(product.getQuantity())   );
+        stateLabel.setText((product.getState())?"In Stock":"Out Of Stock");
     }
 
-    public void setDataForLocalUser(Bien bien,double width) {
+    public void setDataForLocalUser(Product product, double width) {
         itemDeatails.getChildren().remove(exit);
         itemDeatails.getChildren().remove(userInfo);
-        this.bien=bien;
+        itemDeatails.setPrefHeight( itemDeatails.getPrefHeight()-100 );
+        this.product=product;
+        prodName.setStyle( "-fx-font-size: 20;" );
+        prodName.setText( product.getName().toUpperCase() );
+
         itemImage.setFitWidth( width );
-        itemImage.setImage(new Image(getClass().getResourceAsStream( bien.getImgSource()),width,width,false,false));
-        itemDesc.setText( "qsfdgoauiehrtgpbea ufhgae ouifehg dfvb ae rhtgqfvhbj aert qfvhuaerçtg" );
-        priceLable.setText( Float.toString(bien.getPrice()) );
-        quantityLable.setText(Float.toString(bien.getQuantity())   );
-        stateLabel.setText((bien.getState())?"In Stock":"Out Of Stock");
+        if(!product.getImgSource().isEmpty())
+            itemImage.setImage(new Image(getClass().getResourceAsStream( product.getImgSource()),width,width-20,false,false));
+        itemDesc.setText( product.getDescreption() );
+        priceLable.setText( Float.toString(product.getPrice()) );
+        quantityLable.setText(Float.toString(product.getQuantity())   );
+        stateLabel.setText((product.getState())?"In Stock":"Out Of Stock");
     }
 
     @FXML

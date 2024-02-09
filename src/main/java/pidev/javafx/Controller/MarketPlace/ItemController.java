@@ -1,6 +1,5 @@
 package pidev.javafx.Controller.MarketPlace;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -11,7 +10,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import pidev.javafx.Model.MarketPlace.Bien;
+import pidev.javafx.Controller.Tools.MyListener;
+import pidev.javafx.Model.MarketPlace.Product;
 
 public class ItemController {
     @FXML
@@ -34,20 +34,20 @@ public class ItemController {
     private VBox vboxItem;
 
 
-    private Bien bien;
+    private Product product;
     private MyListener myListener;
     private HBox hbox;
 
 
 
-    public void setData(Bien bien, MyListener myListener) {
-        this.bien = bien;
+    public void setData(Product product, MyListener myListener) {
+        this.product = product;
         this.myListener = myListener;
-        nameLabel.setText(bien.getName());
-        priceLable.setText( "$"+bien.getPrice());
-        stateLabel.setText((bien.getState())?"In Stock":"Out Of Stock");
-        categoryLable.setText(bien.getCategorie().name());
-        Image image = new Image(getClass().getResourceAsStream(bien.getImgSource()));
+        nameLabel.setText(product.getName());
+        priceLable.setText( "$"+product.getPrice());
+        stateLabel.setText((product.getState())?"In Stock":"Out Of Stock");
+        categoryLable.setText(product.getCategorie().name());
+        Image image = new Image(getClass().getResourceAsStream(product.getImgSource()));
         img.setImage(image);
         hbox=createItemsBtns();
     }
@@ -87,7 +87,7 @@ public class ItemController {
         info.setGraphic( new ImageView( img3 ));
 
 
-        info.setOnMouseClicked( event -> myListener.onClickListener( bien ) );
+        info.setOnMouseClicked( event -> myListener.onClickListener( product ) );
 
         hbox.getChildren().addAll( add2Card,trade,info );
         hbox.setSpacing( 10 );

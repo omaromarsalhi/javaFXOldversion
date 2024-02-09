@@ -1,19 +1,11 @@
 package pidev.javafx.Controller.UserMarketDashbord;
 
 import javafx.animation.PauseTransition;
-import javafx.beans.Observable;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,12 +14,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import pidev.javafx.Controller.MarketPlace.FormController;
-import pidev.javafx.Controller.MarketPlace.ItemController;
-import pidev.javafx.Controller.MarketPlace.ItemInfoController;
-import pidev.javafx.Controller.MarketPlace.MyListener;
-import pidev.javafx.Model.MarketPlace.Bien;
+import pidev.javafx.Controller.Crud.CrudProd;
+import pidev.javafx.Controller.MarketPlace.*;
+import pidev.javafx.Controller.Tools.MyListener;
 import pidev.javafx.Model.MarketPlace.Categorie;
+import pidev.javafx.Model.MarketPlace.Product;
 
 import java.io.IOException;
 import java.net.URL;
@@ -37,39 +28,37 @@ import java.util.*;
 public class MainDashbordController implements Initializable {
 
     @FXML
-    private TableColumn<Bien, String> descCol;
+    private TableColumn<Product, String> descCol;
     @FXML
-    private TableColumn<Bien, String> imgCol;
+    private TableColumn<Product, String> imgCol;
     @FXML
-    private TableColumn<Bien, String> nameCol;
+    private TableColumn<Product, String> nameCol;
     @FXML
-    private TableColumn<Bien, Float> priceCol;
+    private TableColumn<Product, Float> priceCol;
     @FXML
-    private TableColumn<Bien, Float> quantityCol;
+    private TableColumn<Product, Float> quantityCol;
     @FXML
-    private TableColumn<Bien, Boolean> stateCol;
+    private TableColumn<Product, Boolean> stateCol;
     @FXML
-    private TableColumn<Bien, Timestamp> timestampCol;
+    private TableColumn<Product, Timestamp> timestampCol;
     @FXML
-    private TableColumn<Bien, Categorie> categoryCol;
+    private TableColumn<Product, Categorie> categoryCol;
     @FXML
-    private TableView<Bien> ProductTable;
+    private TableView<Product> ProductTable;
     @FXML
-    private AnchorPane informationBar;
+    private VBox informationBar;
     @FXML
     private AnchorPane accountInfo;
-    @FXML
-    private Button updateBtn;
-    @FXML
-    private Button createBtn;
-    @FXML
-    private Button deleteBtn;
     @FXML
     private Button searchBtn;
     @FXML
     private HBox searchHbox;
     @FXML
     private TextField searchTextField;
+    @FXML
+    private MenuBar menuBar;
+    @FXML
+    private VBox helperBar;
 
 
     private VBox infoTemplate;
@@ -91,7 +80,9 @@ public class MainDashbordController implements Initializable {
         timestampCol.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
         categoryCol.setCellValueFactory(new PropertyValueFactory<>("categorie"));
 
-        ProductTable.setItems(getData());
+        ProductTable.setItems( CrudProd.getInstance().selectItems());
+
+        setMenueBar();
 
         PauseTransition pause = new PauseTransition( Duration.seconds(0.1));
         pause.setOnFinished(e -> {
@@ -110,19 +101,29 @@ public class MainDashbordController implements Initializable {
         searchTextField.setVisible( false );
         searchBtn.setStyle( "-fx-border-radius: 20;" );
 
-        eventHandler = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                System.out.println(event.getEventType());
-                animateSearchBar(String.valueOf( event.getEventType() ) );
-            }
+        eventHandler = event -> {
+            animateSearchBar(String.valueOf( event.getEventType() ) );
         };
         searchHbox.setOnMouseEntered(eventHandler);
     }
 
 
 
+    public void setMenueBar(){
+        var addProduct=new MenuItem("Add Prod",new ImageView(new Image(getClass().getResourceAsStream("/namedIcons/more.png"))));
+        var showProduct=new MenuItem("Show Prod",new ImageView(new Image(getClass().getResourceAsStream("/namedIcons/database.png"))));
+        addProduct.setOnAction( event -> {
+            setFormForAdd();
+        } );
+        menuBar.getMenus().get( 0 ).getItems().addAll(addProduct ,showProduct);
+
+        var addService=new MenuItem("Add Service",new ImageView(new Image(getClass().getResourceAsStream("/namedIcons/more.png"))));
+        var showService=new MenuItem("Show Service",new ImageView(new Image(getClass().getResourceAsStream("/namedIcons/database.png"))));
+        menuBar.getMenus().get( 1 ).getItems().addAll(addService ,showService);
+    }
+
     public void animateSearchBar(String eventType){
+
         if(eventType.equals("MOUSE_ENTERED")){
             animTimer.scheduleAtFixedRate(new TimerTask() {
                 @Override
@@ -165,10 +166,14 @@ public class MainDashbordController implements Initializable {
             }, 1000, 15);
         }
     }
-    @FXML
-    public void onCreateBtnClicked(){
+
+
+
+
+
+    public void setFormForAdd(){
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("/fxml/marketPlace/form.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("/fxml/marketPlace/secondForm.fxml"));
         VBox form = null;
         try {
             form = fxmlLoader.load();
@@ -176,9 +181,24 @@ public class MainDashbordController implements Initializable {
             throw new RuntimeException( e );
         }
         FormController formController = fxmlLoader.getController();
+        VBox finalForm = form;
+        MyListener listeener=new MyListener() {
+            @Override
+            public void exit() {
+                informationBar.getChildren().remove( finalForm );
+                loadInfoTemplate();
+                loadInfoOfSpecificItem(ProductTable.getItems().get(0));
+                informationBar.getChildren().add(infoTemplate);
+            }
+        };
+        formController.setExitFunction(listeener);
         informationBar.getChildren().remove(infoTemplate);
+        form.setPrefHeight(informationBar.getPrefHeight());
+        form.setPrefWidth(informationBar.getPrefWidth());
         informationBar.getChildren().add(form);
     }
+
+
 
 
 
@@ -194,29 +214,10 @@ public class MainDashbordController implements Initializable {
         infoTemplateController = fxmlLoader.getController();
     }
 
-    public void loadInfoOfSpecificItem(Bien bien) {
-        infoTemplateController.setDataForLocalUser(bien,(accountInfo.getWidth()/2));
-        infoTemplate.setPrefHeight( informationBar.getPrefHeight());
+    public void loadInfoOfSpecificItem(Product product) {
+        infoTemplateController.setDataForLocalUser(product,(accountInfo.getWidth()/2));
+        infoTemplate.setPrefHeight( informationBar.getPrefHeight()-40);
+//        infoTemplate.setPrefWidth( informationBar.getPrefWidth()-20);
     }
 
-
-    public ObservableList<Bien> getData() {
-        ObservableList<Bien> biens = FXCollections.observableArrayList();
-        for(int i=0;i<40;i++){
-            biens.add(new Bien(i,1,"Product_"+i,"zetgrtgh ergh ey hnrtuj yuikj,r tyhn","/icons/"+i+".png",i*25f,20f,false,new Timestamp(System.currentTimeMillis()), Categorie.ENTERTAINMENT ) );
-        }
-        biens.get( 0 ).setImgSource( "/img/banana.png" );
-        biens.get( 1 ).setImgSource( "/img/cherry.png" );
-        biens.get( 2 ).setImgSource( "/img/coconut.png" );
-        biens.get( 3 ).setImgSource( "/img/grapes.png" );
-        biens.get( 4).setImgSource( "/img/ic_cart.png" );
-        biens.get( 5 ).setImgSource( "/img/ic_delivery.png" );
-        biens.get( 6 ).setImgSource( "/img/kiwi.png" );
-        biens.get( 7 ).setImgSource( "/img/mango.png" );
-
-        for(int i=0;i<40;i++){
-            biens.get(i).setImage(new ImageView(new Image(getClass().getResourceAsStream(biens.get(i).getImgSource()),35,35,false,false)));
-        }
-        return biens;
-    }
 }

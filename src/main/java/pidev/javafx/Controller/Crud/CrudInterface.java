@@ -12,6 +12,6 @@ public interface CrudInterface<T> {
     ObservableList<T> selectItems();
     T selectFirstItems();
 
-    void deleteItem(T variable);
+    void deleteItem(int id);
 }
 

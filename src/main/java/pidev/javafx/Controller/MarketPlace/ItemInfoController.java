@@ -2,6 +2,8 @@ package pidev.javafx.Controller.MarketPlace;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -9,8 +11,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import pidev.javafx.Controller.Crud.CrudBien;
+import pidev.javafx.Controller.Tools.CustomMouseEvent;
+import pidev.javafx.Controller.Tools.EventBus;
 import pidev.javafx.Controller.Tools.MyListener;
+import pidev.javafx.Model.MarketPlace.Bien;
 import pidev.javafx.Model.MarketPlace.Product;
+
+import static javafx.scene.layout.TilePane.setMargin;
 
 public class ItemInfoController {
 
@@ -51,6 +59,7 @@ public class ItemInfoController {
 
     private MyListener myListener;
     private Product product;
+    private HBox infoTemplateBtn;
 
     public void setData(Product product,MyListener myListener) {
         this.product=product;
@@ -79,6 +88,43 @@ public class ItemInfoController {
         priceLable.setText( Float.toString(product.getPrice()) );
         quantityLable.setText(Float.toString(product.getQuantity())   );
         stateLabel.setText((product.getState())?"In Stock":"Out Of Stock");
+        if(infoTemplateBtn==null) {
+            createUpdateAndDeleteBtns();
+            itemDeatails.getChildren().add( infoTemplateBtn );
+        }
+    }
+
+    public void createUpdateAndDeleteBtns(){
+        infoTemplateBtn=new HBox();
+
+        Button update= new Button();
+        Button delete = new Button();
+
+        update.setPrefWidth( 50 );
+        delete.setPrefWidth( 50 );
+
+        update.setPrefHeight( 32 );
+        delete.setPrefHeight( 32 );
+
+        Image img1= new Image(String.valueOf( getClass().getResource("/namedIcons/social.png") ));
+        Image img2= new Image(String.valueOf( getClass().getResource("/namedIcons/delete.png")));
+
+        update.setGraphic( new ImageView( img1 ));
+        delete.setGraphic( new ImageView( img2 ));
+
+        delete.setOnAction( event -> {
+            CustomMouseEvent<Bien> customMouseEvent=new CustomMouseEvent<>((Bien) product);
+            CrudBien.getInstance().deleteItem( product.getId());
+            EventBus.getInstance().publish( "refreshTable",customMouseEvent);
+        } );
+
+
+        infoTemplateBtn.getChildren().addAll( update,delete );
+        infoTemplateBtn.setSpacing( 20 );
+        infoTemplateBtn.setAlignment( Pos.CENTER);
+        infoTemplateBtn.setId( "itemInfo" );
+        infoTemplateBtn.getStylesheets().add( String.valueOf( getClass().getResource("/style/Buttons.css") ) );
+        infoTemplateBtn.setPadding( new Insets( 20,0,0,0 ) );
     }
 
     @FXML

@@ -8,6 +8,7 @@ import java.util.Map;
 
 public class EventBus {
     private static final EventBus instance = new EventBus();
+
     private final Map<String, EventHandler<?>> handlers = new HashMap<>();
 
     public static EventBus getInstance() {

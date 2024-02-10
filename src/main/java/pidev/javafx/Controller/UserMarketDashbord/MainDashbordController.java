@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -16,6 +17,8 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import pidev.javafx.Controller.Crud.CrudBien;
 import pidev.javafx.Controller.MarketPlace.*;
+import pidev.javafx.Controller.Tools.CustomMouseEvent;
+import pidev.javafx.Controller.Tools.EventBus;
 import pidev.javafx.Controller.Tools.MyListener;
 import pidev.javafx.Model.MarketPlace.Bien;
 import pidev.javafx.Model.MarketPlace.Categorie;
@@ -65,7 +68,7 @@ public class MainDashbordController implements Initializable {
     private VBox infoTemplate;
     private ItemInfoController infoTemplateController;
     private Timer animTimer;
-    EventHandler<MouseEvent> eventHandler;
+    private EventHandler<MouseEvent> eventHandler;
 
 
 
@@ -81,7 +84,7 @@ public class MainDashbordController implements Initializable {
         timestampCol.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
         categoryCol.setCellValueFactory(new PropertyValueFactory<>("categorie"));
 
-        ProductTable.setItems( CrudBien.getInstance().selectItems());
+        ProductTable.setItems(CrudBien.getInstance().selectItems());
 
         setMenueBar();
 
@@ -89,13 +92,15 @@ public class MainDashbordController implements Initializable {
         pause.setOnFinished(e -> {
             loadInfoTemplate();
             loadInfoOfSpecificItem(ProductTable.getItems().get(0));
-            informationBar.getChildren().add(infoTemplate);
+            informationBar.getChildren().addAll(infoTemplate);
         });
         pause.play();
 
         ProductTable.setOnMouseClicked( event -> {
             loadInfoOfSpecificItem(ProductTable.getSelectionModel().getSelectedItem());
         } );
+
+        EventBus.getInstance().subscribe( "refreshTable",this::refreshTable );
 
 
         animTimer = new Timer();
@@ -168,10 +173,6 @@ public class MainDashbordController implements Initializable {
         }
     }
 
-
-
-
-
     public void setFormForAdd(){
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/fxml/marketPlace/secondForm.fxml"));
@@ -199,10 +200,6 @@ public class MainDashbordController implements Initializable {
         informationBar.getChildren().add(form);
     }
 
-
-
-
-
     public void loadInfoTemplate() {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/fxml/marketPlace/itemInfo.fxml"));
@@ -218,7 +215,13 @@ public class MainDashbordController implements Initializable {
     public void loadInfoOfSpecificItem(Product product) {
         infoTemplateController.setDataForLocalUser(product,(accountInfo.getWidth()/2));
         infoTemplate.setPrefHeight( informationBar.getPrefHeight()-40);
-//        infoTemplate.setPrefWidth( informationBar.getPrefWidth()-20);
+
+    }
+
+    public void refreshTable(CustomMouseEvent<Bien> event){
+        ProductTable.getItems().remove( event.getEventData() );
+        ProductTable.refresh();
+        loadInfoOfSpecificItem(ProductTable.getItems().get(0));
     }
 
 }

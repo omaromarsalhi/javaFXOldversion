@@ -57,14 +57,14 @@ public class CrudBien implements CrudInterface<Bien> {
         }
     }
 
-    public void deleteItem(Bien bien) {
-        String sql = "DELETE FROM products WHERE id = ?";
+    public void deleteItem(int id) {
+        String sql = "DELETE FROM products WHERE idProd = ?";
 
         connect = ConnectionDB.connectDb();
 
         try {
             prepare = connect.prepareStatement(sql);
-            prepare.setInt(1, bien.getId());
+            prepare.setInt(1, id);
             prepare.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error deleting item: " + e.getMessage());
@@ -72,7 +72,7 @@ public class CrudBien implements CrudInterface<Bien> {
     }
 
     public void updateItem(Bien bien) {
-        String sql = "UPDATE products SET name = ?, descreption = ?, imgSource = ?, price = ?, quantity = ?, state = ?, category = ? WHERE id = ?";
+        String sql = "UPDATE products SET name = ?, descreption = ?, imgSource = ?, price = ?, quantity = ?, state = ?, category = ? WHERE idProd = ?";
 
         connect = ConnectionDB.connectDb();
 
@@ -105,7 +105,7 @@ public class CrudBien implements CrudInterface<Bien> {
             result = prepare.executeQuery();
 
             while (result.next()) {
-                bien=new Bien(result.getInt("idBien"),
+                bien=new Bien(result.getInt("idProd"),
                         result.getInt("idUser"),
                         result.getString("name"),
                         result.getString("descreption"),

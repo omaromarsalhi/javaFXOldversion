@@ -119,14 +119,14 @@ public class CrudContrat implements CrudInterface<Contrat> {
     }
 
     @Override
-    public void deleteItem(Contrat contrat) {
+    public void deleteItem(int id) {
         try {
             String deleteQuery = "DELETE FROM contrats WHERE idContrat = ?";
 
             connect = ConnectionDB.connectDb();
 
             prepare = connect.prepareStatement( deleteQuery );
-            prepare.setInt( 1, contrat.getIdContrat() );
+            prepare.setInt( 1, id );
             prepare.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

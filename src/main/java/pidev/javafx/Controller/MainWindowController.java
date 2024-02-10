@@ -3,6 +3,7 @@ package pidev.javafx.Controller;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,12 +13,19 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import org.w3c.dom.NodeList;
+import pidev.javafx.Controller.Contrat.CheckOutController;
+import pidev.javafx.Controller.MarketPlace.ItemController;
+import pidev.javafx.Controller.Tools.CustomMouseEvent;
+import pidev.javafx.Controller.Tools.EventBus;
+import pidev.javafx.Model.MarketPlace.Bien;
+import pidev.javafx.Model.MarketPlace.Product;
 
 import java.io.IOException;
 import java.net.URL;
@@ -48,8 +56,12 @@ public class MainWindowController implements Initializable {
     @FXML
     private MenuButton menubottons;
 
+
+    private HBox mainhBox;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        EventBus.getInstance().subscribe( "laodCheckOut",this::laodCheckOut );
+        EventBus.getInstance().subscribe( "laodMarketPlace",this::onMarketPlaceBtnClicked );
     }
 //    btns that changes the scenes
     @FXML
@@ -65,11 +77,32 @@ public class MainWindowController implements Initializable {
     }
 
     @FXML
-    public void onMarketPlaceBtnClicked(ActionEvent event) throws IOException {
-        HBox hBox = FXMLLoader.load(getClass().getResource( "/fxml/marketPlace/myMarket.fxml" ));
-        hBox.setMaxHeight(MainAnchorPane.getPrefHeight()  );
-        hBox.setMaxWidth( MainAnchorPane.getPrefWidth());
-        mainBorderPain.setCenter(hBox);
+    public void onMarketPlaceBtnClicked(ActionEvent event){
+        mainBorderPain.getChildren().remove(mainhBox);
+        try {
+            mainhBox = FXMLLoader.load(getClass().getResource( "/fxml/marketPlace/myMarket.fxml" ));
+        } catch (IOException e) {
+            throw new RuntimeException( e );
+        }
+        mainhBox.setMaxHeight(MainAnchorPane.getPrefHeight()  );
+        mainhBox.setMaxWidth( MainAnchorPane.getPrefWidth());
+        mainBorderPain.setCenter(mainhBox);
+    }
+
+    public void laodCheckOut(CustomMouseEvent<Bien> event) {
+        mainBorderPain.getChildren().remove(mainhBox);
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/fxml/Contrat/checkOut.fxml"));
+            mainhBox = fxmlLoader.load();
+            CheckOutController checkOutController = fxmlLoader.getController();
+            checkOutController.setData(event.getEventData());
+        } catch (IOException e) {
+            throw new RuntimeException( e );
+        }
+        mainhBox.setMaxHeight(MainAnchorPane.getPrefHeight()  );
+        mainhBox.setMaxWidth( MainAnchorPane.getPrefWidth());
+        mainBorderPain.setCenter(mainhBox);
     }
 
 }

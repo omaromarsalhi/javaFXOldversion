@@ -13,10 +13,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import pidev.javafx.Controller.Crud.CrudProd;
+import pidev.javafx.Controller.Crud.CrudBien;
 import pidev.javafx.Controller.Tools.MyListener;
+import pidev.javafx.Model.MarketPlace.Bien;
 import pidev.javafx.Model.MarketPlace.Categorie;
-import pidev.javafx.Model.MarketPlace.Product;
 
 import java.io.File;
 import java.net.URL;
@@ -78,7 +78,7 @@ public class FormController implements Initializable {
 
 
     public void onAddBienClicked() {
-        Product product =new Product( 0,
+        Bien bien =new Bien( 0,
                 1,
                 Pname.getText(),
                 Pdescretion.getText(),
@@ -87,9 +87,8 @@ public class FormController implements Initializable {
                 Float.parseFloat( Pquantity.getText()),
                 Boolean.TRUE,
                 Timestamp.valueOf( LocalDateTime.now() ),
-                "BIEN",
                 Pcategory.getValue());
-        CrudProd.getInstance().addItem(product);
+        CrudBien.getInstance().addItem(bien);
     }
 
 

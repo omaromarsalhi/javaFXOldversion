@@ -11,14 +11,13 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
-import pidev.javafx.Controller.Crud.CrudProd;
+import pidev.javafx.Controller.Crud.CrudBien;
 import pidev.javafx.Controller.Tools.MyListener;
-import pidev.javafx.Model.MarketPlace.Categorie;
+import pidev.javafx.Model.MarketPlace.Bien;
 import pidev.javafx.Model.MarketPlace.Product;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.*;
 import java.util.*;
 
 public class MarketController implements Initializable {
@@ -39,9 +38,10 @@ public class MarketController implements Initializable {
 
 
 
-    private List<Product> products = new ArrayList<>();
+    private List<Bien> biens = new ArrayList<>();
     private Image image;
     private MyListener myListener;
+    private MyListener MainWindowListener;
 
 
 
@@ -88,8 +88,8 @@ public class MarketController implements Initializable {
 
 
     public void showGridPane(){
-        products= CrudProd.getInstance().selectItems();
-        if (products.size() > 0) {
+        biens= CrudBien.getInstance().selectItems();
+        if (biens.size() > 0) {
             try {
                 hepfullBar = FXMLLoader.load(getClass().getResource( "/fxml/marketPlace/helpfullBar.fxml" ));
                 mainHbox.getChildren().add(hepfullBar);
@@ -111,7 +111,7 @@ public class MarketController implements Initializable {
                                 animateChanges(vBox,hepfullBar);
                             }
                         };
-                        itemInfoController.setData( products.get( 0 ), myListener );
+                        itemInfoController.setData( biens.get( 0 ), myListener );
                         animateChanges(hepfullBar,vBox);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -122,13 +122,13 @@ public class MarketController implements Initializable {
         int column = 0;
         int row = 1;
         try {
-            for (int i = 0; i < products.size(); i++) {
+            for (int i = 0; i < biens.size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
                 fxmlLoader.setLocation(getClass().getResource("/fxml/marketPlace/item.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
 
                 ItemController itemController = fxmlLoader.getController();
-                itemController.setData(products.get(i),myListener);
+                itemController.setData(biens.get(i),myListener);
                 getProduct(anchorPane,itemController);
                 if (column == 3) {
                     column = 0;
@@ -154,6 +154,9 @@ public class MarketController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public void setMainWindowListener(MyListener listener){
+        MainWindowListener=listener;
     }
 
 

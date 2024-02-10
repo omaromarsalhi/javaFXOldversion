@@ -14,9 +14,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import pidev.javafx.Controller.Crud.CrudProd;
+import pidev.javafx.Controller.Crud.CrudBien;
 import pidev.javafx.Controller.MarketPlace.*;
 import pidev.javafx.Controller.Tools.MyListener;
+import pidev.javafx.Model.MarketPlace.Bien;
 import pidev.javafx.Model.MarketPlace.Categorie;
 import pidev.javafx.Model.MarketPlace.Product;
 
@@ -28,23 +29,23 @@ import java.util.*;
 public class MainDashbordController implements Initializable {
 
     @FXML
-    private TableColumn<Product, String> descCol;
+    private TableColumn<Bien, String> descCol;
     @FXML
-    private TableColumn<Product, String> imgCol;
+    private TableColumn<Bien, String> imgCol;
     @FXML
-    private TableColumn<Product, String> nameCol;
+    private TableColumn<Bien, String> nameCol;
     @FXML
-    private TableColumn<Product, Float> priceCol;
+    private TableColumn<Bien, Float> priceCol;
     @FXML
-    private TableColumn<Product, Float> quantityCol;
+    private TableColumn<Bien, Float> quantityCol;
     @FXML
-    private TableColumn<Product, Boolean> stateCol;
+    private TableColumn<Bien, Boolean> stateCol;
     @FXML
-    private TableColumn<Product, Timestamp> timestampCol;
+    private TableColumn<Bien, Timestamp> timestampCol;
     @FXML
-    private TableColumn<Product, Categorie> categoryCol;
+    private TableColumn<Bien, Categorie> categoryCol;
     @FXML
-    private TableView<Product> ProductTable;
+    private TableView<Bien> ProductTable;
     @FXML
     private VBox informationBar;
     @FXML
@@ -80,7 +81,7 @@ public class MainDashbordController implements Initializable {
         timestampCol.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
         categoryCol.setCellValueFactory(new PropertyValueFactory<>("categorie"));
 
-        ProductTable.setItems( CrudProd.getInstance().selectItems());
+        ProductTable.setItems( CrudBien.getInstance().selectItems());
 
         setMenueBar();
 

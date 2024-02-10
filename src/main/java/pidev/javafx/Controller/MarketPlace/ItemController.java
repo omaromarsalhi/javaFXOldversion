@@ -1,5 +1,7 @@
 package pidev.javafx.Controller.MarketPlace;
 
+import javafx.application.Application;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -7,10 +9,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import pidev.javafx.Controller.MainWindowController;
+import pidev.javafx.Controller.Tools.CustomMouseEvent;
+import pidev.javafx.Controller.Tools.EventBus;
 import pidev.javafx.Controller.Tools.MyListener;
+import pidev.javafx.Model.MarketPlace.Bien;
 import pidev.javafx.Model.MarketPlace.Product;
 
 public class ItemController {
@@ -34,20 +41,20 @@ public class ItemController {
     private VBox vboxItem;
 
 
-    private Product product;
+    private Bien bien;
     private MyListener myListener;
     private HBox hbox;
 
 
 
-    public void setData(Product product, MyListener myListener) {
-        this.product = product;
+    public void setData(Bien bien, MyListener myListener) {
+        this.bien = bien;
         this.myListener = myListener;
-        nameLabel.setText(product.getName());
-        priceLable.setText( "$"+product.getPrice());
-        stateLabel.setText((product.getState())?"In Stock":"Out Of Stock");
-        categoryLable.setText(product.getCategorie().name());
-        Image image = new Image(getClass().getResourceAsStream(product.getImgSource()));
+        nameLabel.setText(bien.getName());
+        priceLable.setText( "$"+bien.getPrice());
+        stateLabel.setText((bien.getState())?"In Stock":"Out Of Stock");
+        categoryLable.setText(bien.getCategorie().name());
+        Image image = new Image(getClass().getResourceAsStream(bien.getImgSource()));
         img.setImage(image);
         hbox=createItemsBtns();
     }
@@ -87,7 +94,11 @@ public class ItemController {
         info.setGraphic( new ImageView( img3 ));
 
 
-        info.setOnMouseClicked( event -> myListener.onClickListener( product ) );
+        add2Card.setOnMouseClicked( event -> {
+            CustomMouseEvent<Product> customEvent = new CustomMouseEvent<>(bien);
+            EventBus.getInstance().publish( "laodCheckOut",customEvent);
+        });
+        info.setOnMouseClicked( event -> myListener.onClickListener( bien ) );
 
         hbox.getChildren().addAll( add2Card,trade,info );
         hbox.setSpacing( 10 );

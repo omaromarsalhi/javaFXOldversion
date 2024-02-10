@@ -16,11 +16,10 @@ public class Product {
     private Timestamp timestamp;
     private ImageView image;
     private String type;
-    private Categorie categorie;
 
     public Product() {}
 
-    public Product(int id, int idUser, String name, String descreption, String imgSource, Float price, Float quantity, Boolean state, Timestamp timestamp, String type, Categorie categorie) {
+    public Product(int id, int idUser, String name, String descreption, String imgSource, Float price, Float quantity, Boolean state, Timestamp timestamp, String type) {
         this.id = id;
         this.idUser = idUser;
         this.name = name;
@@ -31,7 +30,6 @@ public class Product {
         this.state = state;
         this.timestamp = timestamp;
         this.type = type;
-        this.categorie = categorie;
     }
 
 
@@ -119,13 +117,6 @@ public class Product {
         this.type = type;
     }
 
-    public Categorie getCategorie() {
-        return categorie;
-    }
-
-    public void setCategorie(Categorie categorie) {
-        this.categorie = categorie;
-    }
 
 
 

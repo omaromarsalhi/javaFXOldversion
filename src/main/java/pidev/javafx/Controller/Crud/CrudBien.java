@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import pidev.javafx.Model.MarketPlace.Categorie;
-import pidev.javafx.Model.MarketPlace.Product;
+import pidev.javafx.Model.MarketPlace.Bien;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -18,23 +18,23 @@ import java.sql.SQLException;
 import java.util.Random;
 import java.util.UUID;
 
-public class CrudProd implements CrudInterface<Product> {
+public class CrudBien implements CrudInterface<Bien> {
 
     private Connection connect;
     private PreparedStatement prepare;
     private  ResultSet result;
-    private static CrudProd instance;
+    private static CrudBien instance;
 
-    private CrudProd() {}
+    private CrudBien() {}
 
-    public static CrudProd getInstance() {
+    public static CrudBien getInstance() {
         if (instance == null)
-            instance = new CrudProd();
+            instance = new CrudBien();
         return instance;
     }
 
-    public void addItem(Product prod) {
-        String sql = "INSERT INTO product "
+    public void addItem(Bien bien) {
+        String sql = "INSERT INTO products "
                 + "(idUser, name, descreption, imgSource, price, quantity, state, type, category)"
                 + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -43,49 +43,49 @@ public class CrudProd implements CrudInterface<Product> {
         try {
             prepare = connect.prepareStatement(sql);
             prepare.setInt(1, 1);
-            prepare.setString(2, prod.getName());
-            prepare.setString(3, prod.getDescreption());
-            prepare.setString(4, getPathAndSaveIMG(prod.getImgSource()));
-            prepare.setFloat(5, prod.getPrice());
-            prepare.setFloat(6, prod.getQuantity());
-            prepare.setString(7, (prod.getState()) ? "1" : "0");
+            prepare.setString(2, bien.getName());
+            prepare.setString(3, bien.getDescreption());
+            prepare.setString(4, getPathAndSaveIMG(bien.getImgSource()));
+            prepare.setFloat(5, bien.getPrice());
+            prepare.setFloat(6, bien.getQuantity());
+            prepare.setString(7, (bien.getState()) ? "1" : "0");
             prepare.setString(8, "BIEN");
-            prepare.setString(9, prod.getCategorie().toString());
+            prepare.setString(9, bien.getCategorie().toString());
             prepare.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error adding item: " + e.getMessage());
         }
     }
 
-    public void deleteItem(Product prod) {
-        String sql = "DELETE FROM product WHERE id = ?";
+    public void deleteItem(Bien bien) {
+        String sql = "DELETE FROM products WHERE id = ?";
 
         connect = ConnectionDB.connectDb();
 
         try {
             prepare = connect.prepareStatement(sql);
-            prepare.setInt(1, prod.getId());
+            prepare.setInt(1, bien.getId());
             prepare.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error deleting item: " + e.getMessage());
         }
     }
 
-    public void updateItem(Product prod) {
-        String sql = "UPDATE product SET name = ?, descreption = ?, imgSource = ?, price = ?, quantity = ?, state = ?, category = ? WHERE id = ?";
+    public void updateItem(Bien bien) {
+        String sql = "UPDATE products SET name = ?, descreption = ?, imgSource = ?, price = ?, quantity = ?, state = ?, category = ? WHERE id = ?";
 
         connect = ConnectionDB.connectDb();
 
         try {
             prepare = connect.prepareStatement(sql);
-            prepare.setString(1, prod.getName());
-            prepare.setString(2, prod.getDescreption());
-            prepare.setString(3, getPathAndSaveIMG(prod.getImgSource()));
-            prepare.setFloat(4, prod.getPrice());
-            prepare.setFloat(5, prod.getQuantity());
-            prepare.setString(6, (prod.getState()) ? "1" : "0");
-            prepare.setString(7, prod.getCategorie().toString());
-            prepare.setInt(8, prod.getId());
+            prepare.setString(1, bien.getName());
+            prepare.setString(2, bien.getDescreption());
+            prepare.setString(3, getPathAndSaveIMG(bien.getImgSource()));
+            prepare.setFloat(4, bien.getPrice());
+            prepare.setFloat(5, bien.getQuantity());
+            prepare.setString(6, (bien.getState()) ? "1" : "0");
+            prepare.setString(7, bien.getCategorie().toString());
+            prepare.setInt(8, bien.getId());
             prepare.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error updating item: " + e.getMessage());
@@ -93,19 +93,19 @@ public class CrudProd implements CrudInterface<Product> {
     }
 
     @Override
-    public ObservableList<Product> selectItems() {
-        Product product = null;
-        String sql = "SELECT * FROM product"; // Retrieve all items
+    public ObservableList<Bien> selectItems() {
+        Bien bien = null;
+        String sql = "SELECT * FROM products"; // Retrieve all items
 
         connect = ConnectionDB.connectDb();
-        ObservableList<Product> productList = FXCollections.observableArrayList();
+        ObservableList<Bien> BienList = FXCollections.observableArrayList();
 
         try {
             prepare = connect.prepareStatement(sql);
             result = prepare.executeQuery();
 
             while (result.next()) {
-                product=new Product(result.getInt("idBien"),
+                bien=new Bien(result.getInt("idBien"),
                         result.getInt("idUser"),
                         result.getString("name"),
                         result.getString("descreption"),
@@ -114,55 +114,22 @@ public class CrudProd implements CrudInterface<Product> {
                         result.getFloat("quantity"),
                         result.getBoolean("state"),
                         result.getTimestamp("timestamp"),
-                        result.getString("type"),
                         Categorie.valueOf(result.getString("category")));
-                product.setImage(new ImageView(new Image( CrudProd.class.getResourceAsStream(product.getImgSource()),35,35,false,false)));
-                productList.add(product);
+                bien.setImage(new ImageView(new Image( CrudBien.class.getResourceAsStream(bien.getImgSource()),35,35,false,false)));
+                BienList.add(bien);
             }
         } catch (SQLException e) {
             System.out.println("Error selecting items: " + e.getMessage());
         }
 
-        return productList;
+        return BienList;
     }
 
     @Override
-    public Product selectFirstItems() {
+    public Bien selectFirstItems() {
         return null;
     }
 
-
-//    public Product selectFirstItems() {
-//        String sql = "SELECT * FROM product LIMIT 1"; // Adjust the query as needed
-//
-//        connect = ConnectionDB.connectDb();
-//        Product product = null;
-//
-//        try {
-//            prepare = connect.prepareStatement(sql);
-//            result = prepare.executeQuery();
-//
-//            if (result.next()) {
-//                product=new Product(result.getInt("idBien"),
-//                        result.getInt("idUser"),
-//                        result.getString("name"),
-//                        result.getString("descreption"),
-//                        result.getString("imgSource"),
-//                        result.getFloat("price"),
-//                        result.getFloat("quantity"),
-//                        result.getBoolean("state"),
-//                        result.getTimestamp("timestamp"),
-//                        result.getTimestamp("type"),
-//                        Categorie.valueOf(result.getString("category") ));
-//                product.setImage(new ImageView(new Image( CrudProd.class.getResourceAsStream(bien.getImgSource()),35,35,false,false)));
-//                listData.add(product);
-//            }
-//        } catch (SQLException e) {
-//            System.out.println("Error selecting first item: " + e.getMessage());
-//        }
-//
-//        return firstProduct;
-//    }
 
 
     private  String getPathAndSaveIMG(String chosenFilePath){
@@ -218,7 +185,7 @@ public class CrudProd implements CrudInterface<Product> {
 //import javafx.scene.image.ImageView;
 //import pidev.javafx.Model.MarketPlace.Bien;
 //import pidev.javafx.Model.MarketPlace.Categorie;
-//import pidev.javafx.Model.MarketPlace.Product;
+//import pidev.javafx.Model.MarketPlace.Bien;
 //
 //import javax.imageio.ImageIO;
 //import java.awt.image.BufferedImage;
@@ -227,7 +194,7 @@ public class CrudProd implements CrudInterface<Product> {
 //import java.sql.*;
 //import java.util.Random;
 //
-//public class CrudProd implements CrudInterface<Product> {
+//public class CrudBien implements CrudInterface<Bien> {
 //
 //
 //    private  Connection connect;
@@ -237,9 +204,9 @@ public class CrudProd implements CrudInterface<Product> {
 //
 //
 //
-//    public void addItem(Product prod) {
+//    public void addItem(Bien bien) {
 //
-//        String sql = "INSERT INTO product "
+//        String sql = "INSERT INTO Bien "
 //                + "(idUser,name,descreption,imgSource,price,quantity,state,type,category)"
 //                + "VALUES(?,?,?,?,?,?,?,?)";
 //
@@ -248,41 +215,41 @@ public class CrudProd implements CrudInterface<Product> {
 //        try {
 //            prepare = connect.prepareStatement(sql);
 //            prepare.setInt(1, 1);
-//            prepare.setString(2, prod.getName());
-//            prepare.setString(3, prod.getDescreption());
-//            prepare.setString(4, getPathAndSaveIMG(prod.getImgSource()));
-//            prepare.setFloat(5, prod.getPrice());
-//            prepare.setFloat(6, prod.getQuantity());
-//            prepare.setString(7, (prod.getState())?"1":"0");
+//            prepare.setString(2, bien.getName());
+//            prepare.setString(3, bien.getDescreption());
+//            prepare.setString(4, getPathAndSaveIMG(bien.getImgSource()));
+//            prepare.setFloat(5, bien.getPrice());
+//            prepare.setFloat(6, bien.getQuantity());
+//            prepare.setString(7, (bien.getState())?"1":"0");
 //            prepare.setString(8, "BIEN");
-//            prepare.setString(8, prod.getCategorie().toString());
+//            prepare.setString(8, bien.getCategorie().toString());
 //            prepare.executeUpdate();
 //        } catch (Exception e) {
 //            System.out.println(e.getMessage());
 //        }
 //    }
 //
-//    public  void deletItem(Product prod) {
+//    public  void deletItem(Bien bien) {
 //
 //    }
 //
 //
-//    public  void updateItem(Product prod) {
-//
-//    }
-//
-//    @Override
-//    public void deleteItem(Product prod) {
+//    public  void updateItem(Bien bien) {
 //
 //    }
 //
 //    @Override
-//    public void selectItems(Product prod) {
+//    public void deleteItem(Bien bien) {
+//
+//    }
+//
+//    @Override
+//    public void selectItems(Bien bien) {
 //
 //    }
 //
 //
-//    public  Product selectFirstItems() {
+//    public  Bien selectFirstItems() {
 //        return null;
 //    }
 //

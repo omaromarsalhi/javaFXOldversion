@@ -10,13 +10,13 @@ public class Contrat {
     private int idPartA;
     private int idPartB;
     private int idItem;
-    private Timestamp effectiveDate;
-    private Timestamp terminationDate;
+    private String effectiveDate;
+    private String terminationDate;
     private String purpose;
     private String termsAndConditions;
     private PaymentMethod paymentMethod;
 
-    public Contrat(int idContrat, String title, int idPartA, int idPartB, int idItem, Timestamp effectiveDate, Timestamp terminationDate, String purpose, String termsAndConditions, PaymentMethod paymentMethod) {
+    public Contrat(int idContrat, String title, int idPartA, int idPartB, int idItem, String effectiveDate, String terminationDate, String purpose, String termsAndConditions, PaymentMethod paymentMethod) {
         this.idContrat = idContrat;
         this.title = title;
         this.idPartA = idPartA;
@@ -70,19 +70,19 @@ public class Contrat {
         this.idItem = idItem;
     }
 
-    public Timestamp getEffectiveDate() {
+    public String getEffectiveDate() {
         return effectiveDate;
     }
 
-    public void setEffectiveDate(Timestamp effectiveDate) {
+    public void setEffectiveDate(String effectiveDate) {
         this.effectiveDate = effectiveDate;
     }
 
-    public Timestamp getTerminationDate() {
+    public String getTerminationDate() {
         return terminationDate;
     }
 
-    public void setTerminationDate(Timestamp terminationDate) {
+    public void setTerminationDate(String terminationDate) {
         this.terminationDate = terminationDate;
     }
 

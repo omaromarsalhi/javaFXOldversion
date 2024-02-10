@@ -5,6 +5,7 @@ module pidev.javafx{
     requires transitive javafx.base;
     requires transitive javafx.graphics;
     requires transitive java.desktop;
+    requires itextpdf;
 
     opens pidev.javafx to javafx.fxml;
     exports pidev.javafx;
@@ -19,5 +20,7 @@ module pidev.javafx{
     opens pidev.javafx.Controller.Crud to javafx.fxml;
     exports pidev.javafx.Controller.Tools;
     opens pidev.javafx.Controller.Tools to javafx.fxml;
+    exports pidev.javafx.Controller.Contrat;
+    opens pidev.javafx.Controller.Contrat to javafx.fxml;
 }
 

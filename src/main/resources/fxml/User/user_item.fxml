@@ -7,67 +7,67 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox fx:id="hbox" prefHeight="42.0" prefWidth="575.0" style="-fx-background-color: #C8C8C8;" styleClass="Hbox1" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidev.javafx.Controller.User.UseritemController">
+<HBox fx:id="hbox" prefHeight="46.0" prefWidth="575.0" styleClass="Hbox1" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidev.javafx.Controller.User.UseritemController">
    <children>
       <ImageView fx:id="image" fitHeight="59.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../img/omarmarrakchi.png" />
          </image>
          <HBox.margin>
-            <Insets left="5.0" top="4.0" />
+            <Insets bottom="4.0" left="10.0" top="4.0" />
          </HBox.margin>
       </ImageView>
       <Label fx:id="firstname" prefHeight="17.0" prefWidth="52.0" text="latifa ">
          <HBox.margin>
-            <Insets left="30.0" top="10.0" />
+            <Insets left="45.0" top="10.0" />
          </HBox.margin>
       </Label>
       <Label fx:id="lastname" prefHeight="17.0" prefWidth="68.0" text="benzied">
          <HBox.margin>
-            <Insets left="30.0" top="10.0" />
+            <Insets left="50.0" top="10.0" />
          </HBox.margin>
       </Label>
       <Label fx:id="email" prefHeight="17.0" prefWidth="146.0" text="latifa.benzaied@esprit.tn">
          <HBox.margin>
-            <Insets left="30.0" top="10.0" />
+            <Insets left="10.0" top="10.0" />
          </HBox.margin>
       </Label>
-      <HBox prefHeight="0.0" prefWidth="159.0">
+      <HBox prefHeight="46.0" prefWidth="118.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="28.0" prefWidth="38.0">
+            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="28.0" prefWidth="20.0">
                <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../icons/supprimer.png" />
+                        <Image url="@../../icons/supprimer%20(1).png" />
                      </image>
                   </ImageView>
                </graphic>
                <HBox.margin>
-                  <Insets left="20.0" top="5.0" />
+                  <Insets bottom="5.0" left="30.0" top="10.0" />
                </HBox.margin>
             </Button>
-            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="35.0">
+            <Button layoutX="10.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="28.0" prefWidth="20.0">
                <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="20.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../icons/bloquer.png" />
+                        <Image url="@../../icons/modifier%20(1).png" />
                      </image>
                   </ImageView>
                </graphic>
                <HBox.margin>
-                  <Insets top="5.0" />
+                  <Insets bottom="5.0" left="9.0" top="10.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="modifier" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnmodifier" prefHeight="28.0" prefWidth="35.0">
+            <Button fx:id="modifier" layoutX="10.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnmodifier" prefHeight="28.0" prefWidth="20.0">
                <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="34.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../icons/modifier.png" />
+                        <Image url="@../../icons/bloquer-un-utilisateur.png" />
                      </image>
                   </ImageView>
                </graphic>
                <HBox.margin>
-                  <Insets top="5.0" />
+                  <Insets bottom="5.0" left="9.0" right="5.0" top="10.0" />
                </HBox.margin>
             </Button>
          </children>

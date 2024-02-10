@@ -86,7 +86,7 @@ for(int i=0;i< user.size();i++)
     }
     private List<user> users(){
 List<user> ls=new ArrayList<>();
-user user1=new user("latiffa","benzaied","latifabenzaied@esprit.tn");
+user user1=new user("omar","benzaied","latifabenzaied@esprit.tn");
 ls.add(user1);
         user user2=new user("latifa","benzaied","latifabenzaied@esprit.tn");
         ls.add(user2);

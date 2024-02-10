@@ -2,39 +2,17 @@
     -fx-padding: 0;
     -fx-background-color: transparent;
 }
-.list-view {
-    -fx-background-color: #C8C8C8; /* Couleur de fond */
-    -fx-border-color: #494949;
+
+.Hbox{
+    -fx-border-radius: 10px; /* Rayon de courbure des coins du bord */
 }
 
-.list-view .list-cell {
-    -fx-background-color: #D9D9D9; /* Couleur de fond des cellules */
-    -fx-padding: 5 10; /* Espacement interne */
-}
-
-.list-view .list-cell:hover {
-    -fx-background-color: #d0d0d0; /* Couleur de fond au survol */
-}
-
-.list-view .list-cell:odd {
-    -fx-background-color: #e0e0e0; /* Couleur de fond des cellules impaires */
-}
-
-.list-view .list-cell:selected {
-    -fx-background-color: #0078d4; /* Couleur de fond de la cellule sélectionnée */
-    -fx-text-fill: white; /* Couleur du texte de la cellule sélectionnée */
-}
-
-.list-view .scroll-bar {
-    -fx-background-color: #c0c0c0; /* Couleur de la barre de défilement */
-}
 .Hbox .label{
 
-    -fx-font-size: 10px; /* Taille de la police */
-    -fx-font-family: "Arial"; /* Police de caractères */
-    -fx-font-weight: bold; /* Poids de la police (bold, normal, etc.) */
-    -fx-text-fill: #333333; /* Couleur du texte */
-    -fx-padding: 5px; /* Espacement intérieur du label */
+    -fx-font-size: 12px;
+    -fx-font-family: "Souliyo Regular";
+    -fx-text-fill: #000000;
+    -fx-padding: 5px;
     -fx-background-color: transparent; /* Couleur de fond transparente */
 
 }
@@ -48,8 +26,8 @@
 }
 .Hbox2 .label{
 
-    -fx-font-size: 12px; /* Taille de la police */
-    -fx-font-family: "Arial"; /* Police de caractères */
+    -fx-font-size: 10px; /* Taille de la police */
+    -fx-font-family: "Souliyo Regular"; /* Police de caractères */
     -fx-font-weight: bold; /* Poids de la police (bold, normal, etc.) */
     -fx-text-fill: #333333; /* Couleur du texte */
 
@@ -83,4 +61,16 @@
 }
 .btn_chercher{
     -fx-background-color: transparent; /* Couleur de fond transparente */
+}
+.scrollpane{
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-control-inner-background: transparent;
+}
+@font-face {
+    font-family: 'Souliyo Regular';
+    src: url('../font/Souliyo-Regular.ttf');
+}
+.Hbox1{
+    -fx-border-radius: 10px; /* Rayon de courbure des coins du bord */
 }

@@ -17,17 +17,17 @@
             <Insets bottom="4.0" left="10.0" top="4.0" />
          </HBox.margin>
       </ImageView>
-      <Label fx:id="firstname" prefHeight="17.0" prefWidth="52.0" text="latifa ">
+      <Label fx:id="firstname" prefHeight="17.0" prefWidth="69.0" text="latifa ">
          <HBox.margin>
             <Insets left="45.0" top="10.0" />
          </HBox.margin>
       </Label>
-      <Label fx:id="lastname" prefHeight="17.0" prefWidth="68.0" text="benzied">
+      <Label fx:id="lastname" prefHeight="17.0" prefWidth="78.0" text="benzied">
          <HBox.margin>
             <Insets left="50.0" top="10.0" />
          </HBox.margin>
       </Label>
-      <Label fx:id="email" prefHeight="17.0" prefWidth="146.0" text="latifa.benzaied@esprit.tn">
+      <Label fx:id="email" prefHeight="17.0" prefWidth="160.0" text="latifa.benzaied@esprit.tn">
          <HBox.margin>
             <Insets left="10.0" top="10.0" />
          </HBox.margin>
@@ -36,7 +36,7 @@
          <children>
             <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="28.0" prefWidth="20.0">
                <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="supp" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../icons/supprimer%20(1).png" />
                      </image>

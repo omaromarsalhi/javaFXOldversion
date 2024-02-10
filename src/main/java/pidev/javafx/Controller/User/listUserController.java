@@ -1,26 +1,17 @@
 package pidev.javafx.Controller.User;
 import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
-import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -29,14 +20,11 @@ import javafx.scene.layout.VBox;
 import java.net.URL;
 
 
-import javafx.scene.control.cell.PropertyValueFactory;
-
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import pidev.javafx.Main;
-import pidev.javafx.Model.user.user;
+import pidev.javafx.Model.user.User;
 
 public class listUserController implements Initializable {
     @FXML
@@ -47,20 +35,21 @@ public class listUserController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-List<user> user=new ArrayList<>(users());
-for(int i=0;i< user.size();i++)
+        ServiceUser service=new ServiceUser();
+        Set<User> users = new HashSet<>(service.getAll());
+       // List<User> user=new ArrayList<>(users());
+//for(int i=0;i< user.size();i++)
+        Iterator<User> iterator = users.iterator();
+        while (iterator.hasNext())
 {
     FXMLLoader fxmlLoader=new FXMLLoader();
      fxmlLoader.setLocation(getClass().getResource( "/fxml/User/user_item.fxml" ));
     try {
         HBox hBox=fxmlLoader.load();
         UseritemController useritem =fxmlLoader.getController();
-        useritem.setData(user.get(i));
+        useritem.setData(iterator.next());
         HBox.setMargin(hBox,new Insets(70,0,0,0));
         Userlayout.getChildren().add(hBox);
-
-
-
     } catch (IOException e) {
         throw new RuntimeException(e);
     }
@@ -84,25 +73,25 @@ for(int i=0;i< user.size();i++)
         fadeTransition.setOnFinished(event -> node.setVisible(false));
         fadeTransition.play();
     }
-    private List<user> users(){
-List<user> ls=new ArrayList<>();
-user user1=new user("omar","benzaied","latifabenzaied@esprit.tn");
+    private List<User> users(){
+List<User> ls=new ArrayList<>();
+User user1=new User("omar","benzaied","latifabenzaied@esprit.tn");
 ls.add(user1);
-        user user2=new user("latifa","benzaied","latifabenzaied@esprit.tn");
+        User user2=new User("latifa","benzaied","latifabenzaied@esprit.tn");
         ls.add(user2);
-        user user3=new user("latifa","benzaied","latifabenzaied@esprit.tn");
+        User user3=new User("latifa","benzaied","latifabenzaied@esprit.tn");
         ls.add(user2);
-        user user4=new user("latifa","benzaied","latifabenzaied@esprit.tn");
+        User user4=new User("latifa","benzaied","latifabenzaied@esprit.tn");
         ls.add(user2);
-        user user5=new user("latifa","benzaied","latifabenzaied@esprit.tn");
+        User user5=new User("latifa","benzaied","latifabenzaied@esprit.tn");
         ls.add(user2);
-        user user6=new user("latifa","benzaied","latifabenzaied@esprit.tn");
+        User user6=new User("latifa","benzaied","latifabenzaied@esprit.tn");
         ls.add(user2);
-        user user7=new user("latifa","benzaied","latifabenzaied@esprit.tn");
+        User user7=new User("latifa","benzaied","latifabenzaied@esprit.tn");
         ls.add(user2);
-        user user8=new user("latifa","benzaied","latifabenzaied@esprit.tn");
+        User user8=new User("latifa","benzaied","latifabenzaied@esprit.tn");
         ls.add(user2);
-        user user9=new user("latifa","benzaied","latifabenzaied@esprit.tn");
+        User user9=new User("latifa","benzaied","latifabenzaied@esprit.tn");
         ls.add(user2);
         return ls;
     }

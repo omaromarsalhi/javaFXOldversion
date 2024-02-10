@@ -1,17 +1,25 @@
 package pidev.javafx.Controller.User;
 import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.input.MouseEvent;
+import pidev.javafx.Model.user.User;
+import pidev.javafx.test.Main;
 
 
-
+import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class LoginSignupController implements Initializable {
@@ -44,7 +52,7 @@ public class LoginSignupController implements Initializable {
     private TextField email;
 
     @FXML
-    private TextField password;
+    private PasswordField password;
 
     @FXML
     private Label forget;
@@ -54,6 +62,8 @@ public class LoginSignupController implements Initializable {
 
     @FXML
     private Button signup2;
+    @FXML
+    private TextField adresse;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         welcome.setVisible(true);
@@ -90,6 +100,7 @@ public class LoginSignupController implements Initializable {
         email.setVisible(false);
         name.setVisible(false);
         signup2.setVisible(false);
+        adresse.setVisible(false);
         slide.setOnFinished((e->{
 
 
@@ -125,7 +136,35 @@ public class LoginSignupController implements Initializable {
         }));
 
     }
+@FXML
+    public void btnsignup(ActionEvent actionEvent) throws IOException {
+    System.out.println("hello");
+    User user = new User();
+   if (name.getText() != "" && email.getText()!="" && password.getText()!=""){
 
+        user.setFirstname(name.getText());
+        user.setEmail(email.getText());
+        user.setAdresse(adresse.getText());
+        user.setPassword(password.getText());
+
+    ServiceUser serviceUser = new ServiceUser();
+    serviceUser.ajouter(user);
+
+    FXMLLoader fxmlLoader = new FXMLLoader( getClass().getResource( "/fxml/User/Account.fxml" ));
+    Scene scene = new Scene(fxmlLoader.load());
+    AccountController account=fxmlLoader.getController();
+    account.display(name.getText(),email.getText(),adresse.getText());
+    scene.getStylesheets().add( String.valueOf( getClass().getResource("/style/styleAccount.css") ) );
+    Stage stage;
+    stage = (Stage) signup2.getScene().getWindow();
+    stage.setScene(scene);
+    stage.close();
+    stage.show();
+
+
+    }
+
+    }
 
 
 }

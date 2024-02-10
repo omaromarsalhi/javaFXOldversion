@@ -6,16 +6,10 @@ import javafx.scene.control.Button;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import pidev.javafx.Controller.ConnectionDB;
+import pidev.javafx.utlis.ConnectionDB;
 
 import java.sql.PreparedStatement;
 import java.sql.Connection;
-
-import javafx.application.Application;
-import pidev.javafx.Main;
-
-import java.sql.DriverManager;
-
 
 
 public class signupController {
@@ -38,7 +32,7 @@ public class signupController {
 
 
 
-    public void btnSignup(ActionEvent actionEvent) {
+   /* public void btnSignup(ActionEvent actionEvent) {
         String query = "INSERT INTO user (firstName,lastname,email,password) VALUES(?,?,?,?)";
 //
           connect = ConnectionDB.connectionDB();
@@ -60,7 +54,7 @@ public class signupController {
          } catch (Exception e) {
          System.out.println("error");
                System.out.println(e.getMessage());}
-    }
+    }*/
 
     }
 

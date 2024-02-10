@@ -19,7 +19,6 @@
 .Hbox1 .button{
     -fx-background-color: transparent; /* Couleur de fond transparente */
     -fx-border-color: transparent; /* Couleur de bordure transparente */
-    -fx-border-width: 1px; /* Largeur de la bordure */
     -fx-border-radius: 5px; /* Rayon des coins de la bordure */
     -fx-text-fill: #000000; /* Couleur du texte */
     -fx-padding: 5px 10px;
@@ -54,7 +53,7 @@
 }
 .bar_recherche{
     -fx-background-color: white;
-    -fx-border-width: 1px;
+
     -fx-border-radius: 20px;
     -fx-padding: 5px;
     -fx-font-size: 14px;
@@ -73,4 +72,7 @@
 }
 .Hbox1{
     -fx-border-radius: 10px; /* Rayon de courbure des coins du bord */
+}
+.Hbox1:pressed {
+    -fx-background-color: #777777;
 }

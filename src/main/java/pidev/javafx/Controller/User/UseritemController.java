@@ -1,20 +1,16 @@
 package pidev.javafx.Controller.User;
 
-import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.util.Duration;
-import pidev.javafx.Model.user.user;
+import pidev.javafx.Model.user.User;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -30,7 +26,7 @@ public class UseritemController implements Initializable {
 
     @FXML
     private Label email;
-    public void setData(user user1){
+    public void setData(User user1){
         firstname.setText(user1.getFirstname());
         lastname.setText(user1.getLastname());
         email.setText(user1.getEmail());
@@ -43,19 +39,17 @@ public class UseritemController implements Initializable {
     public void btnmodifier(ActionEvent actionEvent) {
         System.out.println("helooooooooooooooooo");
         try {
-            // Charger le fichier details.fxml
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Details.fxml"));
             Parent root = loader.load();
 
-            // Créer une nouvelle scène
-            Scene scene = new Scene(root);
 
-            // Créer une nouvelle fenêtre modale
+            Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
 
-            // Afficher la fenêtre modale
+
             stage.showAndWait();
         } catch (Exception e) {
             e.printStackTrace();

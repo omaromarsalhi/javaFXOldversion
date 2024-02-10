@@ -1,8 +1,21 @@
 package pidev.javafx.Model.user;
 
-public class user {
+public class User {
 int id;
 String firstname;
+    String email;
+    String cin;
+    int age;
+    int num;
+    String adresse;
+    int role;
+    int droit_acces;
+    String password;
+    String date;
+    String dob;
+    String status;
+
+
 
     public int getId() {
         return id;
@@ -102,7 +115,37 @@ String firstname;
 
     String lastname;
 
-    public user(int id, String firstname, String lastname, String email, String cin, int age, int num, String adresse, int role, int droit_acces, String password, String date) {
+
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+
+public void setDob(String dob) {
+        this.dob = dob;
+    }
+
+
+
+    public String getDob() {
+        return dob;
+    }
+
+    public User() {
+    }
+
+    public User(String firstname, String lastname, String email) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+
+    }
+    public User(int id, String firstname, String lastname, String email, String cin, int age, int num, String adresse, int role, int droit_acces, String password, String date) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -115,22 +158,5 @@ String firstname;
         this.droit_acces = droit_acces;
         this.password = password;
         this.date = date;
-    }
-
-    String email;
-String cin;
-int age;
-int num;
-String adresse;
-int role;
-int droit_acces;
-String password;
-String date;
-
-    public user(String firstname, String lastname, String email) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
-
     }
 }

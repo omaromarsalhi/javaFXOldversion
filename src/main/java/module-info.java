@@ -12,5 +12,9 @@ module pidev.javafx{
     opens pidev.javafx.Model.MarketPlace to javafx.fxml;
     opens pidev.javafx.Controller.User;
     opens pidev.javafx.Model.user to javafx.base;
+    exports pidev.javafx.utlis;
+    opens pidev.javafx.utlis to javafx.fxml;
+    exports pidev.javafx.test;
+    opens pidev.javafx.test to javafx.fxml;
 }
 

@@ -19,20 +19,20 @@
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="1020.0" spacing="10.0" style="-fx-background-color: #f4f4f4; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidev.javafx.Controller.UserMarketDashbord.MainDashbordController">
    <children>
-      <VBox fx:id="helperBar" minWidth="250.0" prefHeight="648.0" prefWidth="250.0" spacing="8.0" style="-fx-background-color: #f4f4f4; -fx-background-radius: 20;">
+      <VBox fx:id="helperBar" minWidth="250.0" prefHeight="648.0" prefWidth="250.0" spacing="12.0" style="-fx-background-color: #f4f4f4; -fx-background-radius: 20;">
          <children>
-            <AnchorPane fx:id="accountInfo" prefHeight="172.0" prefWidth="238.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-background-color: #D9D9D9;">
+            <AnchorPane fx:id="accountInfo" prefHeight="124.0" prefWidth="238.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-background-color: #D9D9D9;">
                <VBox.margin>
                   <Insets top="2.0" />
                </VBox.margin>
                <children>
-                  <ImageView fitHeight="137.0" fitWidth="114.0" layoutX="14.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="79.0" fitWidth="71.0" layoutX="45.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../img/mySelf.jpg" />
                      </image>
                   </ImageView>
-                  <Line endX="-1.0" endY="96.00003051757812" layoutX="127.0" layoutY="55.0" startX="-1.0" startY="-40.99999237060547" />
-                  <VBox layoutX="136.0" layoutY="56.0" prefHeight="53.0" prefWidth="83.0">
+                  <Line endX="-1.0000228881835938" endY="59.399986267089844" layoutX="127.0" layoutY="46.0" startX="-1.0000228881835938" startY="-14.799995422363281" />
+                  <VBox layoutX="140.0" layoutY="44.0" prefHeight="53.0" prefWidth="83.0">
                      <children>
                         <Label prefHeight="36.0" prefWidth="83.0" text="omar">
                            <font>
@@ -46,14 +46,14 @@
                         </Label>
                      </children>
                   </VBox>
-                  <Label layoutX="48.0" layoutY="152.0" prefHeight="27.0" prefWidth="162.0" text="omar.salhi@esprit.tn">
+                  <Label layoutX="45.0" layoutY="115.0" prefHeight="27.0" prefWidth="162.0" text="omar.salhi@esprit.tn">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
                </children>
             </AnchorPane>
-            <VBox fx:id="informationBar" alignment="CENTER" prefHeight="453.0" prefWidth="238.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: black;">
+            <VBox fx:id="informationBar" alignment="CENTER" prefHeight="487.0" prefWidth="238.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: black;">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -200,7 +200,7 @@
                     <columns>
                       <TableColumn fx:id="imgCol" editable="false" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" text="IMG" />
                       <TableColumn fx:id="nameCol" text="Name" />
-                        <TableColumn fx:id="descCol" prefWidth="120.0" text="Descreption" />
+                        <TableColumn fx:id="descCol" prefWidth="120.0" text="Description" />
                         <TableColumn fx:id="priceCol" prefWidth="70.0" text="Price" />
                         <TableColumn fx:id="quantityCol" prefWidth="70.0" text="Quantity" />
                         <TableColumn fx:id="stateCol" prefWidth="70.0" text="State" />

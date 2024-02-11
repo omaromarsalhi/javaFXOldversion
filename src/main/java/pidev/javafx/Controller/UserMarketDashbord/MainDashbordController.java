@@ -69,6 +69,7 @@ public class MainDashbordController implements Initializable {
     private ItemInfoController infoTemplateController;
     private Timer animTimer;
     private EventHandler<MouseEvent> eventHandler;
+    private Product prod2Update;
 
 
 
@@ -100,9 +101,6 @@ public class MainDashbordController implements Initializable {
             loadInfoOfSpecificItem(ProductTable.getSelectionModel().getSelectedItem());
         } );
 
-        EventBus.getInstance().subscribe( "refreshTable",this::refreshTable );
-
-
         animTimer = new Timer();
         searchTextField.setVisible( false );
         searchBtn.setStyle( "-fx-border-radius: 20;" );
@@ -111,17 +109,20 @@ public class MainDashbordController implements Initializable {
             animateSearchBar(String.valueOf( event.getEventType() ) );
         };
         searchHbox.setOnMouseEntered(eventHandler);
+
+        EventBus.getInstance().subscribe( "refreshTableOnDelete",this::refreshTableOnDelete );
+        EventBus.getInstance().subscribe( "refreshTableOnAddOrUpdate",this::refreshTableOnAddOrUpdate );
+        EventBus.getInstance().subscribe( "updateProd",this::doUpdate );
     }
 
 
 
     public void setMenueBar(){
         var addProduct=new MenuItem("Add Prod",new ImageView(new Image(getClass().getResourceAsStream("/namedIcons/more.png"))));
-        var showProduct=new MenuItem("Show Prod",new ImageView(new Image(getClass().getResourceAsStream("/namedIcons/database.png"))));
-        addProduct.setOnAction( event -> {
-            setFormForAdd();
-        } );
-        menuBar.getMenus().get( 0 ).getItems().addAll(addProduct ,showProduct);
+        var showForSaleProduct=new MenuItem("Show  My Prod",new ImageView(new Image(getClass().getResourceAsStream("/namedIcons/database.png"))));
+        var showForPushasedProduct=new MenuItem("Show Purshased Prod",new ImageView(new Image(getClass().getResourceAsStream("/namedIcons/database.png"))));
+        addProduct.setOnAction( event -> setFormForAddOrUpdate("add_prod") );
+        menuBar.getMenus().get( 0 ).getItems().addAll(addProduct ,showForSaleProduct,showForPushasedProduct);
 
         var addService=new MenuItem("Add Service",new ImageView(new Image(getClass().getResourceAsStream("/namedIcons/more.png"))));
         var showService=new MenuItem("Show Service",new ImageView(new Image(getClass().getResourceAsStream("/namedIcons/database.png"))));
@@ -173,7 +174,12 @@ public class MainDashbordController implements Initializable {
         }
     }
 
-    public void setFormForAdd(){
+    public void doUpdate(CustomMouseEvent<Product> customMouseEvent){
+        prod2Update=customMouseEvent.getEventData();
+        setFormForAddOrUpdate("update_prod");
+    }
+
+    public void setFormForAddOrUpdate(String termOfUse){
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/fxml/marketPlace/secondForm.fxml"));
         VBox form = null;
@@ -194,6 +200,8 @@ public class MainDashbordController implements Initializable {
             }
         };
         formController.setExitFunction(listeener);
+        if(termOfUse.equals( "update_prod" ))
+            formController.setInformaton( prod2Update );
         informationBar.getChildren().remove(infoTemplate);
         form.setPrefHeight(informationBar.getPrefHeight());
         form.setPrefWidth(informationBar.getPrefWidth());
@@ -218,10 +226,17 @@ public class MainDashbordController implements Initializable {
 
     }
 
-    public void refreshTable(CustomMouseEvent<Bien> event){
+    public void refreshTableOnDelete(CustomMouseEvent<Bien> event){
         ProductTable.getItems().remove( event.getEventData() );
         ProductTable.refresh();
         loadInfoOfSpecificItem(ProductTable.getItems().get(0));
+        ProductTable.getSelectionModel().clearSelection();
+    }
+    public void refreshTableOnAddOrUpdate(MouseEvent event){
+        ProductTable.getItems().clear();
+        ProductTable.setItems(CrudBien.getInstance().selectItems());
+        loadInfoOfSpecificItem(ProductTable.getItems().get(0));
+        ProductTable.getSelectionModel().clearSelection();
     }
 
 }

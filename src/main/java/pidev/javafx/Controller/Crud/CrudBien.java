@@ -11,6 +11,9 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -45,7 +48,7 @@ public class CrudBien implements CrudInterface<Bien> {
             prepare.setInt(1, 1);
             prepare.setString(2, bien.getName());
             prepare.setString(3, bien.getDescreption());
-            prepare.setString(4, getPathAndSaveIMG(bien.getImgSource()));
+            prepare.setString(4,(bien.getImgSource().equals( "DO_NOT_UPDATE_OR_ADD_IMAGE" ))?"":getPathAndSaveIMG(bien.getImgSource()));
             prepare.setFloat(5, bien.getPrice());
             prepare.setFloat(6, bien.getQuantity());
             prepare.setString(7, (bien.getState()) ? "1" : "0");
@@ -72,20 +75,30 @@ public class CrudBien implements CrudInterface<Bien> {
     }
 
     public void updateItem(Bien bien) {
-        String sql = "UPDATE products SET name = ?, descreption = ?, imgSource = ?, price = ?, quantity = ?, state = ?, category = ? WHERE idProd = ?";
+
+        String sql = "UPDATE products SET name = ?," +
+                " descreption = ?,"+
+                ((bien.getImgSource().equals( "DO_NOT_UPDATE_OR_ADD_IMAGE" ))?"":" imgSource = ?,")+
+                "price = ?,"+
+                " quantity = ?,"+
+                " state = ?,"+
+                " category = ?"+
+                " WHERE idProd = ?";
 
         connect = ConnectionDB.connectDb();
 
         try {
+            int i=2;
             prepare = connect.prepareStatement(sql);
             prepare.setString(1, bien.getName());
             prepare.setString(2, bien.getDescreption());
-            prepare.setString(3, getPathAndSaveIMG(bien.getImgSource()));
-            prepare.setFloat(4, bien.getPrice());
-            prepare.setFloat(5, bien.getQuantity());
-            prepare.setString(6, (bien.getState()) ? "1" : "0");
-            prepare.setString(7, bien.getCategorie().toString());
-            prepare.setInt(8, bien.getId());
+            if(!bien.getImgSource().equals( "DO_NOT_UPDATE_OR_ADD_IMAGE" ))
+                prepare.setString( ++i, getPathAndSaveIMG( bien.getImgSource() ) );
+            prepare.setFloat(++i, bien.getPrice());
+            prepare.setFloat(++i, bien.getQuantity());
+            prepare.setString(++i, (bien.getState()) ? "1" : "0");
+            prepare.setString(++i, bien.getCategorie().toString());
+            prepare.setInt(++i, bien.getId());
             prepare.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error updating item: " + e.getMessage());
@@ -103,7 +116,6 @@ public class CrudBien implements CrudInterface<Bien> {
         try {
             prepare = connect.prepareStatement(sql);
             result = prepare.executeQuery();
-
             while (result.next()) {
                 bien=new Bien(result.getInt("idProd"),
                         result.getInt("idUser"),
@@ -115,8 +127,11 @@ public class CrudBien implements CrudInterface<Bien> {
                         result.getBoolean("state"),
                         result.getTimestamp("timestamp"),
                         Categorie.valueOf(result.getString("category")));
-                bien.setImage(new ImageView(new Image( CrudBien.class.getResourceAsStream(bien.getImgSource()),35,35,false,false)));
+
+                if(!bien.getImgSource().equals( "" ))
+                    bien.setImage( new ImageView( new Image( "file:src/main/resources"+bien.getImgSource() , 35, 35, false, false ))  );
                 BienList.add(bien);
+
             }
         } catch (SQLException e) {
             System.out.println("Error selecting items: " + e.getMessage());
@@ -133,19 +148,18 @@ public class CrudBien implements CrudInterface<Bien> {
 
 
     private  String getPathAndSaveIMG(String chosenFilePath){
-        Random randomVal=new Random();
 
-        File chosenFile= new File( chosenFilePath );
+        String path ="/usersImg/"+UUID.randomUUID()+".png";
 
-        String fileName= UUID.randomUUID().toString();
-        String path ="/usersImg/"+fileName+".png";
+        Path src = Paths.get(chosenFilePath);
+        Path dest = Paths.get( "src/main/resources"+path);
 
         try {
-            BufferedImage bi = ImageIO.read(chosenFile);
-            ImageIO.write(bi, "png", new File( "src/main/resources"+path ));
+            Files.copy(src,dest);
         } catch (IOException e) {
             throw new RuntimeException( e );
         }
+
         return path;
     }
 }

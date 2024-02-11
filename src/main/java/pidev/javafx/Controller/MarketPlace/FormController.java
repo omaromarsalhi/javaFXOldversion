@@ -9,20 +9,25 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import pidev.javafx.Controller.Crud.CrudBien;
+import pidev.javafx.Controller.Tools.EventBus;
 import pidev.javafx.Controller.Tools.MyListener;
 import pidev.javafx.Model.MarketPlace.Bien;
 import pidev.javafx.Model.MarketPlace.Categorie;
+import pidev.javafx.Model.MarketPlace.Product;
 
 import java.io.File;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class FormController implements Initializable {
@@ -45,25 +50,29 @@ public class FormController implements Initializable {
 
 
 
-//    BufferedImage bi;
     private File chosenFile;
-    MyListener listener;
+    private MyListener listener;
+    private static String usageOfThisForm="add_prod";
+    private HBox buttonsBox;
+    private boolean isImageUpdated;
+    private Product product;
 
 
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        formBox.getChildren().add( createFormBtns() );
+        isImageUpdated=false;
+        createFormBtns();
+        formBox.getChildren().add( buttonsBox );
         Pcategory.getItems().addAll( Categorie.values() );
-
-
         imageBtn.setOnAction( event -> {
             FileChooser fileChooser = new FileChooser();
             setExtFilters(fileChooser);
             fileChooser.setTitle("Save Image");
             chosenFile = fileChooser.showOpenDialog( Stage.getWindows().get(0) );
+            if (usageOfThisForm.equals( "update_prod" ))
+                isImageUpdated=true;
         } );
 
     }
@@ -77,27 +86,36 @@ public class FormController implements Initializable {
 
 
 
-    public void onAddBienClicked() {
-        Bien bien =new Bien( 0,
+    public void onAddOrUpdateBienClicked(MouseEvent event) {
+        if(isImageUpdated&&usageOfThisForm.equals( "update_prod" )){
+            File file=new File("src/main/resources"+product.getImgSource() );
+            file.delete();
+        }
+        Bien bien =new Bien( (product==null)?0:product.getId(),
                 1,
                 Pname.getText(),
                 Pdescretion.getText(),
-                chosenFile.getAbsolutePath(),
+                (chosenFile==null)?"DO_NOT_UPDATE_OR_ADD_IMAGE":chosenFile.getAbsolutePath(),
                 Float.parseFloat( Pprice.getText() ),
                 Float.parseFloat( Pquantity.getText()),
                 Boolean.TRUE,
                 Timestamp.valueOf( LocalDateTime.now() ),
                 Pcategory.getValue());
-        CrudBien.getInstance().addItem(bien);
+        if(usageOfThisForm.equals( "add_prod" ))
+            CrudBien.getInstance().addItem(bien);
+        else if(usageOfThisForm.equals( "update_prod" ))
+            CrudBien.getInstance().updateItem(bien);
+        EventBus.getInstance().publish( "refreshTableOnAddOrUpdate",event);
+
     }
 
 
-    public HBox createFormBtns(){
+    public void createFormBtns(){
         Button addProd= new Button();
         Button clearProd = new Button();
         Button cancel= new Button();
 
-        HBox hbox=new HBox();
+        buttonsBox =new HBox();
 
         addProd.setPrefWidth( 50 );
         clearProd.setPrefWidth( 50 );
@@ -107,7 +125,7 @@ public class FormController implements Initializable {
         clearProd.setPrefHeight( 32 );
         cancel.setPrefHeight( 32 );
 
-        Image img1= new Image(String.valueOf( getClass().getResource("/namedIcons/tab2.png") ));
+        Image  img1= new Image(String.valueOf( getClass().getResource("/namedIcons/tab2.png") ));
         Image img2= new Image(String.valueOf( getClass().getResource("/namedIcons/broom.png")));
         Image img3= new Image(String.valueOf( getClass().getResource("/namedIcons/paper.png")));
 
@@ -115,7 +133,7 @@ public class FormController implements Initializable {
         clearProd.setGraphic( new ImageView( img2 ));
         cancel.setGraphic( new ImageView( img3 ));
 
-        addProd.setOnMouseClicked( event -> onAddBienClicked() );
+        addProd.setOnMouseClicked( this::onAddOrUpdateBienClicked);
         clearProd.setOnMouseClicked( event -> {
             Pdescretion.setText( "" );
             Pname.setText( "" );
@@ -124,17 +142,29 @@ public class FormController implements Initializable {
         } );
         cancel.setOnMouseClicked( event -> listener.exit() );
 
-        hbox.getChildren().addAll( addProd,clearProd,cancel );
-        hbox.setSpacing( 20 );
-        hbox.setAlignment( Pos.CENTER);
-        hbox.setId( "itemInfo" );
-        hbox.getStylesheets().add( String.valueOf( getClass().getResource("/style/Buttons.css") ) );
+        buttonsBox.getChildren().addAll( addProd,clearProd,cancel );
+        buttonsBox.setSpacing( 20 );
+        buttonsBox.setAlignment( Pos.CENTER);
+        buttonsBox.setId( "itemInfo" );
+        buttonsBox.getStylesheets().add( String.valueOf( getClass().getResource("/style/Buttons.css") ) );
 
-        return hbox;
     }
 
     public void setExitFunction(MyListener listener) {
         this.listener=listener;
+    }
+
+    public void setInformaton(Product product) {
+        if(product!=null) {
+            this.product = product;
+            Pname.setText( product.getName() );
+            Pdescretion.setText( product.getDescreption() );
+            Pprice.setText( Float.toString( product.getPrice() ) );
+            Pquantity.setText( Float.toString( product.getQuantity() ) );
+            usageOfThisForm="update_prod";
+            Image img1= new Image(String.valueOf( getClass().getResource("/namedIcons/validation.png") ));
+            ((Button)buttonsBox.getChildren().get( 0 )).setGraphic( new ImageView(img1) );
+        }
     }
 
 }

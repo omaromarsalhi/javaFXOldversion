@@ -18,6 +18,8 @@ import pidev.javafx.Controller.Tools.MyListener;
 import pidev.javafx.Model.MarketPlace.Bien;
 import pidev.javafx.Model.MarketPlace.Product;
 
+import java.io.File;
+
 import static javafx.scene.layout.TilePane.setMargin;
 
 public class ItemInfoController {
@@ -83,7 +85,7 @@ public class ItemInfoController {
 
         itemImage.setFitWidth( width );
         if(!product.getImgSource().isEmpty())
-            itemImage.setImage(new Image(getClass().getResourceAsStream( product.getImgSource()),width,width-20,false,false));
+            itemImage.setImage(new Image("file:src/main/resources"+product.getImgSource(),width,width-20,false,false));
         itemDesc.setText( product.getDescreption() );
         priceLable.setText( Float.toString(product.getPrice()) );
         quantityLable.setText(Float.toString(product.getQuantity())   );
@@ -112,10 +114,15 @@ public class ItemInfoController {
         update.setGraphic( new ImageView( img1 ));
         delete.setGraphic( new ImageView( img2 ));
 
+        update.setOnAction( event -> {
+            CustomMouseEvent<Bien> customMouseEvent=new CustomMouseEvent<>((Bien) product);
+            EventBus.getInstance().publish( "updateProd",customMouseEvent);
+        } );
         delete.setOnAction( event -> {
             CustomMouseEvent<Bien> customMouseEvent=new CustomMouseEvent<>((Bien) product);
             CrudBien.getInstance().deleteItem( product.getId());
-            EventBus.getInstance().publish( "refreshTable",customMouseEvent);
+            new File("src/main/resources"+product.getImgSource() ).delete();
+            EventBus.getInstance().publish( "refreshTableOnDelete",customMouseEvent);
         } );
 
 

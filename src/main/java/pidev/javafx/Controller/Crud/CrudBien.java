@@ -141,7 +141,7 @@ public class CrudBien implements CrudInterface<Bien> {
     }
 
     @Override
-    public Bien selectFirstItems() {
+    public Bien selectFirstItem() {
         return null;
     }
 

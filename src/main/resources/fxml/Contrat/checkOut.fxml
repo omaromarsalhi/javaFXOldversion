@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
@@ -69,7 +70,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="70.0" prefWidth="222.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="50.0" prefWidth="234.0" text="existatnte Quantity :">
+                  <Label alignment="CENTER" prefHeight="50.0" prefWidth="234.0" text="Avialable Quantity :">
                      <font>
                         <Font name="Cambria Bold" size="18.0" />
                      </font>
@@ -83,7 +84,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="70.0" prefWidth="222.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="50.0" prefWidth="208.0" text="Chose Quantity :">
+                  <Label alignment="CENTER" prefHeight="50.0" prefWidth="208.0" text="Chosen Quantity :">
                      <font>
                         <Font name="Cambria Bold" size="18.0" />
                      </font>
@@ -115,6 +116,26 @@
                   <DatePicker fx:id="PdateTime" />
                </children>
             </HBox>
+            <HBox alignment="CENTER" prefHeight="70.0" prefWidth="222.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="43.0" prefWidth="180.0" text="Payement method">
+                     <font>
+                        <Font name="Cambria Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="PpayementChoice" prefHeight="37.0" prefWidth="150.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="70.0" prefWidth="222.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="50.0" prefWidth="159.0" text="Reciving Address">
+                     <font>
+                        <Font name="Cambria Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="Plocarion" prefHeight="46.0" prefWidth="150.0" />
+               </children>
+            </HBox>
             <Label alignment="CENTER" prefHeight="66.0" prefWidth="230.0" text="DESCREPTION" textAlignment="CENTER">
                <font>
                   <Font name="Cambria Bold" size="18.0" />
@@ -126,7 +147,7 @@
                   <Font name="Cambria Bold" size="18.0" />
                </font>
             </Label>
-            <TextArea fx:id="ProlesAndTerms" prefHeight="218.0" prefWidth="587.0" style="-fx-background-color: #f4f4f4; -fx-background-radius: 20; -fx-border-radius: 20;" stylesheets="@../../style/formLayout.css" wrapText="true" />
+            <TextArea fx:id="ProlesAndTerms" prefHeight="92.0" prefWidth="414.0" style="-fx-background-color: #f4f4f4; -fx-background-radius: 20; -fx-border-radius: 20;" stylesheets="@../../style/formLayout.css" wrapText="true" />
          </children>
       </VBox>
       <VBox fx:id="itemInfo" alignment="CENTER" prefHeight="670.0" prefWidth="118.0" spacing="30.0" stylesheets="@../../style/Buttons.css">

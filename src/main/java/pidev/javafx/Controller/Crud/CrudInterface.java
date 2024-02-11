@@ -10,7 +10,7 @@ public interface CrudInterface<T> {
     void updateItem(T variable);
 
     ObservableList<T> selectItems();
-    T selectFirstItems();
+    T selectFirstItem();
 
     void deleteItem(int id);
 }

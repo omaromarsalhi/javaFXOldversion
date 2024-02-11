@@ -108,7 +108,7 @@ public class ItemInfoController {
         update.setPrefHeight( 32 );
         delete.setPrefHeight( 32 );
 
-        Image img1= new Image(String.valueOf( getClass().getResource("/namedIcons/social.png") ));
+        Image img1= new Image(String.valueOf( getClass().getResource("/namedIcons/refresh.png") ));
         Image img2= new Image(String.valueOf( getClass().getResource("/namedIcons/delete.png")));
 
         update.setGraphic( new ImageView( img1 ));

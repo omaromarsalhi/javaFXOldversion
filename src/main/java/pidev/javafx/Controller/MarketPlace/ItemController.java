@@ -58,6 +58,14 @@ public class ItemController {
         img.setImage(image);
         hbox=createItemsBtns();
     }
+    public void setData(Bien bien) {
+        nameLabel.setText(bien.getName());
+        priceLable.setText( "$"+bien.getPrice());
+        stateLabel.setText((bien.getState())?"In Stock":"Out Of Stock");
+        categoryLable.setText(bien.getCategorie().name());
+        Image image = new Image(getClass().getResourceAsStream(bien.getImgSource()));
+        img.setImage(image);
+    }
 
     public void showTransitionInfo(Boolean state){
         if(state){

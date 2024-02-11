@@ -1,18 +1,22 @@
 package pidev.javafx.Controller.UserMarketDashbord;
 
+import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import pidev.javafx.Controller.Crud.CrudBien;
@@ -21,34 +25,16 @@ import pidev.javafx.Controller.Tools.CustomMouseEvent;
 import pidev.javafx.Controller.Tools.EventBus;
 import pidev.javafx.Controller.Tools.MyListener;
 import pidev.javafx.Model.MarketPlace.Bien;
-import pidev.javafx.Model.MarketPlace.Categorie;
 import pidev.javafx.Model.MarketPlace.Product;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Timestamp;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MainDashbordController implements Initializable {
 
-    @FXML
-    private TableColumn<Bien, String> descCol;
-    @FXML
-    private TableColumn<Bien, String> imgCol;
-    @FXML
-    private TableColumn<Bien, String> nameCol;
-    @FXML
-    private TableColumn<Bien, Float> priceCol;
-    @FXML
-    private TableColumn<Bien, Float> quantityCol;
-    @FXML
-    private TableColumn<Bien, Boolean> stateCol;
-    @FXML
-    private TableColumn<Bien, Timestamp> timestampCol;
-    @FXML
-    private TableColumn<Bien, Categorie> categoryCol;
-    @FXML
-    private TableView<Bien> ProductTable;
+
     @FXML
     private VBox informationBar;
     @FXML
@@ -63,6 +49,8 @@ public class MainDashbordController implements Initializable {
     private MenuBar menuBar;
     @FXML
     private VBox helperBar;
+    @FXML
+    private VBox showAllProdsInfo;
 
 
     private VBox infoTemplate;
@@ -70,35 +58,30 @@ public class MainDashbordController implements Initializable {
     private Timer animTimer;
     private EventHandler<MouseEvent> eventHandler;
     private Product prod2Update;
+    private TableView<Bien> tableViewProd;
+    private TableViewController tableViewController;
 
 
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        imgCol.setCellValueFactory(new PropertyValueFactory<>("image"));
-        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        descCol.setCellValueFactory(new PropertyValueFactory<>("descreption"));
-        priceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
-        quantityCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        stateCol.setCellValueFactory(new PropertyValueFactory<>("state"));
-        timestampCol.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
-        categoryCol.setCellValueFactory(new PropertyValueFactory<>("categorie"));
 
-        ProductTable.setItems(CrudBien.getInstance().selectItems());
+        loadTableView();
+        showAllProdsInfo.getChildren().add(tableViewProd);
 
         setMenueBar();
 
         PauseTransition pause = new PauseTransition( Duration.seconds(0.1));
         pause.setOnFinished(e -> {
             loadInfoTemplate();
-            loadInfoOfSpecificItem(ProductTable.getItems().get(0));
+            loadInfoOfSpecificItem(tableViewProd.getItems().get(0));
             informationBar.getChildren().addAll(infoTemplate);
         });
         pause.play();
 
-        ProductTable.setOnMouseClicked( event -> {
-            loadInfoOfSpecificItem(ProductTable.getSelectionModel().getSelectedItem());
+        tableViewProd.setOnMouseClicked( event -> {
+            loadInfoOfSpecificItem(tableViewProd.getSelectionModel().getSelectedItem());
         } );
 
         animTimer = new Timer();
@@ -108,11 +91,15 @@ public class MainDashbordController implements Initializable {
         eventHandler = event -> {
             animateSearchBar(String.valueOf( event.getEventType() ) );
         };
+
         searchHbox.setOnMouseEntered(eventHandler);
 
         EventBus.getInstance().subscribe( "refreshTableOnDelete",this::refreshTableOnDelete );
         EventBus.getInstance().subscribe( "refreshTableOnAddOrUpdate",this::refreshTableOnAddOrUpdate );
         EventBus.getInstance().subscribe( "updateProd",this::doUpdate );
+
+
+
     }
 
 
@@ -122,6 +109,12 @@ public class MainDashbordController implements Initializable {
         var showForSaleProduct=new MenuItem("Show  My Prod",new ImageView(new Image(getClass().getResourceAsStream("/namedIcons/database.png"))));
         var showForPushasedProduct=new MenuItem("Show Purshased Prod",new ImageView(new Image(getClass().getResourceAsStream("/namedIcons/database.png"))));
         addProduct.setOnAction( event -> setFormForAddOrUpdate("add_prod") );
+        showForSaleProduct.setOnAction( event -> {
+            showAllProdsInfo.getChildren().clear();
+            showAllProdsInfo.getChildren().add(tableViewProd);
+        } );
+        showForPushasedProduct.setOnAction( event -> createView() );
+
         menuBar.getMenus().get( 0 ).getItems().addAll(addProduct ,showForSaleProduct,showForPushasedProduct);
 
         var addService=new MenuItem("Add Service",new ImageView(new Image(getClass().getResourceAsStream("/namedIcons/more.png"))));
@@ -179,6 +172,67 @@ public class MainDashbordController implements Initializable {
         setFormForAddOrUpdate("update_prod");
     }
 
+    public void createView(){
+
+        showAllProdsInfo.getChildren().remove( tableViewProd );
+        ObservableList<Bien> liestBien=CrudBien.getInstance().selectItems();
+
+        HBox hBox=new HBox();
+
+        for(int i=0;i< liestBien.size();i++){
+
+            if(i%2==0)
+                hBox=new HBox();
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource( "/fxml/Contrat/tarnsactionDetails.fxml" ));
+            StackPane stackPane = null;
+            FXMLLoader fxmlLoader2 = new FXMLLoader();
+            fxmlLoader2.setLocation(getClass().getResource("/fxml/marketPlace/item.fxml"));
+            AnchorPane anchorPane = null;
+            try {
+                stackPane = fxmlLoader.load();
+                anchorPane = fxmlLoader2.load();
+            } catch (IOException e) {
+                throw new RuntimeException( e );
+            }
+
+            ItemController itemController = fxmlLoader2.getController();
+            itemController.setData(liestBien.get( i ));
+
+            AnchorPane finalAnchorPane = anchorPane;
+            AtomicBoolean val= new AtomicBoolean( true );
+            stackPane.setOnMouseClicked( event -> {
+                if(val.get()){
+                    animateProdBox(1,finalAnchorPane);
+                    val.set( false );
+                }
+                else{
+                    animateProdBox(0,finalAnchorPane);
+                    val.set( true );
+                }
+            } );
+
+
+
+
+            stackPane.getChildren().add( anchorPane );
+            hBox.setPadding( new Insets( 20,80,20,80 ) );
+            hBox.getChildren().add( stackPane );
+            hBox.setSpacing( 50 );
+            hBox.setAlignment( Pos.CENTER );
+
+            if(i%2==0&&i!=0)
+                showAllProdsInfo.getChildren().add(hBox);
+        }
+    }
+    public void animateProdBox(int initialState,Node node){
+        FadeTransition fade = new FadeTransition( Duration.seconds( 0.8),node  );
+        fade.setFromValue(initialState);
+        fade.setToValue(1-initialState);
+        fade.play();
+    }
+
+
     public void setFormForAddOrUpdate(String termOfUse){
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/fxml/marketPlace/secondForm.fxml"));
@@ -195,7 +249,7 @@ public class MainDashbordController implements Initializable {
             public void exit() {
                 informationBar.getChildren().remove( finalForm );
                 loadInfoTemplate();
-                loadInfoOfSpecificItem(ProductTable.getItems().get(0));
+                loadInfoOfSpecificItem(tableViewProd.getItems().get(0));
                 informationBar.getChildren().add(infoTemplate);
             }
         };
@@ -227,16 +281,33 @@ public class MainDashbordController implements Initializable {
     }
 
     public void refreshTableOnDelete(CustomMouseEvent<Bien> event){
-        ProductTable.getItems().remove( event.getEventData() );
-        ProductTable.refresh();
-        loadInfoOfSpecificItem(ProductTable.getItems().get(0));
-        ProductTable.getSelectionModel().clearSelection();
+        tableViewProd.getItems().remove( event.getEventData() );
+        tableViewProd.refresh();
+        loadInfoOfSpecificItem(tableViewProd.getItems().get(0));
+        tableViewProd.getSelectionModel().clearSelection();
     }
+
     public void refreshTableOnAddOrUpdate(MouseEvent event){
-        ProductTable.getItems().clear();
-        ProductTable.setItems(CrudBien.getInstance().selectItems());
-        loadInfoOfSpecificItem(ProductTable.getItems().get(0));
-        ProductTable.getSelectionModel().clearSelection();
+        tableViewProd.getItems().clear();
+        tableViewController.setData(CrudBien.getInstance().selectItems());
+        loadInfoOfSpecificItem(tableViewProd.getItems().get(0));
+        tableViewProd.getSelectionModel().clearSelection();
     }
+
+
+    public void loadTableView() {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/fxml/userMarketDashbord/tableView.fxml"));
+        tableViewProd = null;
+        try {
+            tableViewProd = fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException( e );
+        }
+        tableViewController = fxmlLoader.getController();
+        tableViewController.setData(CrudBien.getInstance().selectItems());
+    }
+
+
 
 }

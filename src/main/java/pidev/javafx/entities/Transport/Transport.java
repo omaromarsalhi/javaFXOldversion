@@ -1,4 +1,4 @@
-package pidev.javafx.Model.Transport;
+package pidev.javafx.entities.Transport;
 
 import pidev.javafx.Controller.ConnectionDB;
 
@@ -6,9 +6,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Time;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class Transport {
 private int idTransport;

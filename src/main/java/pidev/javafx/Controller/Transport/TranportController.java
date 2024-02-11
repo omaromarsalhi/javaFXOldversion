@@ -14,7 +14,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 import pidev.javafx.Controller.ConnectionDB;
-import pidev.javafx.Model.Transport.Transport;
+import pidev.javafx.entities.Transport.Transport;
 import javafx.scene.control.Button;
 import java.io.IOException;
 import java.net.URL;

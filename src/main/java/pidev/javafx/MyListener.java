@@ -1,6 +1,6 @@
 package pidev.javafx;
 
-import pidev.javafx.Model.MarketPlace.Fruit;
+import pidev.javafx.entities.Marketplace.Fruit;
 
 public interface MyListener {
     public void onClickListener(Fruit fruit);

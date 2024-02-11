@@ -4,10 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import pidev.javafx.Model.MarketPlace.Bien;
-import pidev.javafx.Model.MarketPlace.Categorie;
-import pidev.javafx.Model.MarketPlace.Fruit;
+import pidev.javafx.entities.Marketplace.Bien;
 import pidev.javafx.MyListener;
 
 public class ItemController {

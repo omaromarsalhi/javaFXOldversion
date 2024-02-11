@@ -1,8 +1,8 @@
-package pidev.javafx.Model.MarketPlace;
+package pidev.javafx.entities.Marketplace;
 
 import java.sql.Timestamp;
 
-public class Bien extends Product{
+public class Bien extends Product {
 
 
     private Categorie categorie;

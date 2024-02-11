@@ -1,4 +1,4 @@
-package pidev.javafx.Model.Transport;
+package pidev.javafx.entities.Transport;
 
 public enum Type_Vehicule {
      Bus,

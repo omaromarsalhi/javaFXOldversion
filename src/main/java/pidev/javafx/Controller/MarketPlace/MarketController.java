@@ -7,9 +7,8 @@ import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import pidev.javafx.Model.MarketPlace.Bien;
-import pidev.javafx.Model.MarketPlace.Categorie;
-import pidev.javafx.Model.MarketPlace.Fruit;
+import pidev.javafx.entities.Marketplace.Bien;
+import pidev.javafx.entities.Marketplace.Categorie;
 import pidev.javafx.MyListener;
 
 import java.io.IOException;

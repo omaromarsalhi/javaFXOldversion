@@ -1,4 +1,4 @@
-package pidev.javafx.Model.Transport;
+package pidev.javafx.entities.Transport;
 
 public class Type_Abonnement {
     private int id;

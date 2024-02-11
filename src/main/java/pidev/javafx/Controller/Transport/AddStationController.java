@@ -6,7 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import pidev.javafx.Controller.ConnectionDB;
-import pidev.javafx.Model.Transport.Type_Vehicule;
+import pidev.javafx.entities.Transport.Type_Vehicule;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;

@@ -1,4 +1,4 @@
-package pidev.javafx.Model.MarketPlace;
+package pidev.javafx.entities.Marketplace;
 
 import java.sql.Timestamp;
 

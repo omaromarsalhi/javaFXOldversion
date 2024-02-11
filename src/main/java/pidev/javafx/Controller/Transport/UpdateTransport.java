@@ -11,8 +11,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import pidev.javafx.Controller.ConnectionDB;
-import pidev.javafx.Model.Transport.Transport;
-import pidev.javafx.Model.Transport.Type_Vehicule;
+import pidev.javafx.entities.Transport.Transport;
+import pidev.javafx.entities.Transport.Type_Vehicule;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,8 +21,6 @@ import java.time.LocalTime;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Set;
-
-import static pidev.javafx.Model.Transport.Type_Vehicule.*;
 
 public class UpdateTransport implements Initializable {
     static  private   Transport loadedTransport;

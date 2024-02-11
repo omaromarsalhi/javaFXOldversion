@@ -1,4 +1,4 @@
-package pidev.javafx;
+package pidev.javafx.tests;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

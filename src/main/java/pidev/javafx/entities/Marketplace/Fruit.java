@@ -1,4 +1,4 @@
-package pidev.javafx.Model.MarketPlace;
+package pidev.javafx.entities.Marketplace;
 
 public class Fruit {
     private String name;

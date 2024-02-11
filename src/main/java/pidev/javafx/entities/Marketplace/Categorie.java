@@ -1,4 +1,4 @@
-package pidev.javafx.Model.MarketPlace;
+package pidev.javafx.entities.Marketplace;
 
 public enum Categorie {
     ENTERTAINMENT,

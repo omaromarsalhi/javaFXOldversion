@@ -213,8 +213,6 @@ public class MainDashbordController implements Initializable {
             } );
 
 
-
-
             stackPane.getChildren().add( anchorPane );
             hBox.setPadding( new Insets( 20,80,20,80 ) );
             hBox.getChildren().add( stackPane );

@@ -1,15 +1,21 @@
 package pidev.javafx.Controller.Transport;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import pidev.javafx.Controller.ConnectionDB;
 
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
-public class GareController {
+import java.util.Objects;
+
+public class StationController {
 
 
     @FXML
@@ -28,7 +34,8 @@ public class GareController {
     private PreparedStatement prepare;
 
 
-
+    @FXML
+    private ScrollPane mainBorderPain;
 @FXML
     protected void onTextChanged() {
     String[] name = new String[10];
@@ -106,28 +113,13 @@ public class GareController {
 
     };
 
-    //            String sql = "INSERT INTO bien "
-//                    + "(firstName,lastName,address,dateOfBirth,password,phNumber,startDate,cin) "
-//                    + "VALUES(?,?,?,?,?,?,?,?)";
-//
-//            connect = Connection2DB.connectDb();
-//
-//            try {
-//                prepare = connect.prepareStatement(sql);
-//                prepare.setString(1, fName.getText());
-//                prepare.setString(2, lName.getText());
-//                prepare.setString(3, address.getText());
-//                prepare.setString(4, String.valueOf(dob.getValue()));
-//                prepare.setString(5, password.getText());
-//                prepare.setString(6, phNumber.getText());
-//                prepare.setString(7, String.valueOf(sDate.getValue()));
-//                prepare.setString(8, cin.getText());
-//                prepare.executeUpdate();
-//
-//            } catch (Exception e) {
-////            System.out.println("error");
-//                System.out.println(e.getMessage());
-//            }
+    public void onInsertStationClicked(ActionEvent event)  throws IOException {
+        ScrollPane scrollPane = FXMLLoader.load(Objects.requireNonNull( getClass().getResource("/fxml/Transport/AddStation.fxml")));
+        scrollPane.setPrefHeight(mainBorderPain.getPrefHeight()  );
+        scrollPane.setPrefWidth( mainBorderPain.getPrefWidth() );
+        mainBorderPain.setContent(scrollPane);
+    };
+
 }
 
 

@@ -138,15 +138,31 @@
     -fx-border-color: transparent;
 }
 .paney{
-    -fx-background-color: #ffce1b;
+    -fx-background-color: #20749C;
     -fx-border-width: 2px;
     -fx-background-radius: 10px;
 }
 .dialog{
     -fx-background-color: #ffce1b;
-
     -fx-border-radius: 19px;
+}
+.form{
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 19px;
+    -fx-background-radius: 19px;
+}
 
 
+.stat-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
 
+/* The style for the progress bar */
+.stat-bar {
+    -fx-pref-width: 200px;
+    -fx-pref-height: 20px;
+    -fx-accent: green;
+    -fx-background-color: black;
 }

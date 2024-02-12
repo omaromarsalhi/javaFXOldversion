@@ -42,7 +42,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#onTransportClicked" prefWidth="110.0" text="Button">
+                  <Button mnemonicParsing="false" onAction="#onTransportClicked" prefWidth="110.0" text="Transport">
                      <graphic>
                         <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -51,11 +51,20 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="GareBtn" mnemonicParsing="false" onAction="#onGareClicked" prefWidth="110.0" text="Gare" textAlignment="CENTER">
+                  <Button fx:id="GareBtn" mnemonicParsing="false" onAction="#onGareClicked" prefWidth="110.0" text="Abonné" textAlignment="CENTER">
                      <graphic>
                         <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../icons/4.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="StationBtn" mnemonicParsing="false" onAction="#onStationClicked" prefWidth="110.0" text="Stations">
+                     <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/33.png" />
                            </image>
                         </ImageView>
                      </graphic>

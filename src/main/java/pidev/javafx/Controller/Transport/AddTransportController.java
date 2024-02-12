@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import pidev.javafx.Controller.ConnectionDB;
+import pidev.javafx.Services.ServicesTransport;
 import pidev.javafx.entities.Transport.Transport;
 import pidev.javafx.entities.Transport.Type_Vehicule;
 import java.io.IOException;
@@ -20,7 +21,7 @@ import java.sql.*;
 import java.util.*;
 import java.sql.Time;
 import java.time.LocalTime;
-
+import pidev.javafx.Services.ServicesTransport;
 import static javafx.stage.StageStyle.UNDECORATED;
 
 public class AddTransportController implements Initializable {
@@ -57,11 +58,15 @@ public class AddTransportController implements Initializable {
     private Spinner<Integer> timeSpinner;
     @FXML
     private ImageView Image;
+    ServicesTransport sp = new ServicesTransport();
+    Dialog<String> dialog = new Dialog<>();
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Transport/exceptions/Dialog.fxml"));
+    Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
- intialiase_timer();
-
+    intialiase_timer();
     }
 
 
@@ -115,7 +120,7 @@ public  void intialiase_timer(){
         Arrive.getItems().addAll(Load_Locations());
 }
     @FXML
-          protected  void Load_types() {
+    protected  void Load_types() {
         if(BoxTypeVehicule.getValue()==null)
         BoxTypeVehicule.getItems().addAll(Type_Vehicule.values());
     }
@@ -140,7 +145,7 @@ public  void intialiase_timer(){
 
 
 
-public void insert_Image(){
+    public void insert_Image(){
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Choose a File");
     var selectedFile = fileChooser.showOpenDialog(primaryStage);
@@ -173,45 +178,28 @@ imagePath=selectedFile.getAbsolutePath() ;
 
             System.out.println("Condition not met.");
             return false;
-        } else {
-            String Reference = ReferenceText.getText();
-            Float Prix = Float.parseFloat(PrixText.getText());
-            Transport T = new Transport(    Type,  DEPART, ARRIVEE, Reference, imagePath, Prix,time );
-            connect = ConnectionDB.connectDb();
-            String sql = "INSERT INTO transport(Type_Vehicule,Depart,Arivee,Reference,Vehicule_Image,Prix,Heure) VALUES (?,?,?,?,?,?,?) ";
+        }
+        else {
 
-            try {
-                prepare = connect.prepareStatement(sql);
-                prepare.setString(1, T.getType_vehicule());
-                prepare.setString(2, T.getDepart());
-                prepare.setString(3, T.getArivee());
-                prepare.setString(4, T.getReference());
-                prepare.setString(5, T.getVehicule_Image());
-                prepare.setFloat(6, T.getPrix());
-                prepare.setTime(7, T.getHeure());
-                prepare.executeUpdate();
-
-
+                String Reference = ReferenceText.getText();
+                Float Prix = Float.parseFloat(PrixText.getText());
+                Transport T = new Transport( Type,  DEPART, ARRIVEE, Reference, imagePath, Prix,time);
+                sp.ajouter(T);
                 Pane scrollPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/Transport/added_succesfully.fxml")));
                 scrollPane.setPrefHeight(mainBorderPain.getPrefHeight());
                 scrollPane.setPrefWidth(mainBorderPain.getPrefWidth());
                 mainBorderPain.setContent(scrollPane);
                 Return(event);
               //  showDialog();
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-                System.out.println("Error inserting data.");
-            }
+
             return true;
         }
     }
 
 
-    Dialog<String> dialog = new Dialog<>();
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Transport/exceptions/Dialog.fxml"));
-    Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
-@FXML
-public void showDialog() {
+
+    @FXML
+    public void showDialog() {
          try {
             AnchorPane dialogContent = loader.load();
             dialog.getDialogPane().setContent(dialogContent);

@@ -14,6 +14,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 import pidev.javafx.Controller.ConnectionDB;
+import pidev.javafx.Services.ServicesTransport;
 import pidev.javafx.entities.Transport.Transport;
 import javafx.scene.control.Button;
 import java.io.IOException;
@@ -37,14 +38,6 @@ private TableView Transport_table;
 
 @FXML
 private ScrollPane mainBorderPain;
-
-
-
-
-
-
-
-
 
         private Connection connect;
 
@@ -86,6 +79,7 @@ private ScrollPane mainBorderPain;
 
 Transport t;
      int selectedRow=0;
+     ServicesTransport st=new ServicesTransport();
 
 
 
@@ -322,7 +316,7 @@ Transport t;
                  ResultSet resultSet = preparedStatement.executeQuery()) {
 
                 // Create an ObservableList to store your data
-                ObservableList<Transport> dataList = FXCollections.observableArrayList();
+
 
                 while (resultSet.next()) {
                     Transport data = new Transport();
@@ -338,11 +332,12 @@ Transport t;
                 }
 
 
-        Transport_table.setItems(dataList);
 
     } catch (Exception e) {
         System.out.println(e.getMessage());
     }
+            ObservableList<Transport> dataList = FXCollections.observableArrayList();
+            Transport_table.setItems(dataList);
 
 
 }
@@ -350,20 +345,11 @@ Transport t;
 
 
 
-@FXML
+        @FXML
         public Boolean Supprimer(int id) {       // Delete from the database
-            String deleteQuery = "DELETE FROM transport WHERE idTransport = ?";
-            try (Connection connection = ConnectionDB.connectDb();
-                 PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery)) {
-
-                preparedStatement.setInt(1, id);
-                preparedStatement.executeUpdate();
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            return true;
-        }
+        st.supprimer(id);
+        return true;
+        };
 
 
     public void show_Transport_ListView1(KeyEvent event) {
@@ -384,12 +370,7 @@ Transport t;
             mainBorderPain.setContent(scrollPane);
         }
 
-     public void onInsertStationClicked(ActionEvent event)  throws IOException {
-         ScrollPane scrollPane = FXMLLoader.load(Objects.requireNonNull( getClass().getResource("/fxml/Transport/AddStation.fxml")));
-         scrollPane.setPrefHeight(mainBorderPain.getPrefHeight()  );
-         scrollPane.setPrefWidth( mainBorderPain.getPrefWidth() );
-         mainBorderPain.setContent(scrollPane);
-     };
+
      public void onUpdateButtonClicked(Transport t)  throws IOException {
          UpdateTransport.setData(t);
          ScrollPane scrollPane = FXMLLoader.load(Objects.requireNonNull( getClass().getResource("/fxml/Transport/UpdateTransport.fxml")));

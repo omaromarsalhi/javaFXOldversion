@@ -17,6 +17,7 @@ public class Main extends Application {
        FXMLLoader fxmlLoader = new FXMLLoader( Main.class.getResource( "/fxml/User/ListeUser.fxml" ));
    //FXMLLoader fxmlLoader = new FXMLLoader( Main.class.getResource( "/fxml/User/signup .fxml" ));
         Scene scene = new Scene(fxmlLoader.load());
+        //scene.getStylesheets().add( String.valueOf( getClass().getResource("/style/styleAdmin2.css") ) );
       //scene.getStylesheets().add( String.valueOf( getClass().getResource("/style/styleSignup.css") ) );
      scene.getStylesheets().add( String.valueOf( getClass().getResource("/style/StylelisteUsers.css") ) );
       //scene.getStylesheets().add( String.valueOf( getClass().getResource("/style/styleShowItems.css") ) );

@@ -1,19 +1,24 @@
 package pidev.javafx.Model.user;
 
 public class User {
-int id;
-String firstname;
-    String email;
-    String cin;
-    int age;
-    int num;
-    String adresse;
-    int role;
-    int droit_acces;
-    String password;
-    String date;
-    String dob;
-    String status;
+      int id;
+      int age;
+      int num;
+      int droit_acces;
+      String firstname;
+      String lastname;
+      String email;
+      String cin;
+      String adresse;
+      Role role;
+      String password;
+      String date;
+      String dob;
+      String status;
+
+
+
+
 
 
 
@@ -25,6 +30,9 @@ String firstname;
         this.id = id;
     }
 
+
+
+
     public String getFirstname() {
         return firstname;
     }
@@ -32,6 +40,8 @@ String firstname;
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
+
+
 
     public String getLastname() {
         return lastname;
@@ -41,6 +51,8 @@ String firstname;
         this.lastname = lastname;
     }
 
+
+
     public String getEmail() {
         return email;
     }
@@ -48,6 +60,8 @@ String firstname;
     public void setEmail(String email) {
         this.email = email;
     }
+
+
 
     public String getCin() {
         return cin;
@@ -57,6 +71,8 @@ String firstname;
         this.cin = cin;
     }
 
+
+
     public int getAge() {
         return age;
     }
@@ -64,6 +80,8 @@ String firstname;
     public void setAge(int age) {
         this.age = age;
     }
+
+
 
     public int getNum() {
         return num;
@@ -73,6 +91,7 @@ String firstname;
         this.num = num;
     }
 
+
     public String getAdresse() {
         return adresse;
     }
@@ -81,13 +100,15 @@ String firstname;
         this.adresse = adresse;
     }
 
-    public int getRole() {
+
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(int role) {
-        this.role = role;
+    public void setRole( Role role) {
+        this.role=role;
     }
+
 
     public int getDroit_acces() {
         return droit_acces;
@@ -97,6 +118,8 @@ String firstname;
         this.droit_acces = droit_acces;
     }
 
+
+
     public String getPassword() {
         return password;
     }
@@ -105,6 +128,8 @@ String firstname;
         this.password = password;
     }
 
+
+
     public String getDate() {
         return date;
     }
@@ -112,8 +137,6 @@ String firstname;
     public void setDate(String date) {
         this.date = date;
     }
-
-    String lastname;
 
 
 
@@ -126,15 +149,20 @@ String firstname;
     }
 
 
-public void setDob(String dob) {
+    public void setDob(String dob) {
         this.dob = dob;
     }
-
-
 
     public String getDob() {
         return dob;
     }
+
+
+
+
+
+
+
 
     public User() {
     }
@@ -145,7 +173,10 @@ public void setDob(String dob) {
         this.email = email;
 
     }
-    public User(int id, String firstname, String lastname, String email, String cin, int age, int num, String adresse, int role, int droit_acces, String password, String date) {
+
+
+
+    public User(int id, String firstname, String lastname, String email, String cin, int age, int num, String adresse, Role role, int droit_acces, String password, String date) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -158,5 +189,20 @@ public void setDob(String dob) {
         this.droit_acces = droit_acces;
         this.password = password;
         this.date = date;
+    }
+
+
+
+
+
+    public User(String firstname, String email, String cin, int age, int num, String adresse, String dob, String lastname,String status,String date) {
+        this.firstname = firstname;
+        this.email = email;
+        this.cin = cin;
+        this.age = age;
+        this.num = num;
+        this.adresse = adresse;
+        this.dob = dob;
+        this.lastname = lastname;
     }
 }

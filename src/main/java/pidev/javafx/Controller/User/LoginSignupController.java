@@ -5,14 +5,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import javafx.scene.input.MouseEvent;
+import pidev.javafx.Model.user.Role;
 import pidev.javafx.Model.user.User;
 import pidev.javafx.test.Main;
 
@@ -85,10 +84,7 @@ public class LoginSignupController implements Initializable {
         slide.setNode(layer2);
         slide.setToX(470);
         slide.play();
-        layer1.setTranslateX(-233);//-290
-        //layer2.setTranslateX(600);
-
-
+        layer1.setTranslateX(-233);
         welcome.setVisible(false);
         hello.setVisible(true);
         signin.setVisible(false);
@@ -116,20 +112,19 @@ public class LoginSignupController implements Initializable {
         slide.setNode(layer2);
         slide.setToX(0);
         slide.play();
-
         layer1.setTranslateX(0);
         welcome.setVisible(true);
         hello.setVisible(false);
         signin.setVisible(true);
         signup.setVisible(false);
-        username.setVisible(true);
+        username.setVisible(false);
         password.setVisible(true);
         forget.setVisible(false);
         signin2.setVisible(false);
         email.setVisible(true);
         name.setVisible(true);
         signup2.setVisible(true);
-      //  username.setLayoutX(-200);
+        adresse.setVisible(true);
         slide.setOnFinished((e->{
 
 
@@ -138,18 +133,16 @@ public class LoginSignupController implements Initializable {
     }
 @FXML
     public void btnsignup(ActionEvent actionEvent) throws IOException {
-    System.out.println("hello");
     User user = new User();
    if (name.getText() != "" && email.getText()!="" && password.getText()!=""){
-
         user.setFirstname(name.getText());
         user.setEmail(email.getText());
         user.setAdresse(adresse.getText());
-        user.setPassword(password.getText());
+        user.setPassword(PasswordHasher.hashPassword(password.getText()));
+        user.setRole(Role.simpleutlisateur);
 
     ServiceUser serviceUser = new ServiceUser();
-    serviceUser.ajouter(user);
-
+    serviceUser.ajouterUser(user);
     FXMLLoader fxmlLoader = new FXMLLoader( getClass().getResource( "/fxml/User/Account.fxml" ));
     Scene scene = new Scene(fxmlLoader.load());
     AccountController account=fxmlLoader.getController();
@@ -165,6 +158,33 @@ public class LoginSignupController implements Initializable {
     }
 
     }
+    public static void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initStyle(StageStyle.UNDECORATED);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.getDialogPane().getStylesheets().add(
+                Main.class.getResource("/style/styleSignup.css").toExternalForm());
+        alert.showAndWait();
+    }
+
+    public void btnsignin(ActionEvent actionEvent) {
+        User user = new User();
+        user.setEmail(username.getText());
+        user.setPassword(password.getText());
+        ServiceUser service=new ServiceUser();
+        if (service.chercherParEmail(user.getEmail())){
+
+        }
+        else
+        {
+            System.out.println("ce utlistateur n'existe pas ");
+            showAlert("utlisateur n'existe pas ","il faut s'inscrire");
+            username.clear();
+            password.clear();
+        }
 
 
+    }
 }

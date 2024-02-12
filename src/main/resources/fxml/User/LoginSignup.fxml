@@ -26,7 +26,7 @@
                         <Label fx:id="forget" layoutX="189.0" layoutY="258.0" prefHeight="17.0" prefWidth="160.0" text="Forget your password" />
                         <Button fx:id="signup2" layoutX="191.0" layoutY="290.0" mnemonicParsing="false" onAction="#btnsignup" prefHeight="25.0" prefWidth="78.0" text="signup" />
                         <TextField fx:id="username" layoutX="129.0" layoutY="120.0" prefHeight="25.0" prefWidth="200.0" promptText="username" />
-                        <Button fx:id="signin2" layoutX="190.0" layoutY="290.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="78.0" text="signin" />
+                        <Button fx:id="signin2" layoutX="190.0" layoutY="290.0" mnemonicParsing="false" onAction="#btnsignin" prefHeight="25.0" prefWidth="78.0" text="signin" />
                         <Line endX="125.0" layoutX="219.0" layoutY="345.0" startX="-100.0" style="-fx-stroke: #FFFFFF;" />
                         <ImageView fitHeight="55.0" fitWidth="200.0" layoutX="125.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -57,7 +57,7 @@
                         <TextField fx:id="adresse" layoutX="128.0" layoutY="189.0" prefHeight="25.0" prefWidth="200.0" promptText="Adresse" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="layer2" layoutY="-1.0" prefHeight="400.0" prefWidth="235.0" style="-fx-background-color: #fdc847;" styleClass="custom-layer2">
+                  <AnchorPane fx:id="layer2" prefHeight="400.0" prefWidth="235.0" style="-fx-background-color: #fdc847;" styleClass="custom-layer2">
                      <children>
                         <Button fx:id="signin" layoutX="79.0" layoutY="309.0" mnemonicParsing="false" onMouseClicked="#btn" prefHeight="25.0" prefWidth="78.0" text="Sign in" />
                         <Label fx:id="hello" layoutX="58.0" layoutY="53.0" prefHeight="17.0" prefWidth="78.0" text="Hello Friend" />

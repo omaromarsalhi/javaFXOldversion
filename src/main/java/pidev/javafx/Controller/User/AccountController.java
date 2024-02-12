@@ -52,7 +52,7 @@ public class AccountController implements Initializable {
     private TextField telephone;
 
 
-    private FXMLLoader fxmlLoader;
+   private FXMLLoader fxmlLoader;
 
     public FXMLLoader getFxmlLoader() {
         return fxmlLoader;

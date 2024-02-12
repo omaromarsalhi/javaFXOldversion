@@ -76,3 +76,63 @@
 .Hbox1:pressed {
     -fx-background-color: #777777;
 }
+.hbox_filtre .button{
+    -fx-background-color: transparent;
+    -fx-border-color: #20749C; /* Couleur de bordure transparente */
+    -fx-border-radius: 10px; /* Rayon des coins de la bordure */
+    -fx-text-fill: #000000; /* Couleur du texte */
+
+}
+.hbox_filtre .button:hover{
+    -fx-background-color: #20749C;
+    -fx-border-color: #transparent; /* Couleur de bordure transparente */
+    -fx-border-radius: 10px; /* Rayon des coins de la bordure */
+
+
+}
+.hbox_filtre{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent; /* Couleur de bordure transparente */
+}
+.custom-user{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+
+
+}
+.custom-user:hover{
+    -fx-border-color:  transparent transparent #20749C transparent ; /* Couleur de la bordure */
+    -fx-border-width: 0 0 2px 0; /* Épaisseur de la bordure (0 pour les autres côtés, 2px pour le côté droit) */
+    -fx-text-fill: #20749C;
+}
+.vboxinfo{
+
+ -fx-background-color:  #fdc847;
+    -fx-border-radius: 20px;
+    -fx-border-color:  #fdc847;
+
+
+}
+.vboxinfo .text-field{
+
+
+    -fx-text-fill: black; /* Couleur du texte */
+    -fx-font-size: 13px; /* Taille de la police */
+    -fx-border-width: 1px; /* Largeur de la bordure */
+    -fx-border-radius: 10px;
+}
+.add {
+
+    -fx-text-fill: #000000;
+    -fx-background-color: #20749C;
+    -fx-border-radius: 20px;
+    -fx-border-width: 2px;
+}
+
+.hboxbtn .button{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+
+

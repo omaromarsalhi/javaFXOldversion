@@ -1,11 +1,15 @@
 package pidev.javafx.Controller;
 
-import java.util.Set;
+import pidev.javafx.Model.user.User;
+
+import java.util.List;
 
 public interface Iservice<T> {
-    public void ajouter(T t);
+    public void ajouterUser(T t);
+    public void ajouteremploye(T t);
     public void modifier(T t);
     public void supprimer(int id);
     public T getOneById(int id);
-    public Set<T> getAll();
+    public List<User> getAll();
+    public boolean chercherParEmail(String email);
 }

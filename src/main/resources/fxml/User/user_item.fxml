@@ -32,9 +32,9 @@
             <Insets left="10.0" top="10.0" />
          </HBox.margin>
       </Label>
-      <HBox prefHeight="46.0" prefWidth="118.0">
+      <HBox fx:id="hbox1" prefHeight="46.0" prefWidth="118.0">
          <children>
-            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="28.0" prefWidth="20.0">
+            <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"  prefHeight="28.0" prefWidth="20.0">
                <graphic>
                   <ImageView fx:id="supp" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -48,7 +48,7 @@
             </Button>
             <Button layoutX="10.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="28.0" prefWidth="20.0">
                <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="modif" fitHeight="20.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../icons/modifier%20(1).png" />
                      </image>
@@ -60,7 +60,7 @@
             </Button>
             <Button fx:id="modifier" layoutX="10.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnmodifier" prefHeight="28.0" prefWidth="20.0">
                <graphic>
-                  <ImageView fitHeight="34.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="bloq" fitHeight="34.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../icons/bloquer-un-utilisateur.png" />
                      </image>

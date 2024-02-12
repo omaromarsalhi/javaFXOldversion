@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
@@ -14,7 +15,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="690.0" prefWidth="1230.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidev.javafx.Controller.User.listUserController">
    <children>
@@ -56,7 +57,7 @@
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="616.0" prefWidth="1055.0">
                      <children>
-                        <ScrollPane layoutX="441.0" layoutY="81.0" prefHeight="514.0" prefWidth="603.0" styleClass="scrollpane" AnchorPane.leftAnchor="441.0">
+                        <ScrollPane layoutX="25.0" layoutY="81.0" prefHeight="514.0" prefWidth="601.0" styleClass="scrollpane" AnchorPane.leftAnchor="25.0">
                            <content>
                               <VBox fx:id="Userlayout" prefHeight="493.0" prefWidth="573.0" spacing="5.0">
                                  <children>
@@ -102,16 +103,24 @@
                               </VBox>
                            </content>
                         </ScrollPane>
-                        <HBox layoutX="789.0" layoutY="20.0" prefHeight="42.0" prefWidth="251.0">
+                        <HBox layoutX="758.0" layoutY="20.0" prefHeight="54.0" prefWidth="282.0">
                            <children>
-                              <ImageView fx:id="filtre" fitHeight="35.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="filtre" fitHeight="18.0" fitWidth="60.0" onMouseEntered="#btnfiltre" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../icons/filtre.png" />
                                  </image>
+                                 <HBox.margin>
+                                    <Insets top="30.0" />
+                                 </HBox.margin>
                               </ImageView>
+                              <Label prefHeight="17.0" prefWidth="82.0" text="Filtre">
+                                 <HBox.margin>
+                                    <Insets top="30.0" />
+                                 </HBox.margin>
+                              </Label>
                               <TextField fx:id="bar_recherche" prefHeight="27.0" prefWidth="143.0" style="-fx-border-color: #171718;" styleClass="bar_recherche">
                                  <HBox.margin>
-                                    <Insets left="30.0" top="5.0" />
+                                    <Insets left="30.0" top="25.0" />
                                  </HBox.margin>
                               </TextField>
                               <Button fx:id="btn_chercher" mnemonicParsing="false" styleClass="btn_chercher">
@@ -122,32 +131,362 @@
                                        </image>
                                     </ImageView>
                                  </graphic>
+                                 <HBox.margin>
+                                    <Insets top="20.0" />
+                                 </HBox.margin>
                               </Button>
                            </children>
                         </HBox>
-                        <VBox layoutX="9.0" layoutY="129.0" prefHeight="112.0" prefWidth="427.0">
+                        <VBox fx:id="vboxfiltre" layoutX="653.0" layoutY="41.0" prefHeight="92.0" prefWidth="117.0" styleClass="hbox_filtre">
                            <children>
-                              <HBox prefHeight="100.0" prefWidth="200.0">
+                              <HBox fx:id="hboxfiltre" prefHeight="68.0" prefWidth="222.0">
                                  <children>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="67.0" stroke="BLACK" strokeType="INSIDE" width="117.0">
+                                    <Button mnemonicParsing="false" prefHeight="24.0" prefWidth="46.0">
+                                       <graphic>
+                                          <ImageView fitHeight="32.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../icons/calendrier.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
                                        <HBox.margin>
-                                          <Insets left="20.0" />
+                                          <Insets />
                                        </HBox.margin>
-                                    </Rectangle>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="68.0" stroke="BLACK" strokeType="INSIDE" width="117.0">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font>
+                                    </Button>
+                                    <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="46.0">
+                                       <graphic>
+                                          <ImageView fitHeight="32.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../icons/tranche-dage.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
                                        <HBox.margin>
-                                          <Insets left="20.0" />
+                                          <Insets left="5.0" />
                                        </HBox.margin>
-                                    </Rectangle>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="67.0" stroke="BLACK" strokeType="INSIDE" width="117.0">
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <HBox fx:id="hboxfiltre1" layoutX="110.0" layoutY="10.0" prefHeight="68.0" prefWidth="222.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="24.0" prefWidth="46.0">
+                                       <graphic>
+                                          <ImageView fitHeight="32.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../icons/status.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
                                        <HBox.margin>
-                                          <Insets left="20.0" />
+                                          <Insets />
                                        </HBox.margin>
-                                    </Rectangle>
+                                    </Button>
+                                    <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="46.0">
+                                       <graphic>
+                                          <ImageView fitHeight="32.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                                       </graphic>
+                                       <HBox.margin>
+                                          <Insets left="5.0" />
+                                       </HBox.margin>
+                                    </Button>
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
+                        <Button layoutX="31.0" layoutY="45.0" mnemonicParsing="false" styleClass="custom-user" text="Users" />
+                        <Button layoutX="83.0" layoutY="45.0" mnemonicParsing="false" styleClass="custom-user" text="emplye" />
+                        <VBox fx:id="vboxinfo" layoutX="731.0" layoutY="118.0" prefHeight="475.0" prefWidth="321.0" style="-fx-background-color: #fdc847;" styleClass="vboxinfo">
+                           <children>
+                              <ImageView fitHeight="67.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true">
+                                 <VBox.margin>
+                                    <Insets left="130.0" top="15.0" />
+                                 </VBox.margin>
+                                 <image>
+                                    <Image url="@../../img/omarmarrakchi.png" />
+                                 </image>
+                              </ImageView>
+                              <Label prefHeight="17.0" prefWidth="121.0" text="Omar Marrakchi">
+                                 <VBox.margin>
+                                    <Insets left="110.0" top="5.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="Berlin Sans FB Demi Bold" size="15.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </Label>
+                              <Label fx:id="role" prefHeight="17.0" prefWidth="55.0">
+                                 <VBox.margin>
+                                    <Insets left="115.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </Label>
+                              <HBox prefHeight="61.0" prefWidth="302.0">
+                                 <children>
+                                    <VBox prefHeight="100.0" prefWidth="118.0">
+                                       <children>
+                                          <Label prefHeight="17.0" prefWidth="73.0" text="FirstName">
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <TextField fx:id="firstname" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="118.0">
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                    <VBox prefHeight="76.0" prefWidth="118.0">
+                                       <children>
+                                          <Label prefHeight="17.0" prefWidth="98.0" text="LastName">
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <TextField fx:id="lastname" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="118.0">
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="40.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="25.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox layoutX="10.0" layoutY="144.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="302.0">
+                                 <children>
+                                    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="41.0" prefWidth="129.0">
+                                       <children>
+                                          <Label prefHeight="17.0" prefWidth="80.0" text="cin">
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <TextField fx:id="cin" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="124.0">
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                    <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="54.0" prefWidth="136.0">
+                                       <children>
+                                          <Label prefHeight="17.0" prefWidth="53.0" text="Address">
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <TextField fx:id="adresse" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="118.0">
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="40.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox layoutX="10.0" layoutY="171.0" maxHeight="-Infinity" prefHeight="59.0" prefWidth="302.0">
+                                 <children>
+                                    <VBox prefHeight="100.0" prefWidth="118.0">
+                                       <children>
+                                          <Label prefHeight="17.0" prefWidth="46.0" text="Age">
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <TextField fx:id="age" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="118.0">
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                    <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="118.0">
+                                       <children>
+                                          <Label prefHeight="17.0" prefWidth="98.0" text="email">
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <TextField fx:id="email" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="118.0">
+                                             <VBox.margin>
+                                                <Insets left="10.0" right="5.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="40.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox layoutX="10.0" layoutY="170.0" prefHeight="62.0" prefWidth="302.0">
+                                 <children>
+                                    <VBox prefHeight="76.0" prefWidth="127.0">
+                                       <children>
+                                          <Label prefHeight="17.0" prefWidth="46.0" text="Status">
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <TextField fx:id="status" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="110.0">
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                    <VBox prefHeight="100.0" prefWidth="118.0">
+                                       <children>
+                                          <Label prefHeight="17.0" prefWidth="98.0" text="Phone number">
+                                             <VBox.margin>
+                                                <Insets left="10.0" top="5.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <TextField fx:id="phone" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="118.0">
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
+                                          </TextField>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="40.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox layoutX="10.0" layoutY="156.0" prefHeight="61.0" prefWidth="302.0">
+                                 <children>
+                                    <VBox prefHeight="55.0" prefWidth="127.0">
+                                       <children>
+                                          <Label prefHeight="17.0" prefWidth="73.0" text="date of brith">
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
+                                          </Label>
+                                          <DatePicker fx:id="dob" prefHeight="25.0" prefWidth="117.0">
+                                             <VBox.margin>
+                                                <Insets left="10.0" />
+                                             </VBox.margin>
+                                          </DatePicker>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                    <VBox prefHeight="100.0" prefWidth="118.0">
+                                       <children>
+                                          <Label prefHeight="17.0" prefWidth="110.0" text="date of enrolment">
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </Label>
+                                          <DatePicker fx:id="date" prefHeight="25.0" prefWidth="118.0">
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </DatePicker>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="50.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox layoutX="10.0" layoutY="434.0" prefHeight="42.0" prefWidth="302.0" styleClass="hboxbtn">
+                                 <children>
+                                    <Button fx:id="btn_modif" mnemonicParsing="false" prefHeight="17.0" prefWidth="39.0">
+                                       <graphic>
+                                          <ImageView fitHeight="18.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../icons/modifier.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <HBox.margin>
+                                          <Insets left="80.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button fx:id="btn_supp" layoutX="10.0" layoutY="10.0" mnemonicParsing="false">
+                                       <graphic>
+                                          <ImageView fitHeight="19.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../icons/supprimer.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btn_ajouter" mnemonicParsing="false" onAction="#ajouterEmploye" prefHeight="33.0" prefWidth="40.0">
+                                       <graphic>
+                                          <ImageView fitHeight="15.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../icons/166.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="btn_bloq" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="33.0">
+                                       <graphic>
+                                          <ImageView fitHeight="17.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../icons/bloquer.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <HBox layoutX="440.0" layoutY="20.0" prefHeight="54.0" prefWidth="191.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#btnAjouterEmploye" prefHeight="33.0" prefWidth="134.0" styleClass="add" text="Ajouter Employe">
+                                 <HBox.margin>
+                                    <Insets top="20.0" />
+                                 </HBox.margin>
+                                 <graphic>
+                                    <ImageView fitHeight="39.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/icons8-ajouter-50.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </HBox>
                      </children>
                   </AnchorPane>
               </items>

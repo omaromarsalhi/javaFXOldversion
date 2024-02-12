@@ -1,0 +1,23 @@
+.hbox1{
+
+
+    -fx-border-radius: 50px;
+    -fx-border-color: #D7D7D7;
+
+}
+.text1{
+    -fx-background-color: transparent;
+}
+.hbox1 .button{
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+
+}
+.imageview{
+    -fx-background-color: transparent;
+}
+.box{
+    -fx-border-radius: 15px;
+
+
+}

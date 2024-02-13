@@ -3,35 +3,34 @@ package pidev.javafx.Controller.Crud;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import pidev.javafx.Model.Contrat.Contract;
-import pidev.javafx.Model.MarketPlace.Bien;
-import pidev.javafx.Model.MarketPlace.Product;
-import pidev.javafx.Model.MarketPlace.Transaction;
-import pidev.javafx.Model.MarketPlace.TransactionMode;
+import pidev.javafx.Model.Contrat.PaymentMethod;
+import pidev.javafx.Model.MarketPlace.*;
 import pidev.javafx.Model.Wrapper.LocalWrapper;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class CrudWrapper implements CrudInterface<LocalWrapper>{
+public class CrudLocalWrapper{
 
     private Connection connect;
     private PreparedStatement prepare;
     private ResultSet result;
-    private static CrudTransaction instance;
+    private static CrudLocalWrapper instance;
 
-
-    @Override
-    public void addItem(LocalWrapper variable) {
-
+    public static CrudLocalWrapper getInstance() {
+        if (instance == null) {
+            instance = new CrudLocalWrapper();
+        }
+        return instance;
     }
 
-    @Override
-    public void updateItem(LocalWrapper variable) {
+    public ObservableList<LocalWrapper> selectItemsByIdSeller(int idUser,String trasactionMode) {
+        String id=(trasactionMode.equals("PURCHSED"))?"t.idBuyer":"t.idSeller";
+        String sql = "SELECT * FROM transactions t JOIN products p ON t.idProd=p.idProd" +
+                " JOIN contracts c on t.idContract=c.idContract" +
+                " where "+id+" = ? ";
 
-    }
-
-    @Override
-    public ObservableList<LocalWrapper> selectItems() {
-        String sql = "SELECT * FROM products p JOIN transactions t ON p.idProduct=t.idTransaction JOIN contracts c on t.idContract=c.idContract";
         connect = ConnectionDB.connectDb();
         ObservableList<LocalWrapper> wrapperList = FXCollections.observableArrayList();
         Product product=null;
@@ -41,10 +40,34 @@ public class CrudWrapper implements CrudInterface<LocalWrapper>{
 
         try {
             prepare = connect.prepareStatement(sql);
+            prepare.setInt( 1,idUser );
             result = prepare.executeQuery();
 
             while (result.next()) {
-                new LocalWrapper(result.getInt("idTransaction"),
+                if(result.getString( "type").equals( "BIEN" )) {
+                    product =new Bien(result.getInt("idProd"),
+                            result.getInt("idUser"),
+                            result.getString("name"),
+                            result.getString("descreption"),
+                            "",
+                            result.getFloat("price"),
+                            result.getFloat("quantity"),
+                            result.getBoolean("state"),
+                            result.getTimestamp("timestamp"),
+                            Categorie.valueOf(result.getString("category")));
+                    product.setAllImagesSources(CrudBien.getInstance().selectImagesById( product.getId() ) );
+                    product.setImgSource( product.getImageSourceByIndex( 0 ) );
+                }
+                contract=new Contract( result.getInt( "idContract" ),
+                        result.getString( "title" ),
+                        result.getString( "effectiveDate" ),
+                        result.getString( "terminationDate" ),
+                        result.getString( "purpose" ),
+                        result.getString( "termsAndConditions" ),
+                        PaymentMethod.valueOf( result.getString( "paymentMethod" ) ),
+                        result.getString( "recivingLocation" ));
+
+                transaction=new Transaction(result.getInt("idTransaction"),
                         result.getInt("idProd"),
                         result.getInt("idContract"),
                         result.getInt("idSeller"),
@@ -53,7 +76,6 @@ public class CrudWrapper implements CrudInterface<LocalWrapper>{
                         result.getInt("quantity"),
                         TransactionMode.valueOf(result.getString("transactionMode")),
                         result.getTimestamp("timeStamp") );
-
                 wrapperList.add( new LocalWrapper(product, transaction, contract ));
             }
 
@@ -61,21 +83,6 @@ public class CrudWrapper implements CrudInterface<LocalWrapper>{
             e.printStackTrace();
         }
 
-        return null;
-    }
-
-    @Override
-    public Wrapper findById(int id) {
-        return null;
-    }
-
-    @Override
-    public Wrapper selectFirstItem() {
-        return null;
-    }
-
-    @Override
-    public void deleteItem(int id) {
-
+        return wrapperList;
     }
 }

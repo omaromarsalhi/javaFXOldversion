@@ -25,9 +25,7 @@ import java.io.File;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDateTime;
-import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 
 public class FormController implements Initializable {
@@ -51,6 +49,7 @@ public class FormController implements Initializable {
 
 
     private File chosenFile;
+    private List<File>  chosenFiles;
     private MyListener listener;
     private static String usageOfThisForm="add_prod";
     private HBox buttonsBox;
@@ -70,7 +69,8 @@ public class FormController implements Initializable {
             FileChooser fileChooser = new FileChooser();
             setExtFilters(fileChooser);
             fileChooser.setTitle("Save Image");
-            chosenFile = fileChooser.showOpenDialog( Stage.getWindows().get(0) );
+//            chosenFile = fileChooser.showOpenDialog( Stage.getWindows().get(0) );
+            chosenFiles  = fileChooser.showOpenMultipleDialog( Stage.getWindows().get(0) );
             if (usageOfThisForm.equals( "update_prod" ))
                 isImageUpdated=true;
         } );
@@ -88,21 +88,30 @@ public class FormController implements Initializable {
 
     public void onAddOrUpdateBienClicked(MouseEvent event) {
         if(isImageUpdated&&usageOfThisForm.equals( "update_prod" )){
-            File file=new File("src/main/resources"+product.getImgSource() );
-            file.delete();
+            for(String path :product.getAllImagesSources()){
+                File file=new File("src/main/resources"+path );
+                file.delete();
+            }
         }
         Bien bien =new Bien( (product==null)?0:product.getId(),
                 1,
                 Pname.getText(),
                 Pdescretion.getText(),
-                (chosenFile==null)?"DO_NOT_UPDATE_OR_ADD_IMAGE":chosenFile.getAbsolutePath(),
+                (chosenFiles==null)?"DO_NOT_UPDATE_OR_ADD_IMAGE":"",
                 Float.parseFloat( Pprice.getText() ),
                 Float.parseFloat( Pquantity.getText()),
                 Boolean.TRUE,
                 Timestamp.valueOf( LocalDateTime.now() ),
                 Pcategory.getValue());
-        if(usageOfThisForm.equals( "add_prod" ))
-            CrudBien.getInstance().addItem(bien);
+
+        List<String> imagesList=new ArrayList<>();
+        for(File file :chosenFiles)
+            imagesList.add(  file.getAbsolutePath());
+        bien.setAllImagesSources(imagesList);
+
+        if(usageOfThisForm.equals( "add_prod" )) {
+            CrudBien.getInstance().addItem( bien );
+        }
         else if(usageOfThisForm.equals( "update_prod" ))
             CrudBien.getInstance().updateItem(bien);
         EventBus.getInstance().publish( "refreshTableOnAddOrUpdate",event);

@@ -3,6 +3,8 @@ package pidev.javafx.Model.MarketPlace;
 import javafx.scene.image.ImageView;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Product {
     private int id;
@@ -16,6 +18,8 @@ public class Product {
     private Timestamp timestamp;
     private ImageView image;
     private String type;
+    private List<String> allImagesSources;
+
 
     public Product() {}
 
@@ -30,9 +34,20 @@ public class Product {
         this.state = state;
         this.timestamp = timestamp;
         this.type = type;
+        this.allImagesSources = new ArrayList<>();
     }
 
 
+    public List<String> getAllImagesSources() {
+        return allImagesSources;
+    }
+    public String getImageSourceByIndex(int index) {
+        return allImagesSources.get( index);
+    }
+
+    public void setAllImagesSources(List<String> allImagesSources) {
+        this.allImagesSources = allImagesSources;
+    }
 
     public int getId() {
         return id;

@@ -13,6 +13,14 @@
     -fx-background-radius: 10;
 }
 
+#itemDeatails .text-area {
+    -fx-background-color:  #f4f4f4;
+    -fx-border-width: 0.01em;
+    -fx-border-color: black;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
 
 #formBox .label{
     /*-fx-padding: 0 0 0 8px;*/

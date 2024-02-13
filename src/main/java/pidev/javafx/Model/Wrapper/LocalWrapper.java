@@ -1,23 +1,19 @@
 package pidev.javafx.Model.Wrapper;
 
-import javafx.event.EventHandler;
 import pidev.javafx.Model.Contrat.Contract;
 import pidev.javafx.Model.MarketPlace.Product;
 import pidev.javafx.Model.MarketPlace.Transaction;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class Wrapper {
+public class LocalWrapper {
 
     private Product product;
     private Transaction transaction;
     private Contract contract;
 
-    public Wrapper() {
+    public LocalWrapper() {
     }
 
-    public Wrapper(Product product, Transaction transaction, Contract contract) {
+    public LocalWrapper(Product product, Transaction transaction, Contract contract) {
         this.product = product;
         this.transaction = transaction;
         this.contract = contract;

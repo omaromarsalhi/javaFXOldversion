@@ -1,6 +1,7 @@
 package pidev.javafx.Controller.MarketPlace;
 
 import javafx.animation.FadeTransition;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -42,6 +43,7 @@ public class MarketController implements Initializable {
     private Image image;
     private MyListener myListener;
     private MyListener MainWindowListener;
+    private Timeline fiveSecondsWonder;
 
 
 
@@ -49,6 +51,7 @@ public class MarketController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        fiveSecondsWonder=new Timeline();
         vBox=null;
         try {
             hepfullBar = FXMLLoader.load(getClass().getResource( "/fxml/marketPlace/helpfullBar.fxml" ));
@@ -56,7 +59,6 @@ public class MarketController implements Initializable {
             e.printStackTrace();
         }
         showGridPane();
-//        scroll.get
     }
 
 
@@ -105,6 +107,7 @@ public class MarketController implements Initializable {
                         fxmlLoader.setLocation( getClass().getResource( "/fxml/marketPlace/itemInfo.fxml" ) );
                         vBox = fxmlLoader.load();
                         ItemInfoController itemInfoController = fxmlLoader.getController();
+
                         myListener = new MyListener<Product>() {
                             @Override
                             public void exit() {
@@ -129,6 +132,8 @@ public class MarketController implements Initializable {
 
                 ItemController itemController = fxmlLoader.getController();
                 itemController.setData(biens.get(i),myListener);
+                itemController.setData(biens.get( i ));
+                itemController.animateImages(fiveSecondsWonder,biens.get( i ));
                 getProduct(anchorPane,itemController);
                 if (column == 3) {
                     column = 0;
@@ -149,7 +154,7 @@ public class MarketController implements Initializable {
             }
             grid.setPrefHeight(670);
             grid.setPrefWidth(800);
-            grid.setPadding( new Insets( -10,0,10,20 ));
+            grid.setPadding( new Insets( -10,0,40,20 ));
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -78,6 +78,13 @@ public class CrudTransaction implements CrudInterface<Transaction> {
     }
 
     @Override
+    public Transaction findById(int id) {
+        return null;
+    }
+
+
+
+    @Override
     public Transaction selectFirstItem() {
         String selectFirstSql = "SELECT * FROM transactions LIMIT 1";
 
@@ -100,7 +107,6 @@ public class CrudTransaction implements CrudInterface<Transaction> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 

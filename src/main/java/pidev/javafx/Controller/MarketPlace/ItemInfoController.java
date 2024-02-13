@@ -121,7 +121,8 @@ public class ItemInfoController {
         delete.setOnAction( event -> {
             CustomMouseEvent<Bien> customMouseEvent=new CustomMouseEvent<>((Bien) product);
             CrudBien.getInstance().deleteItem( product.getId());
-            new File("src/main/resources"+product.getImgSource() ).delete();
+            for(String path :product.getAllImagesSources())
+                new File("src/main/resources"+path).delete();
             EventBus.getInstance().publish( "refreshTableOnDelete",customMouseEvent);
         } );
 

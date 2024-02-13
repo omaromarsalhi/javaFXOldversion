@@ -103,6 +103,34 @@ public class CrudContract implements CrudInterface<Contract> {
         return contractList;
     }
 
+    @Override
+    public Contract findById(int id) {
+        try {
+            // Assuming you have a database table named "contrats"
+            String selectQuery = "SELECT * FROM contracts where idContract= ?";
+
+            connect = ConnectionDB.connectDb();
+
+
+            prepare = connect.prepareStatement( selectQuery );
+            prepare.setInt( 1, id );
+            result = prepare.executeQuery();
+            if (result.next()) {
+                return new Contract( result.getInt( "idContract" ),
+                        result.getString( "title" ),
+                        result.getString( "effectiveDate" ),
+                        result.getString( "terminationDate" ),
+                        result.getString( "purpose" ),
+                        result.getString( "termsAndConditions" ),
+                        PaymentMethod.valueOf( result.getString( "paymentMethod" ) ),
+                        result.getString( "recingLocation" ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     @Override
     public Contract selectFirstItem() {

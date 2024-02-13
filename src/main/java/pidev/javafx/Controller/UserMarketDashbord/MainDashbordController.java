@@ -2,35 +2,41 @@ package pidev.javafx.Controller.UserMarketDashbord;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.util.Duration;
+import pidev.javafx.Controller.Contrat.TransactionDetailsController;
 import pidev.javafx.Controller.Crud.CrudBien;
+import pidev.javafx.Controller.Crud.CrudLocalWrapper;
+import pidev.javafx.Controller.Crud.CrudTransaction;
 import pidev.javafx.Controller.MarketPlace.*;
 import pidev.javafx.Controller.Tools.CustomMouseEvent;
 import pidev.javafx.Controller.Tools.EventBus;
 import pidev.javafx.Controller.Tools.MyListener;
 import pidev.javafx.Model.MarketPlace.Bien;
 import pidev.javafx.Model.MarketPlace.Product;
+import pidev.javafx.Model.Wrapper.LocalWrapper;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import static javafx.scene.layout.HBox.setMargin;
 
 public class MainDashbordController implements Initializable {
 
@@ -50,25 +56,33 @@ public class MainDashbordController implements Initializable {
     @FXML
     private VBox helperBar;
     @FXML
-    private VBox showAllProdsInfo;
+    private ScrollPane scroll;
+    @FXML
+    private AnchorPane showAllProdsInfo;
 
 
     private VBox infoTemplate;
     private ItemInfoController infoTemplateController;
     private Timer animTimer;
     private EventHandler<MouseEvent> eventHandler;
+    private EventHandler<MouseEvent> eventHandler4ScrollPane;
     private Product prod2Update;
     private TableView<Bien> tableViewProd;
     private TableViewController tableViewController;
+    private Timeline fiveSecondsWonder;
 
 
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        fiveSecondsWonder=new Timeline();
         loadTableView();
         showAllProdsInfo.getChildren().add(tableViewProd);
+        AnchorPane.setTopAnchor(tableViewProd,4d);
+        AnchorPane.setLeftAnchor(tableViewProd,4d);
+        AnchorPane.setBottomAnchor(tableViewProd,4d);
+        AnchorPane.setRightAnchor(tableViewProd,10d);
 
         setMenueBar();
 
@@ -79,10 +93,10 @@ public class MainDashbordController implements Initializable {
             informationBar.getChildren().addAll(infoTemplate);
         });
         pause.play();
-
         tableViewProd.setOnMouseClicked( event -> {
             loadInfoOfSpecificItem(tableViewProd.getSelectionModel().getSelectedItem());
         } );
+
 
         animTimer = new Timer();
         searchTextField.setVisible( false );
@@ -91,15 +105,13 @@ public class MainDashbordController implements Initializable {
         eventHandler = event -> {
             animateSearchBar(String.valueOf( event.getEventType() ) );
         };
+        eventHandler4ScrollPane = MouseEvent::consume;
 
         searchHbox.setOnMouseEntered(eventHandler);
 
         EventBus.getInstance().subscribe( "refreshTableOnDelete",this::refreshTableOnDelete );
         EventBus.getInstance().subscribe( "refreshTableOnAddOrUpdate",this::refreshTableOnAddOrUpdate );
         EventBus.getInstance().subscribe( "updateProd",this::doUpdate );
-
-
-
     }
 
 
@@ -108,14 +120,31 @@ public class MainDashbordController implements Initializable {
         var addProduct=new MenuItem("Add Prod",new ImageView(new Image(getClass().getResourceAsStream("/namedIcons/more.png"))));
         var showForSaleProduct=new MenuItem("Show  My Prod",new ImageView(new Image(getClass().getResourceAsStream("/namedIcons/database.png"))));
         var showForPushasedProduct=new MenuItem("Show Purshased Prod",new ImageView(new Image(getClass().getResourceAsStream("/namedIcons/database.png"))));
-        addProduct.setOnAction( event -> setFormForAddOrUpdate("add_prod") );
+        var showForSelledProduct=new MenuItem("Show Selled Prod",new ImageView(new Image(getClass().getResourceAsStream("/namedIcons/database.png"))));
+        addProduct.setOnAction( event -> {
+            tableViewProd.getSelectionModel().clearSelection();
+            scroll.addEventFilter(MouseEvent.MOUSE_PRESSED, eventHandler4ScrollPane);
+            fiveSecondsWonder.stop();
+            showAllProdsInfo.getChildren().clear();
+            showAllProdsInfo.getChildren().add(tableViewProd);
+            setFormForAddOrUpdate("add_prod");
+        } );
         showForSaleProduct.setOnAction( event -> {
+            scroll.removeEventFilter(MouseEvent.MOUSE_PRESSED, eventHandler4ScrollPane);
+            loadInfoOfSpecificItem(tableViewProd.getItems().get(0));
+            informationBar.getChildren().clear();
+            informationBar.getChildren().add(infoTemplate);
             showAllProdsInfo.getChildren().clear();
             showAllProdsInfo.getChildren().add(tableViewProd);
         } );
-        showForPushasedProduct.setOnAction( event -> createView() );
+        showForPushasedProduct.setOnAction( event -> {
+            loadSelledOrPurchsedProducts("PURCHSED");
+        } );
+        showForSelledProduct.setOnAction( event -> {
+            loadSelledOrPurchsedProducts("SELLED");
+        } );
 
-        menuBar.getMenus().get( 0 ).getItems().addAll(addProduct ,showForSaleProduct,showForPushasedProduct);
+        menuBar.getMenus().get( 0 ).getItems().addAll(addProduct ,showForSaleProduct,showForPushasedProduct,showForSelledProduct);
 
         var addService=new MenuItem("Add Service",new ImageView(new Image(getClass().getResourceAsStream("/namedIcons/more.png"))));
         var showService=new MenuItem("Show Service",new ImageView(new Image(getClass().getResourceAsStream("/namedIcons/database.png"))));
@@ -172,59 +201,78 @@ public class MainDashbordController implements Initializable {
         setFormForAddOrUpdate("update_prod");
     }
 
-    public void createView(){
+    public void loadSelledOrPurchsedProducts(String trasactionType){
 
-        showAllProdsInfo.getChildren().remove( tableViewProd );
-        ObservableList<Bien> liestBien=CrudBien.getInstance().selectItems();
+        showAllProdsInfo.getChildren().clear();
+        ObservableList<LocalWrapper> localWrapperList= CrudLocalWrapper.getInstance().selectItemsByIdSeller(1,trasactionType);
+        GridPane gridPane=new GridPane();
+        gridPane.setAlignment( Pos.CENTER );
+        gridPane.setPadding( new Insets( 0,0,50,60 ) );
 
-        HBox hBox=new HBox();
+        int column = 0;
+        int row = 1;
+        for(int i=0;i< localWrapperList.size();i++){
 
-        for(int i=0;i< liestBien.size();i++){
-
-            if(i%2==0)
-                hBox=new HBox();
             FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource( "/fxml/Contrat/tarnsactionDetails.fxml" ));
-            StackPane stackPane = null;
+            fxmlLoader.setLocation(getClass().getResource( "/fxml/userMarketDashbord/tarnsactionDetails.fxml" ));
+            HBox hboxOfStackPane = null;
             FXMLLoader fxmlLoader2 = new FXMLLoader();
             fxmlLoader2.setLocation(getClass().getResource("/fxml/marketPlace/item.fxml"));
             AnchorPane anchorPane = null;
             try {
-                stackPane = fxmlLoader.load();
+                hboxOfStackPane = fxmlLoader.load();
                 anchorPane = fxmlLoader2.load();
             } catch (IOException e) {
                 throw new RuntimeException( e );
             }
 
+
+            TransactionDetailsController transactionDetailsController = fxmlLoader.getController();
             ItemController itemController = fxmlLoader2.getController();
-            itemController.setData(liestBien.get( i ));
+            transactionDetailsController.setData(localWrapperList.get( i ).getTransaction(),localWrapperList.get( i ).getContract());
+            itemController.setData((Bien)localWrapperList.get( i ).getProduct());
+            itemController.animateImages(fiveSecondsWonder, (Bien)localWrapperList.get( i ).getProduct() );
 
             AnchorPane finalAnchorPane = anchorPane;
+            animateProdBox(1,transactionDetailsController.getDownloadBtn(),0.1f);
             AtomicBoolean val= new AtomicBoolean( true );
-            stackPane.setOnMouseClicked( event -> {
+            hboxOfStackPane.setOnMouseClicked( event -> {
                 if(val.get()){
-                    animateProdBox(1,finalAnchorPane);
+                    animateProdBox(1,finalAnchorPane,0.6f);
+                    animateProdBox(0,transactionDetailsController.getDownloadBtn(),0.8f);
                     val.set( false );
                 }
                 else{
-                    animateProdBox(0,finalAnchorPane);
+                    animateProdBox(0,finalAnchorPane,0.6f);
+                    animateProdBox(1,transactionDetailsController.getDownloadBtn(),0.8f);
                     val.set( true );
                 }
             } );
 
 
-            stackPane.getChildren().add( anchorPane );
-            hBox.setPadding( new Insets( 20,80,20,80 ) );
-            hBox.getChildren().add( stackPane );
-            hBox.setSpacing( 50 );
-            hBox.setAlignment( Pos.CENTER );
+            ((StackPane)hboxOfStackPane.getChildren().get( 0 )).getChildren().add(anchorPane );
 
-            if(i%2==0&&i!=0)
-                showAllProdsInfo.getChildren().add(hBox);
+            if (column == 2) {
+                column = 0;
+                row++;
+            }
+
+            gridPane.setHgap( 40 );
+            gridPane.setVgap( 30 );
+            gridPane.add(hboxOfStackPane, column++, row);
         }
+
+        showAllProdsInfo.getChildren().add(gridPane);
+        AnchorPane.setTopAnchor(gridPane,4d);
+        AnchorPane.setLeftAnchor(gridPane,4d);
+        AnchorPane.setBottomAnchor(gridPane,4d);
+        AnchorPane.setRightAnchor(gridPane,10d);
+        scroll.addEventFilter(MouseEvent.MOUSE_PRESSED, eventHandler4ScrollPane);
+
     }
-    public void animateProdBox(int initialState,Node node){
-        FadeTransition fade = new FadeTransition( Duration.seconds( 0.8),node  );
+
+    public void animateProdBox(int initialState,Node node,float duration){
+        FadeTransition fade = new FadeTransition( Duration.seconds(duration),node  );
         fade.setFromValue(initialState);
         fade.setToValue(1-initialState);
         fade.play();
@@ -304,6 +352,7 @@ public class MainDashbordController implements Initializable {
         }
         tableViewController = fxmlLoader.getController();
         tableViewController.setData(CrudBien.getInstance().selectItems());
+
     }
 
 

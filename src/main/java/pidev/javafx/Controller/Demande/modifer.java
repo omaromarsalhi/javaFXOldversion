@@ -50,7 +50,8 @@ public void initialize() {
             if (empty || reclamation == null) {
                 setText(null);
             } else {
-                setText(reclamation.getPrivateKey() + " " + reclamation.getSubject() + " " + reclamation.getTitre());
+                setText(reclamation.getPrivateKey() + " | " + reclamation.getDate() +" | "+reclamation.getSubject() + " | " + reclamation.getTitre());
+                setStyle("-fx-font-weight: bold; -fx-font-size: 18px;");
             }
         }
     });

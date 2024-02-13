@@ -6,6 +6,6 @@
 
 <AnchorPane prefHeight="670.0" prefWidth="1040.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidev.javafx.Controller.Demande.modifer">
    <children>
-      <ListView fx:id="lista" layoutX="114.0" layoutY="105.0" prefHeight="487.0" prefWidth="688.0" />
+      <ListView fx:id="lista" layoutX="70.0" layoutY="104.0" prefHeight="461.0" prefWidth="362.0" style="-fx-background-color: #f0f0f0; -fx-padding: 10px; -fx-border-color: #e0e0e0;" />
    </children>
 </AnchorPane>

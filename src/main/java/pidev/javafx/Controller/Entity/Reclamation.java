@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Reclamation {
 private int idReclamation;
-private int privateKey;
+private String privateKey;
 private String subject;
 private String titre;
 private Date date;
@@ -17,11 +17,10 @@ public Reclamation(int idReclamation, String subject, String titre, Date date, S
     this.date = date;
     this.description = description;
 }
-    public Reclamation( String privateKey ,String subject, String titre, String description){
-
+    public Reclamation( String  privateKey ,String subject, String titre, String description){
+        this.privateKey = privateKey;
         this.subject = subject;
         this.titre = titre;
-
         this.description = description;
     }
 
@@ -39,11 +38,11 @@ public Reclamation() { }
         this.idReclamation =idReclamation;
     }
 
-    public int getPrivateKey() {
+    public String getPrivateKey() {
         return privateKey;
     }
 
-    public void setPrivateKey(int privateKey) {
+    public void setPrivateKey(String privateKey) {
         this.privateKey = privateKey;
     }
 

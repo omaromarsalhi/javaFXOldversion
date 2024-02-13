@@ -19,7 +19,7 @@ public class ServiceReclamation implements Iservice<Reclamation> {
         String req = "INSERT INTO `reclamation`(`privateKey`, `subject`, `titre`, `description`) VALUES (?,?,?,?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setInt(1, reclamation.getPrivateKey());
+            ps.setString(1, reclamation.getPrivateKey());
             ps.setString(2, reclamation.getSubject());
             ps.setString(3, reclamation.getTitre());
             ps.setString(4, reclamation.getDescription());
@@ -39,7 +39,7 @@ public class ServiceReclamation implements Iservice<Reclamation> {
             ps.setString(2, reclamation.getTitre());
             ps.setDate(3, new java.sql.Date(reclamation.getDate().getTime()));
             ps.setString(4, reclamation.getDescription());
-            ps.setInt(5, reclamation.getPrivateKey());
+            ps.setString(5, reclamation.getPrivateKey());
             ps.executeUpdate();
             System.out.println("Reclamation updated !");
         } catch (SQLException e) {

@@ -184,20 +184,13 @@
                                           <Insets />
                                        </HBox.margin>
                                     </Button>
-                                    <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="46.0">
-                                       <graphic>
-                                          <ImageView fitHeight="32.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
-                                       </graphic>
-                                       <HBox.margin>
-                                          <Insets left="5.0" />
-                                       </HBox.margin>
-                                    </Button>
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
-                        <Button layoutX="31.0" layoutY="45.0" mnemonicParsing="false" styleClass="custom-user" text="Users" />
-                        <Button layoutX="83.0" layoutY="45.0" mnemonicParsing="false" styleClass="custom-user" text="emplye" />
+                        <Button fx:id="users" layoutX="87.0" layoutY="45.0" mnemonicParsing="false" onAction="#onUsersCllik" styleClass="custom-user" text="Users" />
+                        <Button fx:id="employe" layoutX="140.0" layoutY="45.0" mnemonicParsing="false" onAction="#onEmployeeClick" styleClass="custom-user" text="emplye" />
+                        <Button fx:id="all" layoutX="27.0" layoutY="45.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAllClick" prefHeight="25.0" prefWidth="45.0" styleClass="custom-user" text="All" />
                         <VBox fx:id="vboxinfo" layoutX="731.0" layoutY="118.0" prefHeight="475.0" prefWidth="321.0" style="-fx-background-color: #fdc847;" styleClass="vboxinfo">
                            <children>
                               <ImageView fitHeight="67.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true">
@@ -221,7 +214,7 @@
                               </Label>
                               <Label fx:id="role" prefHeight="17.0" prefWidth="55.0">
                                  <VBox.margin>
-                                    <Insets left="115.0" />
+                                    <Insets left="135.0" />
                                  </VBox.margin>
                                  <font>
                                     <Font size="11.0" />

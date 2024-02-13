@@ -195,7 +195,7 @@ public class User {
 
 
 
-    public User(String firstname, String email, String cin, int age, int num, String adresse, String dob, String lastname,String status,String date) {
+    public User(String firstname, String email, String cin, int age, int num, String adresse, String dob, String lastname,String status,String date,Role role) {
         this.firstname = firstname;
         this.email = email;
         this.cin = cin;
@@ -204,5 +204,8 @@ public class User {
         this.adresse = adresse;
         this.dob = dob;
         this.lastname = lastname;
+        this.role=role;
+        this.status =status;
+        this.date=date;
     }
 }

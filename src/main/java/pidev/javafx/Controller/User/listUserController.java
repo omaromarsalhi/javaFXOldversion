@@ -86,6 +86,7 @@ public class listUserController implements Initializable {
 
     @FXML
     private Button btn_ajouter;
+    List<User> users;
 
 
     @Override
@@ -94,8 +95,9 @@ public class listUserController implements Initializable {
         vboxfiltre.setVisible(false);
         ServiceUser service = new ServiceUser();
 
-        List<User> users = new ArrayList<>(service.getAll());
+        users = new ArrayList<>(service.getAll());
         for (int i = 0; i < users.size(); i++) {
+
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/fxml/User/user_item.fxml"));
             try {
@@ -105,8 +107,19 @@ public class listUserController implements Initializable {
 
                 useritem.setData(users.get(i));
 
-
                 int finalI = i;// a comprendre
+
+                Button suppButton = (Button) hBox.lookup("#supp"); // La fonction lookup(String selector) est une méthode de la classe Node qui cherche par id dans l' hiérarchie
+
+                if (suppButton != null) {
+                    suppButton.setOnAction(event -> {
+                        ServiceUser serviceUser = new ServiceUser();
+                        serviceUser.supprimerByEmail(users.get(finalI).getEmail());
+                        Userlayout.getChildren().remove(hBox);
+                    });
+
+                }
+
 
                 hBox.setOnMouseClicked(event -> {
                     btn_modif.setVisible(true);
@@ -114,32 +127,10 @@ public class listUserController implements Initializable {
                     btn_supp.setVisible(true);
                     btn_ajouter.setVisible(false);
                     User user = new User();
-
                     ServiceUser serviceUser = new ServiceUser();
 
                     display(serviceUser.findParEmail(users.get(finalI).getEmail()));
 
-
-
-
-                 hBox.getChildren().forEach(node-> {
-                     if(node instanceof HBox hbox1){
-
-                         ((HBox) hbox1).getChildren().forEach(but -> {
-                             if (but instanceof Button) {
-                                 ObservableList<Node> children = hbox1.getChildren();
-                                 for (Node child : children) {
-                                     System.out.println("Type de nœud enfant : " + child.getClass().getSimpleName());
-                                 }
-                                 //System.out.println("feresssssssssssss");
-                                 //ImageView img = (ImageView) ((Button) but).getGraphic();
-                                 //System.out.println(img.getId());
-
-                             }
-                         });
-                     }
-
-                    });
 
                 });
 
@@ -157,7 +148,7 @@ public class listUserController implements Initializable {
 
 
     private void fadeIn(TextField node) {
-        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), node);
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1.5), node);
 
         fadeTransition.setFromValue(0);
 
@@ -169,7 +160,7 @@ public class listUserController implements Initializable {
     }
 
     private void fadeOut(TextField node) {
-        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), node);
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1.5), node);
 
         fadeTransition.setFromValue(1);
 
@@ -202,7 +193,7 @@ public class listUserController implements Initializable {
 
             scene.getStylesheets().add(String.valueOf(getClass().getResource("/style/styleDetails.css")));
 
-            FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), root);
+            FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), root);
 
             fadeIn.setFromValue(0.0);
 
@@ -252,18 +243,17 @@ public class listUserController implements Initializable {
         this.phone.setText(String.valueOf(user.getNum()));
         this.status.setText(user.getStatus());
         this.role.setText(String.valueOf(user.getRole()));
-        //this.date.setValue(LocalDate.parse(user.getDate()));
+        this.date.setValue(LocalDate.parse(user.getDate()));
         //this.dob.setValue(LocalDate.parse(user.getDob()));
         vboxinfo.setVisible(true);
 
 
-        FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), vboxinfo);
+        FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), vboxinfo);
         fadeIn.setFromValue(0.0);
         fadeIn.setToValue(1.0);
         fadeIn.play();
 
     }
-
 
 
     @FXML
@@ -275,13 +265,15 @@ public class listUserController implements Initializable {
         vboxinfo.setVisible(true);
         btn_ajouter.setVisible(true);
 
-        TranslateTransition transition = new TranslateTransition(Duration.seconds(1), vboxinfo);
-        transition.setByX(-20);
+        TranslateTransition transition = new TranslateTransition(Duration.seconds(0.5), vboxinfo);
+        transition.setToX(-20);
+        //transition.setAutoReverse(true); // Répéter en sens inverse
+        //transition.setCycleCount(TranslateTransition.INDEFINITE); // Nombre de répétitions
+
         transition.play();
 
 
     }
-
 
 
     public void ajouterEmploye(ActionEvent actionEvent) {
@@ -301,8 +293,22 @@ public class listUserController implements Initializable {
         user.setRole(Role.employe);
         user.setStatus(status.getText());
         serviceUser.ajouteremploye(user);
-    }
 
+
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/fxml/User/user_item.fxml"));
+            HBox hBox = fxmlLoader.load();
+            UseritemController useritem = fxmlLoader.getController();
+            useritem.setData(user);
+
+            Userlayout.getChildren().add(hBox);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
 
 
     private void clearTextFields(VBox mainVBox) {
@@ -319,5 +325,149 @@ public class listUserController implements Initializable {
                 });
             }
         });
+    }
+
+    public void onUsersCllik(ActionEvent actionEvent) {
+
+
+        Userlayout.getChildren().clear();
+        for (int i = 0; i < users.size(); i++) {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/fxml/User/user_item.fxml"));
+            HBox hBox;
+
+
+            try {
+
+
+                hBox = fxmlLoader.load();
+
+            } catch (IOException e) {
+
+
+                throw new RuntimeException(e);
+            }
+
+
+            if (users.get(i).getRole().equals(Role.simpleutlisateur)) {
+
+                System.out.println("heloo");
+                UseritemController useritem = fxmlLoader.getController();
+                Userlayout.getChildren().add(hBox);
+                useritem.setData(users.get(i));
+            }
+            int finalI = i;
+            hBox.setOnMouseClicked(event -> {
+                btn_modif.setVisible(true);
+                btn_bloq.setVisible(true);
+                btn_supp.setVisible(true);
+                btn_ajouter.setVisible(false);
+                User user = new User();
+                ServiceUser serviceUser = new ServiceUser();
+
+                display(serviceUser.findParEmail(users.get(finalI).getEmail()));
+
+
+            });
+
+        }
+
+
+    }
+
+
+    public void onEmployeeClick(ActionEvent actionEvent) {
+
+        Userlayout.getChildren().clear();
+        for (int i = 0; i < users.size(); i++) {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/fxml/User/user_item.fxml"));
+            HBox hBox;
+
+
+            try {
+
+
+                hBox = fxmlLoader.load();
+
+            } catch (IOException e) {
+
+
+                throw new RuntimeException(e);
+            }
+
+
+            if (users.get(i).getRole().equals(Role.employe)) {
+
+                System.out.println("heloo");
+                UseritemController useritem = fxmlLoader.getController();
+                useritem.setData(users.get(i));
+                Userlayout.getChildren().add(hBox);
+            }
+            int finalI = i;
+            hBox.setOnMouseClicked(event -> {
+                btn_modif.setVisible(true);
+                btn_bloq.setVisible(true);
+                btn_supp.setVisible(true);
+                btn_ajouter.setVisible(false);
+                User user = new User();
+                ServiceUser serviceUser = new ServiceUser();
+
+                display(serviceUser.findParEmail(users.get(finalI).getEmail()));
+
+
+            });
+
+
+        }
+
+    }
+
+    public void onAllClick(ActionEvent actionEvent) {
+        Userlayout.getChildren().clear();
+        for (int i = 0; i < users.size(); i++) {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("/fxml/User/user_item.fxml"));
+            HBox hBox;
+
+
+            try {
+
+
+                hBox = fxmlLoader.load();
+
+            } catch (IOException e) {
+
+
+                throw new RuntimeException(e);
+            }
+
+
+
+
+                System.out.println("heloo");
+                UseritemController useritem = fxmlLoader.getController();
+                useritem.setData(users.get(i));
+                Userlayout.getChildren().add(hBox);
+
+            int finalI = i;
+            System.out.println(i);
+            hBox.setOnMouseClicked(event -> {
+                btn_modif.setVisible(true);
+                btn_bloq.setVisible(true);
+                btn_supp.setVisible(true);
+                btn_ajouter.setVisible(false);
+                User user = new User();
+                ServiceUser serviceUser = new ServiceUser();
+
+                display(serviceUser.findParEmail(users.get(finalI).getEmail()));
+
+
+            });
+
+
+        }
+
+
     }
 }

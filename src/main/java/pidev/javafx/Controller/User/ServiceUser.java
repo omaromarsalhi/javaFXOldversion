@@ -1,6 +1,7 @@
 package pidev.javafx.Controller.User;
 
 import pidev.javafx.Controller.Iservice;
+import pidev.javafx.Model.user.Role;
 import pidev.javafx.Model.user.User;
 import pidev.javafx.utlis.ConnectionDB;
 
@@ -64,10 +65,8 @@ public class ServiceUser implements Iservice<User> {
             ps.setString(10,user.getCin());
             ps.setString(11,user.getStatus());
 
-
-            //ps.executeUpdate();
-
-            //System.out.println("Personne added !");
+            ps.executeUpdate();
+            System.out.println("Personne added !");
         }
 
         catch (SQLException e) {
@@ -129,6 +128,28 @@ public class ServiceUser implements Iservice<User> {
     }
 
     @Override
+    public void supprimerByEmail(String email) {
+
+        String req = "DELETE FROM `user` WHERE `email`= ?";
+
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setString(1, email);
+            ps.executeUpdate();
+            System.out.println("User deleted !");
+        }
+
+        catch (SQLException e) {
+
+            System.out.println(e.getMessage());
+
+        }
+
+
+
+    }
+
+    @Override
     public User getOneById(int id) {
         return null;
     }
@@ -142,7 +163,7 @@ public class ServiceUser implements Iservice<User> {
     public List<User> getAll() {
         List<User> users = new ArrayList<>();
 
-        String req = "SELECT firstName,lastname,email FROM `user`";
+        String req = "SELECT * FROM `user`";
 
         try {
                Statement stmt = cnx.createStatement();
@@ -155,6 +176,7 @@ public class ServiceUser implements Iservice<User> {
                      user.setFirstname(rs.getString("firstName"));
                      user.setLastname(rs.getString("lastname"));
                      user.setEmail(rs.getString("email"));
+                   user.setRole(Role.valueOf(rs.getString("role")));
 
                      users.add(user);
                }
@@ -199,7 +221,7 @@ public class ServiceUser implements Iservice<User> {
     public User findParEmail(String email) {
 
         String req = "SELECT * FROM `user` WHERE email=?";
-        User user = null; // Initialiser l'utilisateur à null
+        User user = null;
         try {
 
 
@@ -220,7 +242,9 @@ public class ServiceUser implements Iservice<User> {
                 String role=rs.getString("role");
                 String status=rs.getString("status");
                 String date = rs.getString("date");
-                user = new User(firstname, email, cin, age, num , adresse,dob,lastName,status,date );
+
+
+                user = new User(firstname,email,cin,age,num,adresse,dob,lastName,status,date, Role.valueOf(role));
 
 
             }

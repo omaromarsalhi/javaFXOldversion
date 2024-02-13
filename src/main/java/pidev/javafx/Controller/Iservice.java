@@ -9,6 +9,7 @@ public interface Iservice<T> {
     public void ajouteremploye(T t);
     public void modifier(T t);
     public void supprimer(int id);
+    public void supprimerByEmail(String email);
     public T getOneById(int id);
     public List<User> getAll();
     public boolean chercherParEmail(String email);

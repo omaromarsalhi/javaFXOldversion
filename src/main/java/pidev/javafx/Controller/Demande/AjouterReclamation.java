@@ -49,4 +49,5 @@ public class AjouterReclamation {
         Reclamation   rec = new Reclamation(privateKey.getText(), title.getText(),subject.getText() ,description.getText());
         si.ajouter(rec);
     }
+
 }

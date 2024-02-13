@@ -30,6 +30,14 @@ public Reclamation( String subject, String titre){
 }
 public Reclamation() { }
 
+    public Reclamation(String privateKey, String subject, String titre, java.sql.Date date, String description) {
+    this.privateKey = privateKey;
+    this.subject = subject;
+    this.titre = titre;
+    this.date = date;
+    this.description = description;
+    }
+
     public int getId() {
         return idReclamation;
     }

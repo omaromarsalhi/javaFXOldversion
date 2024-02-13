@@ -85,11 +85,26 @@ public class ServiceReclamation implements Iservice<Reclamation> {
             PreparedStatement ps = cnx.prepareStatement(req);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                reclamations.add(new Reclamation(rs.getInt("privateKey"), rs.getString("subject"), rs.getString("titre"), rs.getDate("date"), rs.getString("description")));
+                reclamations.add(new Reclamation(rs.getString("privateKey"), rs.getString("subject"), rs.getString("titre"), rs.getDate("date"), rs.getString("description")));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return reclamations;
     }
+    public Set<String> getAllPrivateKeys() {
+        Set<String> privateKeys = new HashSet<>();
+        String req = "SELECT privateKey FROM `reclamation`";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                privateKeys.add(rs.getString("privateKey"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return privateKeys;
+    }
+
 }

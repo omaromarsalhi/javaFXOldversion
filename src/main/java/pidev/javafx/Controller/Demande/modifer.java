@@ -2,19 +2,51 @@ package pidev.javafx.Controller.Demande;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
+import pidev.javafx.Controller.Entity.Reclamation;
+import pidev.javafx.Controller.Service.ServiceReclamation;
+
+import java.util.Set;
 
 public class modifer {
-    @FXML
-    private ListView<String> listView; // Assuming you have a ListView in your FXML with the id "list"
 
-    public void initialize() {
-        // Initialize your database connection (e.g., using JDBC)
-        // Fetch data from the database (e.g., SELECT query)
-        ObservableList<String> items = FXCollections.observableArrayList();
-        // Add data to the observable list
-        items.add("Item 1");
-        items.add("Item 2");
-        // Set the ListView to display the data
-        listView.setItems(items);
+    @FXML
+    public VBox box;
+    ServiceReclamation si = new ServiceReclamation();
+//    public void initialize() {
+//        try {
+//            // Get the data from the database
+//
+//            VBox box = new VBox();
+//
+//            // Iterate through the result set and create labels
+//            for (Reclamation reclamation : si.getAllPrivateKeys()) {
+//                String data = reclamation.getPrivateKey()+" "+ reclamation.getSubject() + " " + reclamation.getTitre(); // replace with your method names
+//                Label label = new Label(data);
+//                box.getChildren().add(label);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+public void initialize() {
+    try {
+        // Get the data from the database
+
+        VBox box = new VBox();
+
+        // Iterate through the result set and create labels
+        for (String privateKey : si.getAllPrivateKeys()) {
+            Label label = new Label(privateKey);
+            box.getChildren().add(label);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
     }
 }
+
+}
+

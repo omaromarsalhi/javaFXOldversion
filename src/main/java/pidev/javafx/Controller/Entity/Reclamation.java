@@ -17,6 +17,14 @@ public Reclamation(int idReclamation, String subject, String titre, Date date, S
     this.date = date;
     this.description = description;
 }
+    public Reclamation( String privateKey ,String subject, String titre, String description){
+
+        this.subject = subject;
+        this.titre = titre;
+
+        this.description = description;
+    }
+
 public Reclamation( String subject, String titre){
     this.subject = subject;
     this.titre = titre;

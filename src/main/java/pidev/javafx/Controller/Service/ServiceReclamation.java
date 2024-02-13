@@ -16,14 +16,13 @@ public class ServiceReclamation implements Iservice<Reclamation> {
 
     @Override
     public void ajouter(Reclamation reclamation) {
-        String req = "INSERT INTO `reclamation`(`privateKey`, `subject`, `titre`, `date`, `description`) VALUES (?,?,?,?,?)";
+        String req = "INSERT INTO `reclamation`(`privateKey`, `subject`, `titre`, `description`) VALUES (?,?,?,?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, reclamation.getPrivateKey());
             ps.setString(2, reclamation.getSubject());
             ps.setString(3, reclamation.getTitre());
-            ps.setDate(4, new java.sql.Date(reclamation.getDate().getTime()));
-            ps.setString(5, reclamation.getDescription());
+            ps.setString(4, reclamation.getDescription());
             ps.executeUpdate();
             System.out.println("Reclamation added !");
         } catch (SQLException e) {

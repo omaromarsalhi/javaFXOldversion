@@ -18,12 +18,12 @@
                <children>
                   <AnchorPane prefHeight="91.0" prefWidth="99.0">
                      <children>
-                        <ImageView fitHeight="100.0" fitWidth="50.0" layoutX="14.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="100.0" fitWidth="50.0" layoutX="19.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../img/mySelf.jpg" />
                            </image>
                         </ImageView>
-                        <VBox alignment="CENTER" layoutX="64.0" layoutY="-2.0" prefHeight="67.0" prefWidth="60.0">
+                        <VBox alignment="CENTER" layoutX="69.0" layoutY="-1.0" prefHeight="67.0" prefWidth="68.0">
                            <children>
                               <Label alignment="CENTER" prefHeight="50.0" prefWidth="82.0" text="Buyer" />
                               <Label alignment="CENTER" prefHeight="50.0" prefWidth="92.0" text="OMAR" />
@@ -36,14 +36,14 @@
                         <Label alignment="CENTER" layoutX="19.0" layoutY="68.0" prefHeight="22.0" prefWidth="101.0" text="Connected" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane prefHeight="91.0" prefWidth="122.0">
+                  <AnchorPane prefHeight="91.0" prefWidth="114.0">
                      <children>
-                        <ImageView fitHeight="100.0" fitWidth="50.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="100.0" fitWidth="50.0" layoutX="24.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../img/omar.jpg" />
                            </image>
                         </ImageView>
-                        <VBox alignment="CENTER" layoutX="50.0" prefHeight="68.0" prefWidth="68.0">
+                        <VBox alignment="CENTER" layoutX="73.0" prefHeight="68.0" prefWidth="68.0">
                            <children>
                               <Label alignment="CENTER" prefHeight="50.0" prefWidth="82.0" text="Seller" />
                               <Label alignment="CENTER" prefHeight="50.0" prefWidth="91.0" text="ALI" />

@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 
 <AnchorPane prefHeight="670.0" prefWidth="1040.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidev.javafx.Controller.Demande.modifer">
-
+   <children>
+      <ListView fx:id="lista" layoutX="114.0" layoutY="105.0" prefHeight="487.0" prefWidth="688.0" />
+   </children>
 </AnchorPane>

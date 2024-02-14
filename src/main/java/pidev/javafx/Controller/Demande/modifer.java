@@ -92,6 +92,7 @@ public void initialize() {
         String idReclamation = privateKey.getText();
         si.supprimer(idReclamation);
         clearFields();
+
         displayDetailsInTextField();
     }
     void clearFields() {

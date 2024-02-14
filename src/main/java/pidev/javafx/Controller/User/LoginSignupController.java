@@ -63,6 +63,18 @@ public class LoginSignupController implements Initializable {
     private Button signup2;
     @FXML
     private TextField adresse;
+    @FXML
+    private Button alertename;
+
+    @FXML
+    private Button alerteemail;
+
+    @FXML
+    private Button alerteadress;
+
+    @FXML
+    private Button alertepassword;
+
 
 
 
@@ -83,6 +95,10 @@ public class LoginSignupController implements Initializable {
         name.setVisible(true);
 
         signup2.setVisible(true);
+        alertename.setVisible(false);
+        alerteadress.setVisible(false);
+        alerteemail.setVisible(false);
+        alertepassword.setVisible(false);
 
     }
 
@@ -154,39 +170,45 @@ public class LoginSignupController implements Initializable {
     @FXML
     public void CreateAccount(ActionEvent actionEvent) throws IOException {
 
-    User user = new User();
-        if (name.getText() != "" && email.getText()!="" && password.getText()!=""){
-            ServiceUser service=new ServiceUser();
-            User usexist= new User();
-            usexist=service.findParEmail(email.getText());
+        String nameRegex = "^[a-zA-Z]+$";
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        String passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
 
-                 if(usexist==null) {
+        User user = new User();
+        if (name.getText() != "" && email.getText() != "" && password.getText() != "") {
+            if (name.getText().matches(nameRegex) && email.getText().matches(emailRegex) && password.getText().matches(passwordRegex)) {
+            ServiceUser service = new ServiceUser();
+            User usexist = new User();
+            usexist = service.findParEmail(email.getText());
 
-                     user.setFirstname(name.getText());
-                     user.setEmail(email.getText());
-                     user.setAdresse(adresse.getText());
+            if (usexist == null) {
 
-                     user.setPassword(PasswordHasher.hashPassword(password.getText()));
-                     System.out.println(user.getPassword());
-                     user.setRole(Role.simpleutlisateur);
+                user.setFirstname(name.getText());
+                user.setEmail(email.getText());
+                user.setAdresse(adresse.getText());
 
-                     ServiceUser serviceUser = new ServiceUser();
-                     serviceUser.ajouterUser(user);
+                user.setPassword(PasswordHasher.hashPassword(password.getText()));
+                System.out.println(user.getPassword());
+                user.setRole(Role.simpleutlisateur);
 
-                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/User/Account.fxml"));
-                     Scene scene = new Scene(fxmlLoader.load());
+                ServiceUser serviceUser = new ServiceUser();
+                serviceUser.ajouterUser(user);
 
-                     AccountController account = fxmlLoader.getController();
-                     account.display(user);
-                     scene.getStylesheets().add(String.valueOf(getClass().getResource("/style/styleAccount.css")));
-                     Stage stage;
-                     stage = (Stage) signup2.getScene().getWindow();
-                     stage.setScene(scene);
-                     stage.close();
-                     stage.show();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/User/Account.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
 
-                 }
+                AccountController account = fxmlLoader.getController();
+                account.display(user);
+                scene.getStylesheets().add(String.valueOf(getClass().getResource("/style/styleAccount.css")));
+                Stage stage;
+                stage = (Stage) signup2.getScene().getWindow();
+                stage.setScene(scene);
+                stage.close();
+                stage.show();
+
+            }
         }
+    }
 
     }
 

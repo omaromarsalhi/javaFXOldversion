@@ -1,5 +1,6 @@
 package pidev.javafx.Controller.User;
 import javafx.animation.FadeTransition;
+import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,6 +21,7 @@ import java.util.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 
@@ -86,6 +88,9 @@ public class listUserController implements Initializable {
 
     @FXML
     private Button btn_ajouter;
+    @FXML
+    private Pane pane;
+
     List<User> users;
 
 
@@ -145,6 +150,8 @@ public class listUserController implements Initializable {
 
 
     }
+
+
 
 
     private void fadeIn(TextField node) {
@@ -369,6 +376,19 @@ public class listUserController implements Initializable {
 
 
             });
+            Button suppButton = (Button) hBox.lookup("#supp"); // La fonction lookup(String selector) est une méthode de la classe Node qui cherche par id dans l' hiérarchie
+
+            if (suppButton != null) {
+                suppButton.setOnAction(event -> {
+                    ServiceUser serviceUser = new ServiceUser();
+
+                   serviceUser.supprimerByEmail(users.get(finalI).getEmail());
+                   Userlayout.getChildren().remove(hBox);
+                    users.remove(finalI);
+                });
+
+            }
+
 
         }
 
@@ -418,6 +438,19 @@ public class listUserController implements Initializable {
 
             });
 
+            Button suppButton = (Button) hBox.lookup("#supp"); // La fonction lookup(String selector) est une méthode de la classe Node qui cherche par id dans l' hiérarchie
+
+            if (suppButton != null) {
+                suppButton.setOnAction(event -> {
+                    ServiceUser serviceUser = new ServiceUser();
+
+                    serviceUser.supprimerByEmail(users.get(finalI).getEmail());
+                    Userlayout.getChildren().remove(hBox);
+                    users.remove(finalI);
+                });
+
+            }
+
 
         }
 
@@ -454,11 +487,22 @@ public class listUserController implements Initializable {
                 btn_ajouter.setVisible(false);
                 User user = new User();
                 ServiceUser serviceUser = new ServiceUser();
-
                 display(serviceUser.findParEmail(users.get(finalI).getEmail()));
 
 
             });
+
+            Button suppButton = (Button) hBox.lookup("#supp"); // La fonction lookup(String selector) est une méthode de la classe Node qui cherche par id dans l' hiérarchie
+
+            if (suppButton != null) {
+                suppButton.setOnAction(event -> {
+                    ServiceUser serviceUser = new ServiceUser();
+                    serviceUser.supprimerByEmail(users.get(finalI).getEmail());
+                    Userlayout.getChildren().remove(hBox);
+                    users.remove(finalI);
+                });
+
+            }
 
 
         }

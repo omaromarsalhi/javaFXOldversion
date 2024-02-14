@@ -69,7 +69,8 @@
     -fx-font-size: 12;
 
 }
-.custom-layer1 .button{
+
+.signin{
     -fx-background-color:#20749C;
     -fx-border-radius: 20px ;
     -fx-border-width: 1px;
@@ -88,4 +89,9 @@
     -fx-border-width: 1px;
     -fx-text-fill:#E7E7E7;
     -fx-font-size: 14px;
+}
+
+.btn-alerte{
+    -fx-border-style: transparent;
+    -fx-background-color: transparent;
 }

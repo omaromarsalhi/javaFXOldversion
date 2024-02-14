@@ -112,19 +112,18 @@ public class AccountController implements Initializable {
     }
 
     public void btnModifier(ActionEvent actionEvent) {
+
           User user=new User();
           user.setFirstname(firstname.getText());
-        user.setEmail(email.getText());
-        user.setEmail(lastname.getText());
-        user.setAge(Integer.parseInt(age.getText()));
-        user.setCin(cin.getText());
-        user.setDob(String.valueOf(dob.getValue()));
-        user.setNum(Integer.parseInt(telephone.getText()));
-        user.setStatus(status.getText());
-        ServiceUser serviceUser = new ServiceUser();
-        serviceUser.modifier(user);
-
-
+          user.setEmail(email.getText());
+          user.setEmail(lastname.getText());
+          user.setAge(Integer.parseInt(age.getText()));
+          user.setCin(cin.getText());
+          user.setDob(String.valueOf(dob.getValue()));
+          user.setNum(Integer.parseInt(telephone.getText()));
+          user.setStatus(status.getText());
+          ServiceUser serviceUser = new ServiceUser();
+          serviceUser.modifier(user);
 
 
     }

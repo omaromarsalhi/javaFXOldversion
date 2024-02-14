@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
 <AnchorPane prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidev.javafx.Controller.User.LoginSignupController">
@@ -26,7 +27,7 @@
                         <Label fx:id="forget" layoutX="189.0" layoutY="258.0" prefHeight="17.0" prefWidth="160.0" text="Forget your password" />
                         <Button fx:id="signup2" layoutX="191.0" layoutY="290.0" mnemonicParsing="false" onAction="#CreateAccount" prefHeight="25.0" prefWidth="78.0" text="signup" />
                         <TextField fx:id="username" layoutX="129.0" layoutY="120.0" prefHeight="25.0" prefWidth="200.0" promptText="username" />
-                        <Button fx:id="signin2" layoutX="190.0" layoutY="290.0" mnemonicParsing="false" onAction="#Authentifier" prefHeight="25.0" prefWidth="78.0" text="signin" />
+                        <Button fx:id="signin2" layoutX="190.0" layoutY="290.0" mnemonicParsing="false" onAction="#Authentifier" prefHeight="25.0" prefWidth="78.0" styleClass="signin" text="signin" />
                         <Line endX="125.0" layoutX="219.0" layoutY="345.0" startX="-100.0" style="-fx-stroke: #FFFFFF;" />
                         <ImageView fitHeight="55.0" fitWidth="200.0" layoutX="125.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -55,6 +56,58 @@
                         </HBox>
                         <PasswordField fx:id="password" layoutX="129.0" layoutY="221.0" prefHeight="25.0" prefWidth="200.0" promptText="password" />
                         <TextField fx:id="adresse" layoutX="128.0" layoutY="189.0" prefHeight="25.0" prefWidth="200.0" promptText="Adresse" />
+                        <VBox layoutX="329.0" layoutY="118.0" prefHeight="130.0" prefWidth="44.0">
+                           <children>
+                              <Button fx:id="alertename" mnemonicParsing="false" prefHeight="24.0" prefWidth="8.0" styleClass="btn-alerte">
+                                 <graphic>
+                                    <ImageView fitHeight="12.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/alerte.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="alerteemail" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="0.0" styleClass="btn-alerte">
+                                 <graphic>
+                                    <ImageView fitHeight="12.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/alerte.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <VBox.margin>
+                                    <Insets top="15.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="alerteadress" layoutX="10.0" layoutY="35.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="0.0" styleClass="btn-alerte">
+                                 <graphic>
+                                    <ImageView fitHeight="12.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/alerte.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="alertepassword" layoutX="10.0" layoutY="60.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="0.0" styleClass="btn-alerte">
+                                 <graphic>
+                                    <ImageView fitHeight="12.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../icons/alerte.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <VBox.margin>
+                                    <Insets top="7.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="layer2" prefHeight="400.0" prefWidth="235.0" style="-fx-background-color: #fdc847;" styleClass="custom-layer2">

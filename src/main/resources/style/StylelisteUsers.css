@@ -133,6 +133,21 @@
     -fx-background-color: transparent;
     -fx-border-color: transparent;
 }
+.pane {
+    -fx-background-color: #F27F0C; /* Couleur de fond *//*9FE7F5*/
+    -fx-border-color: #F27F0C; /* Couleur de la bordure */
+    -fx-border-width: 1px; /* Largeur de la bordure */
+    -fx-border-radius: 10px; /* Rayon de la bordure arrondie */
+    -fx-background-radius: 10px;
+    -fx-border-style: solid;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-effect: null;
+    -fx-transition: all 0.3s ease; /* Transition d'animation pour l'effet */
+}
+.pane:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 0, 0); /* Ombre portée avec couleur et rayon */
+
+}
 
 
 

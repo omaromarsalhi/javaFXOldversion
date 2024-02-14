@@ -15,10 +15,53 @@ public class User {
       String date;
       String dob;
       String status;
+      Boolean IsConnected;
+
+
+    public User() {
+    }
+
+    public User(String firstname, String lastname, String email) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+
+    }
+
+
+
+    public User(int id, String firstname, String lastname, String email, String cin, int age, int num, String adresse, Role role, int droit_acces, String password, String date) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.cin = cin;
+        this.age = age;
+        this.num = num;
+        this.adresse = adresse;
+        this.role = role;
+        this.droit_acces = droit_acces;
+        this.password = password;
+        this.date = date;
+    }
 
 
 
 
+
+    public User(String firstname, String email, String cin, int age, int num, String adresse, String dob, String lastname,String status,String date,Role role) {
+        this.firstname = firstname;
+        this.email = email;
+        this.cin = cin;
+        this.age = age;
+        this.num = num;
+        this.adresse = adresse;
+        this.dob = dob;
+        this.lastname = lastname;
+        this.role=role;
+        this.status =status;
+        this.date=date;
+    }
 
 
 
@@ -157,55 +200,16 @@ public class User {
         return dob;
     }
 
-
-
-
-
-
-
-
-    public User() {
+    public Boolean getConnected() {
+        return IsConnected;
     }
 
-    public User(String firstname, String lastname, String email) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
-
-    }
-
-
-
-    public User(int id, String firstname, String lastname, String email, String cin, int age, int num, String adresse, Role role, int droit_acces, String password, String date) {
-        this.id = id;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
-        this.cin = cin;
-        this.age = age;
-        this.num = num;
-        this.adresse = adresse;
-        this.role = role;
-        this.droit_acces = droit_acces;
-        this.password = password;
-        this.date = date;
+    public void setConnected(Boolean connected) {
+        IsConnected = connected;
     }
 
 
 
 
 
-    public User(String firstname, String email, String cin, int age, int num, String adresse, String dob, String lastname,String status,String date,Role role) {
-        this.firstname = firstname;
-        this.email = email;
-        this.cin = cin;
-        this.age = age;
-        this.num = num;
-        this.adresse = adresse;
-        this.dob = dob;
-        this.lastname = lastname;
-        this.role=role;
-        this.status =status;
-        this.date=date;
-    }
 }

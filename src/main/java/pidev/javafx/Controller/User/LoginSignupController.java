@@ -63,6 +63,12 @@ public class LoginSignupController implements Initializable {
     private Button signup2;
     @FXML
     private TextField adresse;
+
+
+
+
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         welcome.setVisible(true);
@@ -75,8 +81,14 @@ public class LoginSignupController implements Initializable {
         signin2.setVisible(false);
         email.setVisible(true);
         name.setVisible(true);
+
         signup2.setVisible(true);
+
     }
+
+
+
+
     @FXML
     void btn(MouseEvent event) {
         TranslateTransition slide =new TranslateTransition();
@@ -97,17 +109,21 @@ public class LoginSignupController implements Initializable {
         name.setVisible(false);
         signup2.setVisible(false);
         adresse.setVisible(false);
+
         slide.setOnFinished((e->{
 
 
         }));
 
+
     }
+
+
+
     @FXML
     void btn2(MouseEvent event) {
         TranslateTransition slide =new TranslateTransition();
         slide.setDuration(Duration.seconds(0.5));
-
 
         slide.setNode(layer2);
         slide.setToX(0);
@@ -125,66 +141,124 @@ public class LoginSignupController implements Initializable {
         name.setVisible(true);
         signup2.setVisible(true);
         adresse.setVisible(true);
+
         slide.setOnFinished((e->{
 
 
         }));
 
     }
-@FXML
-    public void btnsignup(ActionEvent actionEvent) throws IOException {
+
+
+
+    @FXML
+    public void CreateAccount(ActionEvent actionEvent) throws IOException {
+
     User user = new User();
-   if (name.getText() != "" && email.getText()!="" && password.getText()!=""){
-        user.setFirstname(name.getText());
-        user.setEmail(email.getText());
-        user.setAdresse(adresse.getText());
-        user.setPassword(PasswordHasher.hashPassword(password.getText()));
-        user.setRole(Role.simpleutlisateur);
+        if (name.getText() != "" && email.getText()!="" && password.getText()!=""){
+            ServiceUser service=new ServiceUser();
+            User usexist= new User();
+            usexist=service.findParEmail(email.getText());
 
-    ServiceUser serviceUser = new ServiceUser();
-    serviceUser.ajouterUser(user);
-    FXMLLoader fxmlLoader = new FXMLLoader( getClass().getResource( "/fxml/User/Account.fxml" ));
-    Scene scene = new Scene(fxmlLoader.load());
-    AccountController account=fxmlLoader.getController();
-    account.display(name.getText(),email.getText(),adresse.getText());
-    scene.getStylesheets().add( String.valueOf( getClass().getResource("/style/styleAccount.css") ) );
-    Stage stage;
-    stage = (Stage) signup2.getScene().getWindow();
-    stage.setScene(scene);
-    stage.close();
-    stage.show();
+                 if(usexist==null) {
 
+                     user.setFirstname(name.getText());
+                     user.setEmail(email.getText());
+                     user.setAdresse(adresse.getText());
+
+                     user.setPassword(PasswordHasher.hashPassword(password.getText()));
+                     System.out.println(user.getPassword());
+                     user.setRole(Role.simpleutlisateur);
+
+                     ServiceUser serviceUser = new ServiceUser();
+                     serviceUser.ajouterUser(user);
+
+                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/User/Account.fxml"));
+                     Scene scene = new Scene(fxmlLoader.load());
+
+                     AccountController account = fxmlLoader.getController();
+                     account.display(user);
+                     scene.getStylesheets().add(String.valueOf(getClass().getResource("/style/styleAccount.css")));
+                     Stage stage;
+                     stage = (Stage) signup2.getScene().getWindow();
+                     stage.setScene(scene);
+                     stage.close();
+                     stage.show();
+
+                 }
+        }
 
     }
 
-    }
+
+
     public static void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.initStyle(StageStyle.UNDECORATED);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
-        alert.getDialogPane().getStylesheets().add(
-                Main.class.getResource("/style/styleSignup.css").toExternalForm());
+        alert.getDialogPane().getStylesheets().add(Main.class.getResource("/style/styleSignup.css").toExternalForm());
         alert.showAndWait();
     }
 
-    public void btnsignin(ActionEvent actionEvent) {
+
+    public void Authentifier(ActionEvent actionEvent) {
+
         User user = new User();
         user.setEmail(username.getText());
         user.setPassword(password.getText());
-        ServiceUser service=new ServiceUser();
-        if (service.chercherParEmail(user.getEmail())){
 
-        }
-        else
-        {
-            System.out.println("ce utlistateur n'existe pas ");
-            showAlert("utlisateur n'existe pas ","il faut s'inscrire");
-            username.clear();
-            password.clear();
-        }
+        ServiceUser service=new ServiceUser();
+
+
+            String pass=service.RetriveHashedPassword(user.getEmail());
+        System.out.println(pass);
+            if(pass==null){
+
+            }
+            else
+            {
+                if(PasswordHasher.verifyPassword(user.getPassword(),pass)){
+
+                    user=service.findParEmail(user.getEmail());
+                    System.out.println(user.getCin());
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/User/Account.fxml"));
+                    Scene scene = null;
+                    try {
+                        scene = new Scene(fxmlLoader.load());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    AccountController account = fxmlLoader.getController();
+                    account.display(user);
+                    scene.getStylesheets().add(String.valueOf(getClass().getResource("/style/styleAccount.css")));
+                    Stage stage;
+                    stage = (Stage) signup2.getScene().getWindow();
+                    stage.setScene(scene);
+                    stage.close();
+                    stage.show();
+
+                }
+                else{
+
+                    System.out.println("ce utlistateur n'existe pas ");
+                    showAlert("utlisateur n'existe pas ","il faut s'inscrire");
+                    username.clear();
+                    password.clear();
+
+                }
+            }
+
+
+
+
 
 
     }
+
+
+
+
 }

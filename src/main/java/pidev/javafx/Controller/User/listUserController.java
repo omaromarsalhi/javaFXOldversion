@@ -404,8 +404,8 @@ public class listUserController implements Initializable {
                 useritem.setData(users.get(i));
                 Userlayout.getChildren().add(hBox);
             }
-            int finalI = i;
-            hBox.setOnMouseClicked(event -> {
+                int finalI = i;
+                hBox.setOnMouseClicked(event -> {
                 btn_modif.setVisible(true);
                 btn_bloq.setVisible(true);
                 btn_supp.setVisible(true);
@@ -424,16 +424,14 @@ public class listUserController implements Initializable {
     }
 
     public void onAllClick(ActionEvent actionEvent) {
+
         Userlayout.getChildren().clear();
         for (int i = 0; i < users.size(); i++) {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/fxml/User/user_item.fxml"));
             HBox hBox;
 
-
             try {
-
-
                 hBox = fxmlLoader.load();
 
             } catch (IOException e) {
@@ -443,15 +441,12 @@ public class listUserController implements Initializable {
             }
 
 
-
-
-                System.out.println("heloo");
-                UseritemController useritem = fxmlLoader.getController();
-                useritem.setData(users.get(i));
-                Userlayout.getChildren().add(hBox);
+            System.out.println("heloo");
+            UseritemController useritem = fxmlLoader.getController();
+            useritem.setData(users.get(i));
+            Userlayout.getChildren().add(hBox);
 
             int finalI = i;
-            System.out.println(i);
             hBox.setOnMouseClicked(event -> {
                 btn_modif.setVisible(true);
                 btn_bloq.setVisible(true);

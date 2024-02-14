@@ -6,12 +6,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import pidev.javafx.Model.user.User;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class AccountController implements Initializable {
@@ -50,6 +53,13 @@ public class AccountController implements Initializable {
 
     @FXML
     private TextField telephone;
+    @FXML
+    private Label labelname;
+
+    @FXML
+    private Label labelemail;
+    @FXML
+    private ImageView isconnected;
 
 
    private FXMLLoader fxmlLoader;
@@ -84,11 +94,21 @@ public class AccountController implements Initializable {
 
     }
 
-    public void display(String name,String email,String adresse)
+
+    public void display(User user)
     {
-        this.firstname.setText(name);
-        this.email.setText(email);
-        this.adresse.setText(adresse);
+        this.firstname.setText(user.getFirstname());
+        this.lastname.setText(user.getLastname());
+        this.email.setText(user.getEmail());
+        this.adresse.setText(user.getAdresse());
+        this.cin.setText(user.getCin());
+        this.status.setText(user.getStatus());
+        this.age.setText(String.valueOf(user.getAge()));
+        this.telephone.setText(String.valueOf(user.getNum()));
+        this.dob.setValue(LocalDate.parse(user.getDob()));
+        this.labelemail.setText((user.getEmail()));
+        this.labelname.setText(user.getFirstname()+" "+user.getLastname());
+        this.isconnected.setVisible(true);
     }
 
     public void btnModifier(ActionEvent actionEvent) {

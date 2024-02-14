@@ -17,29 +17,25 @@ public class ServiceUser implements Iservice<User> {
     Connection cnx = ConnectionDB.getInstance().getCnx();
 
 
-
-
     @Override
     public void ajouterUser(User user) {
-
+        System.out.println("helooo");
         String req = "INSERT INTO `user`(`firstName`,`email`,`password`,`adresse`,`date`,`role`) VALUES (?,?,?,?,?,?)";
         try {
 
             PreparedStatement ps = cnx.prepareStatement(req);
 
-            ps.setString(1,user.getFirstname());
-            ps.setString(2,user.getEmail());
-            ps.setString(3,user.getPassword());
-            ps.setString(4,user.getAdresse());
+            ps.setString(1, user.getFirstname());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPassword());
+            ps.setString(4, user.getAdresse());
             ps.setString(5, String.valueOf(LocalDate.now()));
             ps.setString(6, String.valueOf(user.getRole()));
 
             ps.executeUpdate();
 
             System.out.println("Personne added !");
-        }
-
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -53,23 +49,21 @@ public class ServiceUser implements Iservice<User> {
 
             PreparedStatement ps = cnx.prepareStatement(req);
 
-            ps.setString(1,user.getFirstname());
-            ps.setString(2,user.getLastname());
-            ps.setString(3,user.getEmail());
+            ps.setString(1, user.getFirstname());
+            ps.setString(2, user.getLastname());
+            ps.setString(3, user.getEmail());
             ps.setString(4, String.valueOf(user.getAge()));
             ps.setString(5, String.valueOf(user.getNum()));
-            ps.setString(6,user.getPassword());
-            ps.setString(7,user.getAdresse());
+            ps.setString(6, user.getPassword());
+            ps.setString(7, user.getAdresse());
             ps.setString(8, String.valueOf(LocalDate.now()));
             ps.setString(9, String.valueOf(user.getRole()));
-            ps.setString(10,user.getCin());
-            ps.setString(11,user.getStatus());
+            ps.setString(10, user.getCin());
+            ps.setString(11, user.getStatus());
 
             ps.executeUpdate();
             System.out.println("Personne added !");
-        }
-
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
@@ -78,11 +72,11 @@ public class ServiceUser implements Iservice<User> {
 
     @Override
     public void modifier(User user) {
-        String firstname=user.getFirstname();
-        String email= user.getEmail();
+        String firstname = user.getFirstname();
+        String email = user.getEmail();
 
 
-        String req = "UPDATE `user` SET `lastname`=?,`age` = ?, `cin` = ?, `dob` = ?,`num` =? ,`status` = ?  WHERE `firstname` = firstname and `email`=email";
+        String req = "UPDATE `user` SET `lastname` = ?,`age` = ?, `cin` = ?, `dob` = ?,`num` =? ,`status` = ?  WHERE `firstname` = firstname and `email`=email";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
 
@@ -90,19 +84,16 @@ public class ServiceUser implements Iservice<User> {
             ps.setInt(2, user.getAge());
             ps.setString(3, user.getCin());
             ps.setString(4, user.getDob());
-            ps.setInt(5,user.getNum());
+            ps.setInt(5, user.getNum());
             ps.setString(6, user.getStatus());
 
             ps.executeUpdate();
             System.out.println("User updated !");
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
     }
-
-
 
 
     @Override
@@ -116,9 +107,7 @@ public class ServiceUser implements Iservice<User> {
             ps.setInt(1, id);
             ps.executeUpdate();
             System.out.println("User deleted !");
-        }
-
-        catch (SQLException e) {
+        } catch (SQLException e) {
 
             System.out.println(e.getMessage());
 
@@ -137,14 +126,11 @@ public class ServiceUser implements Iservice<User> {
             ps.setString(1, email);
             ps.executeUpdate();
             System.out.println("User deleted !");
-        }
-
-        catch (SQLException e) {
+        } catch (SQLException e) {
 
             System.out.println(e.getMessage());
 
         }
-
 
 
     }
@@ -155,10 +141,6 @@ public class ServiceUser implements Iservice<User> {
     }
 
 
-
-
-
-
     @Override
     public List<User> getAll() {
         List<User> users = new ArrayList<>();
@@ -166,27 +148,24 @@ public class ServiceUser implements Iservice<User> {
         String req = "SELECT * FROM `user`";
 
         try {
-               Statement stmt = cnx.createStatement();
-               ResultSet rs = stmt.executeQuery(req);
+            Statement stmt = cnx.createStatement();
+            ResultSet rs = stmt.executeQuery(req);
 
 
-               while (((ResultSet) rs).next()) {
-                   User user = new User();
+            while (((ResultSet) rs).next()) {
+                User user = new User();
 
-                     user.setFirstname(rs.getString("firstName"));
-                     user.setLastname(rs.getString("lastname"));
-                     user.setEmail(rs.getString("email"));
-                   user.setRole(Role.valueOf(rs.getString("role")));
+                user.setFirstname(rs.getString("firstName"));
+                user.setLastname(rs.getString("lastname"));
+                user.setEmail(rs.getString("email"));
+                user.setRole(Role.valueOf(rs.getString("role")));
 
-                     users.add(user);
-               }
+                users.add(user);
+            }
 
-        }
-
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
 
 
         return users;
@@ -194,9 +173,7 @@ public class ServiceUser implements Iservice<User> {
     }
 
 
-
-
-    public boolean chercherParEmail(String email){         //hethi bech nahiha
+    public boolean chercherParEmail(String email) {         //hethi bech nahiha
 
         String req = "SELECT firstName,lastname,email FROM `user` where email=?";
 
@@ -204,13 +181,11 @@ public class ServiceUser implements Iservice<User> {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
-            if(rs.next()){//au moins 1
+            if (rs.next()) {//au moins 1
                 System.out.println(rs.getString("firstName") + " " + rs.getString("lastName") + " " + rs.getString("email"));
                 return true;
             }
-        }
-
-        catch (SQLException e) {
+        } catch (SQLException e) {
 
             System.out.println(e.getMessage());
         }
@@ -218,6 +193,7 @@ public class ServiceUser implements Iservice<User> {
         return false;
 
     }
+
     public User findParEmail(String email) {
 
         String req = "SELECT * FROM `user` WHERE email=?";
@@ -227,36 +203,78 @@ public class ServiceUser implements Iservice<User> {
 
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, email);
-            ResultSet  rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
 
 
             if (rs.next()) {
 
                 String firstname = rs.getString("firstName");
                 String lastName = rs.getString("lastname");
-                int age= rs.getInt("age");
+                int age = rs.getInt("age");
                 int num = rs.getInt("num");
                 String adresse = rs.getString("adresse");
                 String dob = rs.getString("dob");
                 String cin = rs.getString("cin");
-                String role=rs.getString("role");
-                String status=rs.getString("status");
+                String role = rs.getString("role");
+                String status = rs.getString("status");
                 String date = rs.getString("date");
 
 
-                user = new User(firstname,email,cin,age,num,adresse,dob,lastName,status,date, Role.valueOf(role));
+
+                user = new User(firstname, email, cin, age, num, adresse, dob, lastName, status, date, Role.valueOf(role));
 
 
             }
-        }
-
-        catch (SQLException e) {
+        } catch (SQLException e) {
 
             System.out.println(e.getMessage());
 
         }
 
         return user;
+    }
+
+
+    public Boolean TestAuthentifier(String email, String password) {
+
+        String req = "SELECT COUNT(*) AS user_exists From user WHERE email = ? and password=?;";
+
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setString(1, email);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.getInt("user_exists") == 1) {
+                return true;
+            }
+        } catch (SQLException e) {
+
+            System.out.println(e.getMessage());
+        }
+
+        return false;
+
+
+    }
+    public String RetriveHashedPassword(String email) {
+        String req = "SELECT password FROM user WHERE email=?";
+        String password = null;
+
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setString(1, email);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                password = rs.getString("password");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return password;
     }
 
 }

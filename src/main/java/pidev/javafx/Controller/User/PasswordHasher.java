@@ -9,16 +9,8 @@ public class PasswordHasher {
 
     public static String hashPassword(String password) {
         try {
-
-            SecureRandom random = new SecureRandom();
-            byte[] salt = new byte[SALT_LENGTH];
-            random.nextBytes(salt);
-
-            String passwordWithSalt = password + Base64.getEncoder().encodeToString(salt);
-
-            // Calculer le hachage du mot de passe avec sel
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hashedBytes = digest.digest(passwordWithSalt.getBytes());
+            byte[] hashedBytes = digest.digest(password.getBytes());
 
             // Convertir le hachage en format hexadécimal
             StringBuilder stringBuilder = new StringBuilder();
@@ -30,6 +22,26 @@ public class PasswordHasher {
             e.printStackTrace();
             return null;
         }
-
     }
+
+    public static boolean verifyPassword(String password, String hashedPassword) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hashedBytes = digest.digest(password.getBytes());
+
+            // Convertir le hachage en format hexadécimal
+            StringBuilder stringBuilder = new StringBuilder();
+            for (byte hashedByte : hashedBytes) {
+                stringBuilder.append(String.format("%02x", hashedByte));
+            }
+
+            // Comparer les hachages
+            System.out.println(stringBuilder.toString());
+            return stringBuilder.toString().equals(hashedPassword);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }

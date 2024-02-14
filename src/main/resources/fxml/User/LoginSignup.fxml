@@ -24,9 +24,9 @@
                         <TextField fx:id="email" layoutX="130.0" layoutY="157.0" prefHeight="25.0" prefWidth="200.0" promptText="Email" />
                         <TextField fx:id="name" layoutX="129.0" layoutY="120.0" prefHeight="25.0" prefWidth="200.0" promptText="name" AnchorPane.leftAnchor="129.0" />
                         <Label fx:id="forget" layoutX="189.0" layoutY="258.0" prefHeight="17.0" prefWidth="160.0" text="Forget your password" />
-                        <Button fx:id="signup2" layoutX="191.0" layoutY="290.0" mnemonicParsing="false" onAction="#btnsignup" prefHeight="25.0" prefWidth="78.0" text="signup" />
+                        <Button fx:id="signup2" layoutX="191.0" layoutY="290.0" mnemonicParsing="false" onAction="#CreateAccount" prefHeight="25.0" prefWidth="78.0" text="signup" />
                         <TextField fx:id="username" layoutX="129.0" layoutY="120.0" prefHeight="25.0" prefWidth="200.0" promptText="username" />
-                        <Button fx:id="signin2" layoutX="190.0" layoutY="290.0" mnemonicParsing="false" onAction="#btnsignin" prefHeight="25.0" prefWidth="78.0" text="signin" />
+                        <Button fx:id="signin2" layoutX="190.0" layoutY="290.0" mnemonicParsing="false" onAction="#Authentifier" prefHeight="25.0" prefWidth="78.0" text="signin" />
                         <Line endX="125.0" layoutX="219.0" layoutY="345.0" startX="-100.0" style="-fx-stroke: #FFFFFF;" />
                         <ImageView fitHeight="55.0" fitWidth="200.0" layoutX="125.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
                            <image>

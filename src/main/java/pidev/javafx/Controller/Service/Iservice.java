@@ -4,7 +4,7 @@ import java.util.Set;
 public interface Iservice <T> {
     public void ajouter(T t);
     public void modifier(T t);
-    public void supprimer(int idReclamation);
+    public void supprimer(String idReclamation);
     public T getOneById(int idReclamation);
     public Set<T> getAll();
 }

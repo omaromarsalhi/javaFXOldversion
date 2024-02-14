@@ -86,6 +86,21 @@ public void initialize() {
             }
         });
     }
+    @FXML
+    void supprimer_Reclamation() {
+        // Assuming privateKey.getText() returns the id of the reclamation
+        String idReclamation = privateKey.getText();
+        si.supprimer(idReclamation);
+        clearFields();
+        displayDetailsInTextField();
+    }
+    void clearFields() {
+        privateKey.setText("");
+        title.setText("");
+        subject.setText("");
+        description.setText("");
+    }
+
 
 
 }

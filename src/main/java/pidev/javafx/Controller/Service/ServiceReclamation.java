@@ -47,11 +47,11 @@ public class ServiceReclamation implements Iservice<Reclamation> {
     }
 
     @Override
-    public void supprimer(int idReclamation) {
-        String req = "DELETE FROM `reclamation` WHERE `idReclamation`=?";
+    public void supprimer(String idReclamation) {
+        String req = "DELETE FROM `reclamation` WHERE `privateKey`=?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setInt(1, idReclamation);
+            ps.setString(1, idReclamation);
             ps.executeUpdate();
             System.out.println("Reclamation deleted !");
         } catch (SQLException e) {

@@ -3,9 +3,7 @@ package pidev.javafx.Controller.Demande;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import pidev.javafx.Controller.Entity.Reclamation;
@@ -19,7 +17,20 @@ public class modifer {
 
     @FXML
     public ListView lista;
+    private Button importButton;
+
+    @FXML
+    private TextField privateKey;
+    @FXML
+    private TextField title;
+    @FXML
+    private TextField subject;
+
+    @FXML
+    private TextArea description ;
+
     ServiceReclamation si = new ServiceReclamation();
+
 //    public void initialize() {
 //        try {
 //            // Get the data from the database
@@ -56,6 +67,26 @@ public void initialize() {
         }
     });
 }
+    @FXML
+    void modifer_Reclamation()
+    {
+        Reclamation   rec = new Reclamation(privateKey.getText(), title.getText(),subject.getText() ,description.getText());
+        si.modifier(rec);
+    }
+    public void displayDetailsInTextField() {
+        lista.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2 && (!lista.getSelectionModel().isEmpty())) {
+                // Get the selected item
+                Reclamation selectedItem = (Reclamation) lista.getSelectionModel().getSelectedItem();
+                // Display the details in the text fields
+                privateKey.setText(selectedItem.getPrivateKey());
+                title.setText(selectedItem.getTitre());
+                subject.setText(selectedItem.getSubject());
+                description.setText(selectedItem.getDescription());
+            }
+        });
+    }
+
 
 }
 

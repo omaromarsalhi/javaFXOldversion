@@ -32,14 +32,13 @@ public class ServiceReclamation implements Iservice<Reclamation> {
 
     @Override
     public void modifier(Reclamation reclamation) {
-        String req = "UPDATE `reclamation` SET `subject`=?, `titre`=?, `date`=?, `description`=? WHERE `privateKey`=?";
+        String req = "UPDATE `reclamation` SET `subject`=?, `titre`=?, `description`=? WHERE `privateKey`=?";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, reclamation.getSubject());
             ps.setString(2, reclamation.getTitre());
-            ps.setDate(3, new java.sql.Date(reclamation.getDate().getTime()));
-            ps.setString(4, reclamation.getDescription());
-            ps.setString(5, reclamation.getPrivateKey());
+            ps.setString(3, reclamation.getDescription());
+            ps.setString(4, reclamation.getPrivateKey());
             ps.executeUpdate();
             System.out.println("Reclamation updated !");
         } catch (SQLException e) {

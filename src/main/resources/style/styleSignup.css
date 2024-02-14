@@ -32,18 +32,41 @@
     -fx-background-color: transparent;
 }
 .alert {
-    -fx-background-color: #C8C8C8; /* Couleur de fond */
-    -fx-text-fill: #000000; /* Couleur du texte */
-    -fx-font-size: 13px; /* Taille de la police */
-    -fx-border-radius: 50px;
-    -fx-min-width: 250px; /* Largeur minimale de la fenêtre */
-    -fx-max-width: 200px; /*
+    -fx-background-color: #FF5733; /* Couleur de fond */
+    -fx-border-color: #C70039; /* Couleur de la bordure */
+   -fx-fill-width: 40;
+}
+
+.alert .dialog-pane {
+    -fx-background-color: transparent; /* Fond transparent */
 }
 
 .alert .header-panel {
-    -fx-background-color: #4CAF50; /* Couleur de fond de l'en-tête */
+    -fx-background-color: #FF5733; /* Couleur de fond de l'en-tête */
 }
 
-.alert .content.label {
-    -fx-padding: 20px; /* Espacement du contenu */
+.alert .header-panel .label {
+    -fx-text-fill: white; /* Couleur du texte de l'en-tête */
 }
+
+.alert .content {
+    -fx-background-color: #FF5733; /* Couleur de fond du contenu */
+}
+
+.alert .content .label {
+    -fx-text-fill: white; /* Couleur du texte du contenu */
+}
+
+.alert .button-bar {
+    -fx-background-color: transparent; /* Fond transparent pour la barre de boutons */
+}
+
+.alert .button-bar .button {
+    -fx-background-color: #C70039; /* Couleur de fond des boutons */
+    -fx-text-fill: white; /* Couleur du texte des boutons */
+}
+
+.alert .button-bar .button:hover {
+    -fx-background-color: #FF5733; /* Couleur de fond des boutons au survol */
+}
+

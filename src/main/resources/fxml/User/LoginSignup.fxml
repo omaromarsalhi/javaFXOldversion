@@ -62,7 +62,7 @@
                                  <graphic>
                                     <ImageView fitHeight="12.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../icons/alerte.png" />
+                                          <Image url="@../../icons/icons8-alerte.gif" />
                                        </image>
                                     </ImageView>
                                  </graphic>

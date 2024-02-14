@@ -3,6 +3,15 @@ package pidev.javafx.Model.user;
 public class Municipalite {
     int id;
     String name;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     String adresse;
 
     public Municipalite() {
@@ -28,4 +37,6 @@ public class Municipalite {
     public void setAdresse(String adresse) {
         this.adresse = adresse;
     }
+
+
 }

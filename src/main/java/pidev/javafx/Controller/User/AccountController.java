@@ -105,7 +105,7 @@ public class AccountController implements Initializable {
         this.status.setText(user.getStatus());
         this.age.setText(String.valueOf(user.getAge()));
         this.telephone.setText(String.valueOf(user.getNum()));
-        this.dob.setValue(LocalDate.parse(user.getDob()));
+        //this.dob.setValue(LocalDate.parse(user.getDob()));
         this.labelemail.setText((user.getEmail()));
         this.labelname.setText(user.getFirstname()+" "+user.getLastname());
         this.isconnected.setVisible(true);

@@ -1,6 +1,6 @@
 package pidev.javafx.Controller.User;
 
-import pidev.javafx.Controller.Iservice;
+import pidev.javafx.Controller.IserviceUser;
 import pidev.javafx.Model.user.Role;
 import pidev.javafx.Model.user.User;
 import pidev.javafx.utlis.ConnectionDB;
@@ -8,11 +8,9 @@ import pidev.javafx.utlis.ConnectionDB;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-public class ServiceUser implements Iservice<User> {
+public class ServiceUser implements IserviceUser<User> {
 
     Connection cnx = ConnectionDB.getInstance().getCnx();
 
@@ -44,7 +42,7 @@ public class ServiceUser implements Iservice<User> {
     @Override
     public void ajouteremploye(User user) {
 
-        String req = "INSERT INTO `user`(`firstName`,`lastname`,`email`,`age`,`num`,`password`,`adresse`,`date`,`role`,`cin`,`status`) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        String req = "INSERT INTO `user`(`firstName`,`lastname`,`email`,`age`,`num`,`password`,`adresse`,`date`,`role`,`cin`,`status`,`idMunicipalite`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
 
             PreparedStatement ps = cnx.prepareStatement(req);
@@ -60,6 +58,7 @@ public class ServiceUser implements Iservice<User> {
             ps.setString(9, String.valueOf(user.getRole()));
             ps.setString(10, user.getCin());
             ps.setString(11, user.getStatus());
+            ps.setString(12, String.valueOf(user.getIdMunicipalite()));
 
             ps.executeUpdate();
             System.out.println("Personne added !");
@@ -68,6 +67,36 @@ public class ServiceUser implements Iservice<User> {
         }
 
     }
+    @Override
+    public void ajouterResponsable(User user) {
+
+        String req = "INSERT INTO `user`(`firstName`,`lastname`,`email`,`age`,`num`,`password`,`adresse`,`date`,`role`,`cin`,`status`,`idMunicipalite`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        try {
+
+            PreparedStatement ps = cnx.prepareStatement(req);
+
+            ps.setString(1, user.getFirstname());
+            ps.setString(2, user.getLastname());
+            ps.setString(3, user.getEmail());
+            ps.setString(4, String.valueOf(user.getAge()));
+            ps.setString(5, String.valueOf(user.getNum()));
+            ps.setString(6, user.getPassword());
+            ps.setString(7, user.getAdresse());
+            ps.setString(8, String.valueOf(LocalDate.now()));
+            ps.setString(9, String.valueOf(user.getRole()));
+            ps.setString(10, user.getCin());
+            ps.setString(11, user.getStatus());
+            ps.setString(12, String.valueOf(user.getIdMunicipalite()));
+            System.out.println(user.getIdMunicipalite());
+
+            ps.executeUpdate();
+            System.out.println("Personne added !");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
 
 
     @Override
@@ -87,6 +116,26 @@ public class ServiceUser implements Iservice<User> {
             ps.setInt(5, user.getNum());
             ps.setString(6, user.getStatus());
 
+            ps.executeUpdate();
+            System.out.println("User updated !");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+    public void isconnected(User user) {
+
+
+
+
+
+        String req = "UPDATE `user` SET `IsConnected`= ? WHERE  `email`= ?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+
+            ps.setInt(1, user.getIsConnected());
+            ps.setString(2,user.getEmail());
+            System.out.println(user.getIsConnected());
             ps.executeUpdate();
             System.out.println("User updated !");
         } catch (SQLException e) {
@@ -159,6 +208,7 @@ public class ServiceUser implements Iservice<User> {
                 user.setLastname(rs.getString("lastname"));
                 user.setEmail(rs.getString("email"));
                 user.setRole(Role.valueOf(rs.getString("role")));
+                user.setIdMunicipalite((rs.getInt("idMunicipalite")));
 
                 users.add(user);
             }
@@ -191,6 +241,26 @@ public class ServiceUser implements Iservice<User> {
         }
 
         return false;
+
+    }
+    public int chercherParIsconnected() {         //hethi bech nahiha
+        int idMunicipalite=-1;
+        String req = "SELECT  idMunicipalite FROM `user` where IsConnected=1";
+
+           try {
+             PreparedStatement ps = cnx.prepareStatement(req);
+             ResultSet rs = ps.executeQuery();
+              if (rs.next()) {
+                // Récupérez la valeur de la colonne idMunicipalite
+                idMunicipalite = rs.getInt("idMunicipalite");
+              }
+
+        } catch (SQLException e) {
+
+            System.out.println(e.getMessage());
+        }
+
+        return idMunicipalite;
 
     }
 

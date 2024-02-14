@@ -1,6 +1,7 @@
 package pidev.javafx.Controller.User;
 import javafx.animation.FadeTransition;
 import javafx.animation.RotateTransition;
+import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -90,8 +91,21 @@ public class listUserController implements Initializable {
     private Button btn_ajouter;
     @FXML
     private Pane pane;
+    @FXML
+    private VBox nbemployee1;
+
+    @FXML
+    private VBox nbusers;
+
+
+    @FXML
+    private Label labelusers;
+    @FXML
+    private Label labelemploye;
+
 
     List<User> users;
+
 
 
     @Override
@@ -99,56 +113,98 @@ public class listUserController implements Initializable {
         vboxinfo.setVisible(false);
         vboxfiltre.setVisible(false);
         ServiceUser service = new ServiceUser();
-
+        int employee=0;
+        int utlis=0;
         users = new ArrayList<>(service.getAll());
         for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getIdMunicipalite() == service.chercherParIsconnected()) {
+                if (users.get(i).getRole() == Role.employe) {
 
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("/fxml/User/user_item.fxml"));
-            try {
-                HBox hBox = fxmlLoader.load();
-
-                UseritemController useritem = fxmlLoader.getController();
-
-                useritem.setData(users.get(i));
-
-                int finalI = i;// a comprendre
-
-                Button suppButton = (Button) hBox.lookup("#supp"); // La fonction lookup(String selector) est une méthode de la classe Node qui cherche par id dans l' hiérarchie
-
-                if (suppButton != null) {
-                    suppButton.setOnAction(event -> {
-                        ServiceUser serviceUser = new ServiceUser();
-                        serviceUser.supprimerByEmail(users.get(finalI).getEmail());
-                        Userlayout.getChildren().remove(hBox);
-                    });
-
+                    employee++;
                 }
+                if (users.get(i).getRole() == Role.simpleutlisateur) {
+                    utlis++;
+                }
+                    if(users.get(i).getRole()!=Role.responsable) {
+                        System.out.println("heloo");
+                        FXMLLoader fxmlLoader = new FXMLLoader();
+                        fxmlLoader.setLocation(getClass().getResource("/fxml/User/user_item.fxml"));
+                        try {
+                            HBox hBox = fxmlLoader.load();
+
+                            UseritemController useritem = fxmlLoader.getController();
+
+                            useritem.setData(users.get(i));
+
+                            int finalI = i;// a comprendre
+
+                            Button suppButton = (Button) hBox.lookup("#supp"); // La fonction lookup(String selector) est une méthode de la classe Node qui cherche par id dans l' hiérarchie
+
+                            if (suppButton != null) {
+                                suppButton.setOnAction(event -> {
+                                    ServiceUser serviceUser = new ServiceUser();
+                                    serviceUser.supprimerByEmail(users.get(finalI).getEmail());
+                                    Userlayout.getChildren().remove(hBox);
+                                });
+
+                            }
 
 
-                hBox.setOnMouseClicked(event -> {
-                    btn_modif.setVisible(true);
-                    btn_bloq.setVisible(true);
-                    btn_supp.setVisible(true);
-                    btn_ajouter.setVisible(false);
-                    User user = new User();
-                    ServiceUser serviceUser = new ServiceUser();
+                            hBox.setOnMouseClicked(event -> {
+                                btn_modif.setVisible(true);
+                                btn_bloq.setVisible(true);
+                                btn_supp.setVisible(true);
+                                btn_ajouter.setVisible(false);
+                                User user = new User();
+                                ServiceUser serviceUser = new ServiceUser();
 
-                    display(serviceUser.findParEmail(users.get(finalI).getEmail()));
+                                display(serviceUser.findParEmail(users.get(finalI).getEmail()));
 
 
-                });
+                            });
 
-                HBox.setMargin(hBox, new Insets(70, 0, 0, 0));
+                            HBox.setMargin(hBox, new Insets(70, 0, 0, 0));
 
-                Userlayout.getChildren().add(hBox);
+                            Userlayout.getChildren().add(hBox);
 
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
             }
         }
+        labelusers.setText(String.valueOf(utlis));
+        labelemploye.setText(String.valueOf(employee));
+        ScaleTransition scaleIn = new ScaleTransition(Duration.seconds(0.2), bar_recherche);
+        scaleIn.setFromX(0);
+        scaleIn.setToX(1);
+        scaleIn.setFromY(0);
+        scaleIn.setToY(1);
 
+        ScaleTransition scaleOut = new ScaleTransition(Duration.seconds(0.2), bar_recherche);
+        scaleOut.setFromX(1);
+        scaleOut.setToX(0);
+        scaleOut.setFromY(1);
+        scaleOut.setToY(0);
 
+        // Gestion des événements focus sur la barre de recherche
+        bar_recherche.setOnMouseEntered(event -> {
+            if (!bar_recherche.isFocused()) {
+                scaleIn.play();
+            }
+        });
+
+        bar_recherche.setOnMouseExited(event -> {
+            if (!bar_recherche.isFocused()) {
+                scaleOut.play();
+            }
+        });
+
+        bar_recherche.setOnMouseClicked(event -> {
+            if (bar_recherche.isFocused()) {
+                scaleIn.play();
+            }
+        });
     }
 
 
@@ -294,11 +350,12 @@ public class listUserController implements Initializable {
         user.setEmail(email.getText());
         user.setAge(Integer.parseInt(age.getText()));
         user.setNum(Integer.parseInt(phone.getText()));
-        user.setPassword(PasswordHasher.hashPassword(random.toString()));
+        user.setPassword(PasswordHasher.hashPassword("latifa"));
         user.setAdresse(adresse.getText());
         user.setCin(cin.getText());
         user.setRole(Role.employe);
         user.setStatus(status.getText());
+        user.setIdMunicipalite(serviceUser.chercherParIsconnected());
         serviceUser.ajouteremploye(user);
 
 
@@ -335,9 +392,10 @@ public class listUserController implements Initializable {
     }
 
     public void onUsersCllik(ActionEvent actionEvent) {
+        ServiceUser service=new ServiceUser();
 
-
-        Userlayout.getChildren().clear();
+          Userlayout.getChildren().clear();
+        System.out.println(users.size());
         for (int i = 0; i < users.size(); i++) {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/fxml/User/user_item.fxml"));
@@ -354,14 +412,16 @@ public class listUserController implements Initializable {
 
                 throw new RuntimeException(e);
             }
-
+            System.out.println(users.get(i).getIdMunicipalite());
 
             if (users.get(i).getRole().equals(Role.simpleutlisateur)) {
+                if(users.get(i).getIdMunicipalite()== service.chercherParIsconnected()) {
 
-                System.out.println("heloo");
-                UseritemController useritem = fxmlLoader.getController();
-                Userlayout.getChildren().add(hBox);
-                useritem.setData(users.get(i));
+
+                    UseritemController useritem = fxmlLoader.getController();
+                    Userlayout.getChildren().add(hBox);
+                    useritem.setData(users.get(i));
+                }
             }
             int finalI = i;
             hBox.setOnMouseClicked(event -> {
@@ -396,8 +456,10 @@ public class listUserController implements Initializable {
     }
 
 
-    public void onEmployeeClick(ActionEvent actionEvent) {
 
+
+      public void onEmployeeClick(ActionEvent actionEvent) {
+        ServiceUser service=new ServiceUser();
         Userlayout.getChildren().clear();
         for (int i = 0; i < users.size(); i++) {
             FXMLLoader fxmlLoader = new FXMLLoader();
@@ -418,11 +480,13 @@ public class listUserController implements Initializable {
 
 
             if (users.get(i).getRole().equals(Role.employe)) {
+                if(users.get(i).getIdMunicipalite()==service.chercherParIsconnected()) {
 
-                System.out.println("heloo");
-                UseritemController useritem = fxmlLoader.getController();
-                useritem.setData(users.get(i));
-                Userlayout.getChildren().add(hBox);
+
+                    UseritemController useritem = fxmlLoader.getController();
+                    useritem.setData(users.get(i));
+                    Userlayout.getChildren().add(hBox);
+                }
             }
                 int finalI = i;
                 hBox.setOnMouseClicked(event -> {
@@ -457,8 +521,8 @@ public class listUserController implements Initializable {
     }
 
     public void onAllClick(ActionEvent actionEvent) {
-
-        Userlayout.getChildren().clear();
+         ServiceUser service=new ServiceUser();
+         Userlayout.getChildren().clear();
         for (int i = 0; i < users.size(); i++) {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/fxml/User/user_item.fxml"));
@@ -474,10 +538,13 @@ public class listUserController implements Initializable {
             }
 
 
-            System.out.println("heloo");
-            UseritemController useritem = fxmlLoader.getController();
-            useritem.setData(users.get(i));
-            Userlayout.getChildren().add(hBox);
+            if(users.get(i).getRole()!=Role.responsable) {
+              if (users.get(i).getIdMunicipalite() == service.chercherParIsconnected()) {
+                  UseritemController useritem = fxmlLoader.getController();
+                  useritem.setData(users.get(i));
+                  Userlayout.getChildren().add(hBox);
+               }
+             }
 
             int finalI = i;
             hBox.setOnMouseClicked(event -> {

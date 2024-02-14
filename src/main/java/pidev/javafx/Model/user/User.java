@@ -15,7 +15,10 @@ public class User {
       String date;
       String dob;
       String status;
-      Boolean IsConnected;
+
+
+    int IsConnected;
+      int idMunicipalite;
 
 
     public User() {
@@ -49,7 +52,22 @@ public class User {
 
 
 
-    public User(String firstname, String email, String cin, int age, int num, String adresse, String dob, String lastname,String status,String date,Role role) {
+    public User(String firstname, String email, String cin, int age, int num, String adresse, String dob, String lastname,String status,String date,Role role,int idMunicipalite ) {
+        this.firstname = firstname;
+        this.email = email;
+        this.cin = cin;
+        this.age = age;
+        this.num = num;
+        this.adresse = adresse;
+        this.dob = dob;
+        this.lastname = lastname;
+        this.role=role;
+        this.status =status;
+        this.date=date;
+        this.idMunicipalite=idMunicipalite;
+    }
+
+    public User(String firstname, String email, String cin, int age, int num, String adresse, String dob, String lastName, String status, String date, Role role) {
         this.firstname = firstname;
         this.email = email;
         this.cin = cin;
@@ -62,7 +80,6 @@ public class User {
         this.status =status;
         this.date=date;
     }
-
 
 
     public int getId() {
@@ -200,12 +217,21 @@ public class User {
         return dob;
     }
 
-    public Boolean getConnected() {
+    public int getIsConnected() {
         return IsConnected;
     }
 
-    public void setConnected(Boolean connected) {
-        IsConnected = connected;
+    public void setIsConnected(int isConnected) {
+        IsConnected = isConnected;
+    }
+
+
+    public int getIdMunicipalite() {
+        return idMunicipalite;
+    }
+
+    public void setIdMunicipalite(int idMunicipalite) {
+        this.idMunicipalite = idMunicipalite;
     }
 
 

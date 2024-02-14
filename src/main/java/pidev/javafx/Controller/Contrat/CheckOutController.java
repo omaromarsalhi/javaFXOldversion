@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import pidev.javafx.Controller.Crud.CrudContract;
 import pidev.javafx.Controller.Crud.CrudTransaction;
 import pidev.javafx.Controller.Tools.EventBus;
+import pidev.javafx.Controller.Tools.MyTools;
 import pidev.javafx.Model.Contrat.Contract;
 import pidev.javafx.Model.Contrat.PaymentMethod;
 import pidev.javafx.Model.MarketPlace.Bien;
@@ -78,7 +79,7 @@ public class CheckOutController implements Initializable {
         generatePDFbtn.setOnAction( event -> {
             bien.setQuantity( Float.parseFloat( Pquantity.getText() ) );
             contract =prepareContrat();
-            generatePDF();
+            MyTools.getInstance().generatePDF(contract);
             CrudContract.getInstance().addItem( contract );
             contract =CrudContract.getInstance().selectLastItem();
             System.out.println(contract);
@@ -130,39 +131,6 @@ public class CheckOutController implements Initializable {
                 TransactionMode.SELL,
                 new Timestamp(new Date().getTime())
         );
-    }
-
-    public void generatePDF() {
-                try {
-                    Document document = new Document();
-                    PdfWriter.getInstance(document, new FileOutputStream(getFileOfSave()));
-                    document.open();
-                    document.add(new Paragraph("Title: Sale contrat" ));
-                    document.add(new Paragraph("Party A ID: " + 1));
-                    document.add(new Paragraph("Party B ID: " + 2));
-                    document.add(new Paragraph("Item Name: " ));
-                    document.add(new Paragraph("Effective Date: " + contract.getEffectiveDate()));
-                    document.add(new Paragraph("Termination Date: " + contract.getTerminationDate()));
-                    document.add(new Paragraph("Purpose: buyintg oéjrhgniuoh't" ));
-                    document.add(new Paragraph("Terms and Conditions: " + contract.getTermsAndConditions()));
-                    document.add(new Paragraph("Payment Method: " + contract.getPaymentMethod()));
-                    document.close();
-                    System.out.println("PDF generated successfully!");
-                } catch (DocumentException e) {
-                    e.printStackTrace();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-    }
-
-    private File getFileOfSave(){
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Pdf Image");
-        fileChooser.setInitialDirectory( new File( "src/main/resources/Cnotrat" ) );
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("PDF", "*.pdf")
-        );
-        return fileChooser.showSaveDialog( Stage.getWindows().get(0) );
     }
 
 }

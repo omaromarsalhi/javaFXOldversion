@@ -1,5 +1,9 @@
 package pidev.javafx.Controller.UserMarketDashbord;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
@@ -8,35 +12,34 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Duration;
-import pidev.javafx.Controller.Contrat.TransactionDetailsController;
 import pidev.javafx.Controller.Crud.CrudBien;
 import pidev.javafx.Controller.Crud.CrudLocalWrapper;
-import pidev.javafx.Controller.Crud.CrudTransaction;
 import pidev.javafx.Controller.MarketPlace.*;
 import pidev.javafx.Controller.Tools.CustomMouseEvent;
 import pidev.javafx.Controller.Tools.EventBus;
 import pidev.javafx.Controller.Tools.MyListener;
+import pidev.javafx.Controller.Tools.MyTools;
 import pidev.javafx.Model.MarketPlace.Bien;
 import pidev.javafx.Model.MarketPlace.Product;
 import pidev.javafx.Model.Wrapper.LocalWrapper;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
-
-import static javafx.scene.layout.HBox.setMargin;
 
 public class MainDashbordController implements Initializable {
 
@@ -206,8 +209,9 @@ public class MainDashbordController implements Initializable {
         showAllProdsInfo.getChildren().clear();
         ObservableList<LocalWrapper> localWrapperList= CrudLocalWrapper.getInstance().selectItemsByIdSeller(1,trasactionType);
         GridPane gridPane=new GridPane();
+        gridPane.setPrefWidth(showAllProdsInfo.getPrefWidth()  );
         gridPane.setAlignment( Pos.CENTER );
-        gridPane.setPadding( new Insets( 0,0,50,60 ) );
+        gridPane.setPadding( new Insets( 0,0,50,50 ) );
 
         int column = 0;
         int row = 1;
@@ -226,7 +230,6 @@ public class MainDashbordController implements Initializable {
                 throw new RuntimeException( e );
             }
 
-
             TransactionDetailsController transactionDetailsController = fxmlLoader.getController();
             ItemController itemController = fxmlLoader2.getController();
             transactionDetailsController.setData(localWrapperList.get( i ).getTransaction(),localWrapperList.get( i ).getContract());
@@ -235,20 +238,30 @@ public class MainDashbordController implements Initializable {
 
             AnchorPane finalAnchorPane = anchorPane;
             animateProdBox(1,transactionDetailsController.getDownloadBtn(),0.1f);
+            animateProdBox(1,transactionDetailsController.getDeleteBtn(),0.1f);
             AtomicBoolean val= new AtomicBoolean( true );
             hboxOfStackPane.setOnMouseClicked( event -> {
                 if(val.get()){
                     animateProdBox(1,finalAnchorPane,0.6f);
                     animateProdBox(0,transactionDetailsController.getDownloadBtn(),0.8f);
+                    animateProdBox(0,transactionDetailsController.getDeleteBtn(),0.8f);
                     val.set( false );
                 }
                 else{
                     animateProdBox(0,finalAnchorPane,0.6f);
                     animateProdBox(1,transactionDetailsController.getDownloadBtn(),0.8f);
+                    animateProdBox(1,transactionDetailsController.getDeleteBtn(),0.8f);
                     val.set( true );
                 }
             } );
 
+            int finalI = i;
+            transactionDetailsController.getDownloadBtn().setOnMouseClicked( event -> MyTools.getInstance().generatePDF(localWrapperList.get( finalI ).getContract()));
+            HBox finalHboxOfStackPane = hboxOfStackPane;
+            transactionDetailsController.getDeleteBtn().setOnMouseClicked( event -> {
+                CrudBien.getInstance().deleteItem( localWrapperList.get( finalI ).getProduct().getId() );
+                gridPane.getChildren().remove( finalHboxOfStackPane );
+            });
 
             ((StackPane)hboxOfStackPane.getChildren().get( 0 )).getChildren().add(anchorPane );
 
@@ -261,14 +274,8 @@ public class MainDashbordController implements Initializable {
             gridPane.setVgap( 30 );
             gridPane.add(hboxOfStackPane, column++, row);
         }
-
         showAllProdsInfo.getChildren().add(gridPane);
-        AnchorPane.setTopAnchor(gridPane,4d);
-        AnchorPane.setLeftAnchor(gridPane,4d);
-        AnchorPane.setBottomAnchor(gridPane,4d);
-        AnchorPane.setRightAnchor(gridPane,10d);
         scroll.addEventFilter(MouseEvent.MOUSE_PRESSED, eventHandler4ScrollPane);
-
     }
 
     public void animateProdBox(int initialState,Node node,float duration){
@@ -354,6 +361,8 @@ public class MainDashbordController implements Initializable {
         tableViewController.setData(CrudBien.getInstance().selectItems());
 
     }
+
+
 
 
 

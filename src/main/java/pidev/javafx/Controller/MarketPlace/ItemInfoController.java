@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import pidev.javafx.Controller.Crud.CrudBien;
@@ -56,6 +57,8 @@ public class ItemInfoController {
     private Label userName;
     @FXML
     private HBox userInfo;
+    @FXML
+    private Button openChatBtn;
 
 
 
@@ -68,7 +71,7 @@ public class ItemInfoController {
         this.myListener=myListener;
         userName.setText("Omar Salhi");
         prodName.setText( product.getName() );
-        itemImage.setImage(new Image(getClass().getResourceAsStream( product.getImgSource())));
+        itemImage.setImage(new Image("file:src/main/resources"+product.getImgSource()));
         itemDesc.setText( "qsfdgoauiehrtgpbea ufhgae ouifehg dfvb ae rhtgqfvhbj aert qfvhuaerçtg" );
         priceLable.setText( Float.toString(product.getPrice()) );
         quantityLable.setText(Float.toString(product.getQuantity())   );
@@ -138,5 +141,10 @@ public class ItemInfoController {
     @FXML
     public void onExitBtnClicked(ActionEvent event){
        myListener.exit();
+    }
+
+    @FXML
+    public void onOpenChatBtnClicked(MouseEvent event){
+        EventBus.getInstance().publish( "loadChat",event);
     }
 }

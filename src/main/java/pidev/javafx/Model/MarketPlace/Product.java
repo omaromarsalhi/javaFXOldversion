@@ -42,7 +42,7 @@ public class Product {
         return allImagesSources;
     }
     public String getImageSourceByIndex(int index) {
-        return allImagesSources.get( index);
+        return allImagesSources.get(index);
     }
 
     public void setAllImagesSources(List<String> allImagesSources) {

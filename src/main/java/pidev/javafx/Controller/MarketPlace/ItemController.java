@@ -147,9 +147,6 @@ public class ItemController implements Initializable {
         }
     }
 
-//    public void stopAnimateImages(ActionEvent event) {
-//     fiveSecondsWonder.stop();
-//    }
 
     public void showTransitionInfo(Boolean state){
         if(state){

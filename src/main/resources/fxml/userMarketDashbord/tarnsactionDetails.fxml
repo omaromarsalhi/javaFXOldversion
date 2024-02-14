@@ -10,12 +10,11 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<HBox fx:id="purshaseDetailsBox" alignment="CENTER" style="-fx-background-color: transparent;" stylesheets="@../../style/Buttons.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidev.javafx.Controller.Contrat.TransactionDetailsController">
+<HBox fx:id="purshaseDetailsBox" alignment="CENTER" prefHeight="232.0" prefWidth="294.0" style="-fx-background-color: transparent;" stylesheets="@../../style/Buttons.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidev.javafx.Controller.UserMarketDashbord.TransactionDetailsController">
    <children>
-      <StackPane prefHeight="366.0" prefWidth="250.0" scaleShape="false" style="-fx-background-color: #fdc847;">
+      <StackPane prefHeight="269.0" prefWidth="247.0" scaleShape="false" style="-fx-background-color: #fdc847;">
          <children>
-            <VBox fx:id="contratDetails" prefHeight="366.0" prefWidth="322.0" spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-radius: 20;">
+            <VBox fx:id="contratDetails" prefHeight="263.0" prefWidth="247.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-radius: 20;">
                <children>
                   <HBox alignment="CENTER" prefHeight="91.0" prefWidth="274.0">
                      <children>
@@ -93,17 +92,30 @@
             </VBox>
          </children>
       </StackPane>
-      <Button fx:id="generatePdfBtn" mnemonicParsing="false">
-         <graphic>
-            <ImageView fitHeight="25.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../namedIcons/download-pdf.png" />
-               </image>
-            </ImageView>
-         </graphic>
-         <HBox.margin>
-            <Insets left="4.0" />
-         </HBox.margin>
-      </Button>
+      <VBox alignment="CENTER" spacing="20.0">
+         <children>
+            <Button fx:id="generatePdfBtn" mnemonicParsing="false">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../namedIcons/download-pdf.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets left="4.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="deleteBtn" mnemonicParsing="false" prefHeight="34.0" prefWidth="33.0">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../namedIcons/trash.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </VBox>
    </children>
 </HBox>

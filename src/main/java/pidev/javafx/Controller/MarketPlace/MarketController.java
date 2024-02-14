@@ -10,9 +10,13 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
+import pidev.javafx.Controller.Chat.ChatController;
 import pidev.javafx.Controller.Crud.CrudBien;
+import pidev.javafx.Controller.Tools.EventBus;
 import pidev.javafx.Controller.Tools.MyListener;
 import pidev.javafx.Model.MarketPlace.Bien;
 import pidev.javafx.Model.MarketPlace.Product;
@@ -20,6 +24,7 @@ import pidev.javafx.Model.MarketPlace.Product;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MarketController implements Initializable {
 
@@ -35,7 +40,19 @@ public class MarketController implements Initializable {
     private Button addBien;
     @FXML
     private Button exitBtn;
+    @FXML
+    private ImageView relativeImageVieur;
+    @FXML
+    private AnchorPane ImageAnchorPane;
+    @FXML
+    private Button leftArrow;
+    @FXML
+    private Button rightArrow;
+    @FXML
+    private Button exitImageBtn;
+
     private VBox vBox;
+    private VBox chatBox;
 
 
 
@@ -53,12 +70,32 @@ public class MarketController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         fiveSecondsWonder=new Timeline();
         vBox=null;
+//        FXMLLoader fxmlLoader = new FXMLLoader();
+//        fxmlLoader.setLocation(getClass().getResource("/fxml/chat/chat.fxml"));
+//        try {
+//            VBox chatBox = fxmlLoader.load();
+//            animateChanges(hepfullBar,chatBox);
+//        } catch (IOException e) {
+//            throw new RuntimeException( e );
+//        }
         try {
             hepfullBar = FXMLLoader.load(getClass().getResource( "/fxml/marketPlace/helpfullBar.fxml" ));
+            chatBox = FXMLLoader.load(getClass().getResource( "/fxml/chat/chat.fxml" ));
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
         showGridPane();
+
+
+        ImageAnchorPane.setVisible( false );
+        exitImageBtn.setOnAction( event -> {
+            ImageAnchorPane.setVisible( false );
+            grid.setOpacity( 1 );
+        } );
+
+        EventBus.getInstance().subscribe( "loadChat",this::loadChat);
     }
 
 
@@ -107,14 +144,13 @@ public class MarketController implements Initializable {
                         fxmlLoader.setLocation( getClass().getResource( "/fxml/marketPlace/itemInfo.fxml" ) );
                         vBox = fxmlLoader.load();
                         ItemInfoController itemInfoController = fxmlLoader.getController();
-
                         myListener = new MyListener<Product>() {
                             @Override
                             public void exit() {
                                 animateChanges(vBox,hepfullBar);
                             }
                         };
-                        itemInfoController.setData( biens.get( 0 ), myListener );
+                        itemInfoController.setData( arg, myListener );
                         animateChanges(hepfullBar,vBox);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -134,6 +170,8 @@ public class MarketController implements Initializable {
                 itemController.setData(biens.get(i),myListener);
                 itemController.setData(biens.get( i ));
                 itemController.animateImages(fiveSecondsWonder,biens.get( i ));
+                int finalI = i;
+                anchorPane.setOnMouseClicked( event -> showRelativeImages(biens.get( finalI )) );
                 getProduct(anchorPane,itemController);
                 if (column == 3) {
                     column = 0;
@@ -160,8 +198,43 @@ public class MarketController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    public void showRelativeImages(Bien bien){
+        AtomicInteger imageIndex= new AtomicInteger(0);
+        ImageAnchorPane.setVisible( true );
+        grid.setOpacity( 0.2 );
+        relativeImageVieur.setImage(new Image("file:src/main/resources"+ bien.getImageSourceByIndex( imageIndex.get() ) ) );
+        rightArrow.setOnAction( event -> {
+            imageIndex.getAndIncrement();
+            if(imageIndex.get() >=bien.getAllImagesSources().size())
+                imageIndex.set( 0 );
+            relativeImageVieur.setImage( new Image( "file:src/main/resources"+bien.getImageSourceByIndex( imageIndex.get() ) ) );
+
+        } );
+        leftArrow.setOnAction( event -> {
+            imageIndex.getAndDecrement();
+            if(imageIndex.get() <=0)
+                imageIndex.set( bien.getAllImagesSources().size() - 1 );
+            relativeImageVieur.setImage( new Image("file:src/main/resources"+ bien.getImageSourceByIndex( imageIndex.get() ) ) );
+        } );
+    }
+
+
     public void setMainWindowListener(MyListener listener){
         MainWindowListener=listener;
+    }
+
+    public void loadChat(MouseEvent event){
+//        FXMLLoader fxmlLoader = new FXMLLoader();
+//        fxmlLoader.setLocation(getClass().getResource("/fxml/chat/chat.fxml"));
+//        try {
+//            VBox chatBox = fxmlLoader.load();
+//            animateChanges(hepfullBar,chatBox);
+//        } catch (IOException e) {
+//            throw new RuntimeException( e );
+//        }
+//        ChatController chatController = fxmlLoader.getController();
+        animateChanges(vBox,chatBox);
     }
 
 

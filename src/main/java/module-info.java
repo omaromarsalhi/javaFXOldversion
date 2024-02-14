@@ -22,5 +22,8 @@ module pidev.javafx{
     opens pidev.javafx.Controller.Tools to javafx.fxml;
     exports pidev.javafx.Controller.Contrat;
     opens pidev.javafx.Controller.Contrat to javafx.fxml;
+    exports pidev.javafx.Controller.UserMarketDashbord;
+    opens pidev.javafx.Controller.Chat to javafx.fxml;
+    exports pidev.javafx.Controller.Chat;
 }
 

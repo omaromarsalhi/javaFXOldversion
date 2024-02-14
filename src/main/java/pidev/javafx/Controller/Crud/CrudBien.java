@@ -41,8 +41,8 @@ public class CrudBien implements CrudInterface<Bien> {
 
     public void addItem(Bien bien) {
         String sql = "INSERT INTO products "
-                + "(idUser, name, descreption, price, quantity, state, type, category)"
-                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                + "(idUser, name, descreption,isDeleted, price, quantity, state, type, category)"
+                + " VALUES (?, ?, ?, ?, ?, ? ,? , ?, ?)";
 
         connect = ConnectionDB.connectDb();
 
@@ -52,11 +52,12 @@ public class CrudBien implements CrudInterface<Bien> {
             prepare.setString(2, bien.getName());
             prepare.setString(3, bien.getDescreption());
 //            prepare.setString(4,(bien.getImgSource().equals( "DO_NOT_UPDATE_OR_ADD_IMAGE" ))?"":getPathAndSaveIMG(bien.getImgSource()));
-            prepare.setFloat(4, bien.getPrice());
-            prepare.setFloat(5, bien.getQuantity());
-            prepare.setString(6, (bien.getState()) ? "1" : "0");
-            prepare.setString(7, "BIEN");
-            prepare.setString(8, bien.getCategorie().toString());
+            prepare.setBoolean(4,false);
+            prepare.setFloat(5, bien.getPrice());
+            prepare.setFloat(6, bien.getQuantity());
+            prepare.setString(7, (bien.getState()) ? "1" : "0");
+            prepare.setString(8, "BIEN");
+            prepare.setString(9, bien.getCategorie().toString());
             prepare.executeUpdate();
             addItemImages(bien.getAllImagesSources(),selectLastItem().getId());
         } catch (SQLException e) {
@@ -86,15 +87,14 @@ public class CrudBien implements CrudInterface<Bien> {
 
 
     public void deleteItem(int id) {
-        String sql = "DELETE FROM products WHERE idProd = ?";
+        String sql = "UPDATE products SET isDeleted = true WHERE idProd = ?";
 
         connect = ConnectionDB.connectDb();
 
         try {
             prepare = connect.prepareStatement(sql);
-            prepare.setInt(1, id);
+            prepare.setInt( 1,id );
             prepare.executeUpdate();
-//            deleteImages(id);
         } catch (SQLException e) {
             System.out.println("Error deleting item: " + e.getMessage());
         }

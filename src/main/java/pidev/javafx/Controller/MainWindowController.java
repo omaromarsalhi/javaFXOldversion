@@ -26,6 +26,8 @@ import pidev.javafx.Controller.Tools.CustomMouseEvent;
 import pidev.javafx.Controller.Tools.EventBus;
 import pidev.javafx.Model.MarketPlace.Bien;
 import pidev.javafx.Model.MarketPlace.Product;
+import pidev.javafx.Model.User.Role;
+import pidev.javafx.Model.User.User;
 
 import java.io.IOException;
 import java.net.URL;

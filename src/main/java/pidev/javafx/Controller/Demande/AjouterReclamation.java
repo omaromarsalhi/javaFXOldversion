@@ -11,6 +11,7 @@ import pidev.javafx.Controller.Service.ServiceReclamation;
 import java.io.File;
 import java.net.URL;
 import java.security.PrivateKey;
+import java.sql.SQLOutput;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -45,10 +46,17 @@ public class AjouterReclamation {
         }
     }
     @FXML
+
+
     void ajouter_Reclamation()
     {
-        initialize();
-        Reclamation   rec = new Reclamation(privateKey.getText(), title.getText(),subject.getText() ,description.getText());
+        String selectedSubject = initialize();
+
+        String generatedString = generateRandomString(20);
+        privateKey.setText(generatedString);
+        System.out.println(generatedString);
+
+        Reclamation   rec = new Reclamation(privateKey.getText(), title.getText(),selectedSubject ,description.getText());
         si.ajouter(rec);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Confirmation");
@@ -58,12 +66,24 @@ public class AjouterReclamation {
         // Show the alert
         alert.show();
     }
-    public void initialize() {
-        ChoixMul.getItems().removeAll(ChoixMul.getItems());
-        ChoixMul.getItems().addAll("Problem technique", "application", "testt","omar salhi","khalil rmila ");
-        ChoixMul.getSelectionModel().select("khalil rmila");
-    }
 
+    private String generateRandomString(int length) {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        Random rnd = new Random();
+        StringBuilder sb = new StringBuilder(length);
+
+        for (int i = 0; i < length; i++) {
+            int index = rnd.nextInt(characters.length());
+            sb.append(characters.charAt(index));
+        }
+
+        return sb.toString();
+    }
+    public String initialize() {
+
+        ChoixMul.getItems().addAll("Problem technique", "application", "testt","omar salhi","khalil rmila ");
+        return (String) ChoixMul.getSelectionModel().getSelectedItem();
+    }
 //    void ajouter_Reclamation()
 //    {
 //        String selectedSubject = initialize();

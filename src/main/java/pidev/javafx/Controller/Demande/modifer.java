@@ -87,8 +87,8 @@ public void initialize() {
                 Reclamation selectedItem = (Reclamation) lista.getSelectionModel().getSelectedItem();
                 // Display the details in the text fields
                 privateKey.setText(selectedItem.getPrivateKey());
-                title.setText(selectedItem.getTitre());
                 subject.setText(selectedItem.getSubject());
+                title.setText(selectedItem.getTitre());
                 description.setText(selectedItem.getDescription());
             }
         });

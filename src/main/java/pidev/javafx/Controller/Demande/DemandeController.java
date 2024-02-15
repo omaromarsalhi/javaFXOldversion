@@ -51,6 +51,13 @@ public class DemandeController {
         box1.setEffect(new BoxBlur(10, 10, 3));
         box3.setEffect(new BoxBlur(10, 10, 3));
         timer2();
+        AnchorPane showEmpAnchorPane = null;
+        try {
+            showEmpAnchorPane = FXMLLoader.load(getClass().getResource("/fxml/Demande/intrface.fxml"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        mainBorderPain.getChildren().setAll(showEmpAnchorPane);
 
     }
     public void  getBoton_on_click_add2() {

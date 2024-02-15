@@ -105,5 +105,16 @@ public class ServiceReclamation implements Iservice<Reclamation> {
         }
         return privateKeys;
     }
+    public boolean privateKeyExists(String privateKey) throws SQLException {
+        String queryCheck = "SELECT count(*) from reclamation WHERE PrivateKeyColumn = ?";
+        PreparedStatement ps = cnx.prepareStatement(queryCheck);
+        ps.setString(1, privateKey);
+        ResultSet resultSet = ps.executeQuery();
+        if (resultSet.next()) {
+            int count = resultSet.getInt(1);
+            return count > 0;
+        }
+        return false;
+    }
 
 }

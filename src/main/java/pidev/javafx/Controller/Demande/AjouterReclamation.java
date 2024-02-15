@@ -50,6 +50,7 @@ public class AjouterReclamation {
 
     void ajouter_Reclamation()
     {
+
         String selectedSubject = initialize();
 
         String generatedString = generateRandomString(20);

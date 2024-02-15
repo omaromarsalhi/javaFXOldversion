@@ -160,7 +160,7 @@ public class listUserController implements Initializable {
                             });
                             ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), hBox);
                             scaleTransition.setFromX(1);
-                            scaleTransition.setFromY(5git switch mas);
+                            scaleTransition.setFromY();
                             scaleTransition.setToX(1.2);
                             scaleTransition.setToY(1);
 

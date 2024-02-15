@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<ScrollPane fx:id="scroll" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidev.javafx.Controller.MarketPlace.MarketController">
+<<<<<<< HEAD
+<ScrollPane fx:id="scroll" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidev.javafx.Controller.MarketPlace.MarketController">
    <content>
       <GridPane fx:id="grid" prefHeight="312.0" prefWidth="456.0">
         <columnConstraints>
@@ -19,3 +21,21 @@
       </GridPane>
    </content>
 </ScrollPane>
+=======
+<HBox fx:id="mainHbox" prefHeight="670.0" prefWidth="1020.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidev.javafx.Controller.MarketPlace.MarketController">
+   <children>
+      <ScrollPane fx:id="scroll" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="775.0" style="-fx-border-color: #f4f4f4; -fx-border-radius: 20; -fx-background-radius: 20; -fx-background-color: #f4f4f4;" stylesheets="@../../style/scrollBarStlyle.css">
+         <content>
+            <GridPane fx:id="grid" prefHeight="648.0" prefWidth="741.0" style="-fx-background-color: #fdc847; -fx-border-radius: 20; -fx-background-radius: 20;">
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+               </rowConstraints>
+            </GridPane>
+         </content>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </ScrollPane>
+   </children>
+</HBox>
+>>>>>>> 2bfe4276af099b37f7920e215c3cd04636278f5f

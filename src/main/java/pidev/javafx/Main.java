@@ -1,0 +1,41 @@
+package pidev.javafx;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import pidev.javafx.Controller.Connection.DataSource;
+import pidev.javafx.Controller.Entity.Reclamation;
+
+import java.io.IOException;
+import java.sql.Connection;
+
+public class Main extends Application {
+
+
+    public void start(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader( Main.class.getResource( "/fxml/mainWindow.fxml" ));
+<<<<<<< HEAD
+        //       FXMLLoader fxmlLoader = new FXMLLoader( Main.class.getResource( "/fxml/marketPlace/myMarket.fxml" ));
+=======
+//        FXMLLoader fxmlLoader = new FXMLLoader( Main.class.getResource( "/fxml/marketPlace/myMarket.fxml" ));
+>>>>>>> 2bfe4276af099b37f7920e215c3cd04636278f5f
+//        FXMLLoader fxmlLoader = new FXMLLoader( Main.class.getResource( "/fxml/Employe/showEmployee.fxml" ));
+        Scene scene = new Scene(fxmlLoader.load());
+//        scene.getStylesheets().add( String.valueOf( getClass().getResource("/style/Buttons.css") ) );
+//        scene.getStylesheets().add( String.valueOf( getClass().getResource("/style/styleShowItems.css") ) );
+        stage.setTitle("Hello!");
+        stage.setResizable( true );
+//        stage.setWidth( 950 );
+//        stage.setHeight(600);
+        stage.setScene(scene);
+        stage.show();
+        stage.setOnCloseRequest(event -> System.exit(0));
+    }
+
+
+    public static void main(String[] args) {
+        launch();
+    }
+}

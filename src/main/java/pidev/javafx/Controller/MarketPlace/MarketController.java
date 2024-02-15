@@ -1,175 +1,126 @@
 package pidev.javafx.Controller.MarketPlace;
 
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.util.Duration;
+import pidev.javafx.Controller.Crud.CrudBien;
+import pidev.javafx.Controller.Tools.MyListener;
 import pidev.javafx.Model.MarketPlace.Bien;
-import pidev.javafx.Model.MarketPlace.Categorie;
-import pidev.javafx.Model.MarketPlace.Fruit;
-import pidev.javafx.MyListener;
+import pidev.javafx.Model.MarketPlace.Product;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class MarketController implements Initializable {
-//    @FXML
-//    private VBox chosenFruitCard;
-//
-//    @FXML
-//    private Label fruitNameLable;
-//
-//    @FXML
-//    private Label fruitPriceLabel;
-//
-//    @FXML
-//    private ImageView fruitImg;
-
-    @FXML
-    private ScrollPane scroll;
 
     @FXML
     private GridPane grid;
+    @FXML
+    private ScrollPane scroll;
+    @FXML
+    private HBox mainHbox;
+    @FXML
+    private VBox hepfullBar;
+    @FXML
+    private Button addBien;
+    @FXML
+    private Button exitBtn;
+    private VBox vBox;
+
+
 
     private List<Bien> biens = new ArrayList<>();
     private Image image;
     private MyListener myListener;
-
-//    private List<Fruit> getData() {
-//        List<Fruit> fruits = new ArrayList<>();
-//        Fruit fruit;
-//
-//        fruit = new Fruit();
-//        fruit.setName("Kiwi");
-//        fruit.setPrice(2.99);
-//        fruit.setImgSrc("/img/kiwi.png");
-//        fruit.setColor("6A7324");
-//        fruits.add(fruit);
-//
-//        fruit = new Fruit();
-//        fruit.setName("Coconut");
-//        fruit.setPrice(3.99);
-//        fruit.setImgSrc("/img/coconut.png");
-//        fruit.setColor("A7745B");
-//        fruits.add(fruit);
-//
-//        fruit = new Fruit();
-//        fruit.setName("Peach");
-//        fruit.setPrice(1.50);
-//        fruit.setImgSrc("/img/peach.png");
-//        fruit.setColor("F16C31");
-//        fruits.add(fruit);
-//
-//        fruit = new Fruit();
-//        fruit.setName("Grapes");
-//        fruit.setPrice(0.99);
-//        fruit.setImgSrc("/img/grapes.png");
-//        fruit.setColor("291D36");
-//        fruits.add(fruit);
-//
-//        fruit = new Fruit();
-//        fruit.setName("Watermelon");
-//        fruit.setPrice(4.99);
-//        fruit.setImgSrc("/img/watermelon.png");
-//        fruit.setColor("22371D");
-//        fruits.add(fruit);
-//
-//        fruit = new Fruit();
-//        fruit.setName("Orange");
-//        fruit.setPrice(2.99);
-//        fruit.setImgSrc("/img/orange.png");
-//        fruit.setColor("FB5D03");
-//        fruits.add(fruit);
-//
-//        fruit = new Fruit();
-//        fruit.setName("StrawBerry");
-//        fruit.setPrice(0.99);
-//        fruit.setImgSrc("/img/strawberry.png");
-//        fruit.setColor("80080C");
-//        fruits.add(fruit);
-//
-//        fruit = new Fruit();
-//        fruit.setName("Mango");
-//        fruit.setPrice(0.99);
-//        fruit.setImgSrc("/img/mango.png");
-//        fruit.setColor("FFB605");
-//        fruits.add(fruit);
-//
-//        fruit = new Fruit();
-//        fruit.setName("Cherry");
-//        fruit.setPrice(0.99);
-//        fruit.setImgSrc("/img/cherry.png");
-//        fruit.setColor("5F060E");
-//        fruits.add(fruit);
-//
-//        fruit = new Fruit();
-//        fruit.setName("Banana");
-//        fruit.setPrice(1.99);
-//        fruit.setImgSrc("/img/banana.png");
-//        fruit.setColor("E7C00F");
-//        fruits.add(fruit);
-//
-//        return fruits;
-//    }
-
-//    private void setChosenFruit(Fruit fruit) {
-//        fruitNameLable.setText(fruit.getName());
-//        fruitPriceLabel.setText("$" + fruit.getPrice());
-//        image = new Image(getClass().getResourceAsStream(fruit.getImgSrc()));
-//        fruitImg.setImage(image);
-//        chosenFruitCard.setStyle("-fx-background-color: #" + fruit.getColor() + ";\n" +
-//                "    -fx-background-radius: 30;");
-//    }
-
-    private List<Bien> getData() {
-        List<Bien> biens = new ArrayList<>();
-        Bien bien;
-
-        for(int i=0;i<12;i++){
-            bien=new Bien(i,1,"Product_"+i,"/icons/"+i+".png",i*25f,20f,false,new Timestamp(System.currentTimeMillis()), Categorie.ENTERTAINMENT );
-            biens.add( bien );
-        }
+    private MyListener MainWindowListener;
 
 
-        return biens;
-    }
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        vBox=null;
+        try {
+            hepfullBar = FXMLLoader.load(getClass().getResource( "/fxml/marketPlace/helpfullBar.fxml" ));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        showGridPane();
+//        scroll.get
+    }
 
 
-        biens.addAll(getData());
-//        if (fruits.size() > 0) {
-//            setChosenFruit(fruits.get(0));
-//            myListener = new MyListener() {
-//                @Override
-//                public void onClickListener(Fruit fruit) {
-//                    setChosenFruit(fruit);
-//                }
-//            };
-//        }
+
+    public void getProduct(AnchorPane item,ItemController itemController){
+        item.hoverProperty().addListener( (observable, oldValue, show)->{
+            itemController.showTransitionInfo( show );
+        } );
+    }
+
+
+
+    public void animateChanges(Node node1, Node node2){
+        FadeTransition fade1 = new FadeTransition( Duration.seconds( 0.4 ), node1);
+        fade1.setFromValue( 1 );
+        fade1.setToValue( 0 );
+        FadeTransition fade2 = new FadeTransition( Duration.seconds( 0.4), node2 );
+        fade2.setFromValue( 0 );
+        fade2.setToValue( 0.99);
+
+        fade1.play();
+        fade1.setOnFinished(event ->{
+            mainHbox.getChildren().remove( node1 );
+            mainHbox.getChildren().add( node2 );
+            fade2.play();
+        });
+    }
+
+
+
+    public void showGridPane(){
+        biens= CrudBien.getInstance().selectItems();
+        if (biens.size() > 0) {
+            try {
+                hepfullBar = FXMLLoader.load(getClass().getResource( "/fxml/marketPlace/helpfullBar.fxml" ));
+                mainHbox.getChildren().add(hepfullBar);
+            } catch (IOException e) {
+                throw new RuntimeException( e );
+            }
+            myListener = new MyListener<Product>() {
+                @Override
+                public void onClickListener(Product arg){
+                    mainHbox.getChildren().remove(vBox);
+                    try {
+                        FXMLLoader fxmlLoader = new FXMLLoader();
+                        fxmlLoader.setLocation( getClass().getResource( "/fxml/marketPlace/itemInfo.fxml" ) );
+                        vBox = fxmlLoader.load();
+                        ItemInfoController itemInfoController = fxmlLoader.getController();
+                        myListener = new MyListener<Product>() {
+                            @Override
+                            public void exit() {
+                                animateChanges(vBox,hepfullBar);
+                            }
+                        };
+                        itemInfoController.setData( biens.get( 0 ), myListener );
+                        animateChanges(hepfullBar,vBox);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+        }
         int column = 0;
         int row = 1;
-
-//        ColumnConstraints clm1=new ColumnConstraints();
-//        ColumnConstraints clm2=new ColumnConstraints();
-//        ColumnConstraints clm3=new ColumnConstraints();
-//
-//        grid.getColumnConstraints().add( clm1 );
-//        grid.getColumnConstraints().add( clm2 );
-//        grid.getColumnConstraints().add( clm3 );
-//
-//        clm1.setPercentWidth( 33 );
-//        clm2.setPercentWidth( 33 );
-//        clm3.setPercentWidth( 34 );
-
         try {
             for (int i = 0; i < biens.size(); i++) {
                 FXMLLoader fxmlLoader = new FXMLLoader();
@@ -178,19 +129,15 @@ public class MarketController implements Initializable {
 
                 ItemController itemController = fxmlLoader.getController();
                 itemController.setData(biens.get(i),myListener);
-
-
+                getProduct(anchorPane,itemController);
                 if (column == 3) {
                     column = 0;
                     row++;
                 }
+                grid.setHgap( 25 );
+                grid.setVgap( 25 );
 
-//                grid.setGridLinesVisible( true );
-                grid.setHgap( 20 );
-                grid.setVgap( 20 );
-
-                grid.add(anchorPane, column++, row); //(child,column,row)
-                //set grid width
+                grid.add(anchorPane, column++, row);
                 grid.setMinWidth(Region.USE_COMPUTED_SIZE);
                 grid.setPrefWidth(Region.USE_COMPUTED_SIZE);
                 grid.setMaxWidth(Region.USE_PREF_SIZE);
@@ -199,16 +146,19 @@ public class MarketController implements Initializable {
                 grid.setMinHeight(Region.USE_COMPUTED_SIZE);
                 grid.setPrefHeight(Region.USE_COMPUTED_SIZE);
                 grid.setMaxHeight(Region.USE_PREF_SIZE);
-
-                GridPane.setMargin(anchorPane, new Insets(10));
             }
-            grid.setPrefHeight(scroll.getPrefHeight());
-            grid.setPrefWidth( scroll.getPrefWidth()-20);
-            grid.setPadding( new Insets( 10,10,10,20 ) );
+            grid.setPrefHeight(670);
+            grid.setPrefWidth(800);
+            grid.setPadding( new Insets( -10,0,10,20 ));
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    public void setMainWindowListener(MyListener listener){
+        MainWindowListener=listener;
+    }
+
+
 
 }

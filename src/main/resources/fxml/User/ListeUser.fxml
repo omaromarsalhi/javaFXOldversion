@@ -57,7 +57,7 @@
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="616.0" prefWidth="1055.0">
                      <children>
-                        <ScrollPane layoutX="7.0" layoutY="267.0" prefHeight="328.0" prefWidth="693.0" styleClass="scrollpane" AnchorPane.leftAnchor="7.0">
+                        <ScrollPane layoutX="7.0" layoutY="267.0" prefHeight="328.0" prefWidth="693.0" styleClass="scrollpane" AnchorPane.leftAnchor="25.0">
                            <content>
                               <VBox fx:id="Userlayout" prefHeight="482.0" prefWidth="573.0" spacing="5.0">
                                  <children>
@@ -100,6 +100,9 @@
                                        </children>
                                     </HBox>
                                  </children>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
                               </VBox>
                            </content>
                         </ScrollPane>

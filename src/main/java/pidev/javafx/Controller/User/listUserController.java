@@ -159,10 +159,10 @@ public class listUserController implements Initializable {
 
                             });
                             ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), hBox);
-                            scaleTransition.setFromX(1); // Taille initiale sur l'axe X
-                            scaleTransition.setFromY(1); // Taille initiale sur l'axe Y
-                            scaleTransition.setToX(1.2); // Taille agrandie sur l'axe X
-                            scaleTransition.setToY(1.2); // Taille agrandie sur l'axe Y
+                            scaleTransition.setFromX(1);
+                            scaleTransition.setFromY(5git switch mas);
+                            scaleTransition.setToX(1.2);
+                            scaleTransition.setToY(1);
 
                             hBox.setOnMouseEntered(event -> {
                                 scaleTransition.playFromStart(); // Démarrer l'animation lorsque la souris entre dans le HBox

@@ -16,5 +16,6 @@ module pidev.javafx{
     opens pidev.javafx.utlis to javafx.fxml;
     exports pidev.javafx.test;
     opens pidev.javafx.test to javafx.fxml;
+    opens pidev.javafx.Controller.login;
 }
 

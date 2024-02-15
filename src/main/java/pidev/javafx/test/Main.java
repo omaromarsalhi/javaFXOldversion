@@ -21,7 +21,7 @@ public class Main extends Application {
        // FXMLLoader fxmlLoader = new FXMLLoader( Main.class.getResource( "/fxml/User/LoginSignup.fxml" ));
        //FXMLLoader fxmlLoader = new FXMLLoader( Main.class.getResource( "/fxml/User/Admin2.fxml" ));
         Scene scene = new Scene(fxmlLoader.load());
-        //scene.getStylesheets().add( String.valueOf( getClass().getResource("/style/styleAdmin2.css") ) );
+      //  scene.getStylesheets().add( String.valueOf( getClass().getResource("/style/styleAdmin2.css") ) );
      // scene.getStylesheets().add( String.valueOf( getClass().getResource("/style/styleLogin.css") ) );
      scene.getStylesheets().add( String.valueOf( getClass().getResource("/style/StylelisteUsers.css") ) );
       //scene.getStylesheets().add( String.valueOf( getClass().getResource("/style/styleShowItems.css") ) );

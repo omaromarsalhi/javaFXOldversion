@@ -57,7 +57,7 @@
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="616.0" prefWidth="1055.0">
                      <children>
-                        <ScrollPane layoutX="25.0" layoutY="267.0" prefHeight="328.0" prefWidth="601.0" styleClass="scrollpane" AnchorPane.leftAnchor="25.0">
+                        <ScrollPane layoutX="7.0" layoutY="267.0" prefHeight="328.0" prefWidth="693.0" styleClass="scrollpane" AnchorPane.leftAnchor="7.0">
                            <content>
                               <VBox fx:id="Userlayout" prefHeight="482.0" prefWidth="573.0" spacing="5.0">
                                  <children>
@@ -191,7 +191,7 @@
                         <Button fx:id="users" layoutX="87.0" layoutY="224.0" mnemonicParsing="false" onAction="#onUsersCllik" styleClass="custom-user" text="Users" />
                         <Button fx:id="employe" layoutX="140.0" layoutY="226.0" mnemonicParsing="false" onAction="#onEmployeeClick" styleClass="custom-user" text="emplye" />
                         <Button fx:id="all" layoutX="27.0" layoutY="223.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onAllClick" prefHeight="25.0" prefWidth="45.0" styleClass="custom-user" text="All" />
-                        <VBox fx:id="vboxinfo" layoutX="731.0" layoutY="118.0" prefHeight="475.0" prefWidth="312.0" style="-fx-background-color: #fdc847;" styleClass="vboxinfo">
+                        <VBox fx:id="vboxinfo" layoutX="731.0" layoutY="118.0" prefHeight="475.0" prefWidth="312.0" style="-fx-background-color: #171718;" styleClass="vboxinfo">
                            <children>
                               <ImageView fitHeight="67.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true">
                                  <VBox.margin>
@@ -201,7 +201,7 @@
                                     <Image url="@../../img/omarmarrakchi.png" />
                                  </image>
                               </ImageView>
-                              <Label prefHeight="17.0" prefWidth="121.0" text="Omar Marrakchi">
+                              <Label prefHeight="17.0" prefWidth="121.0" text="Omar Marrakchi" textFill="#d7d7d7">
                                  <VBox.margin>
                                     <Insets left="110.0" top="5.0" />
                                  </VBox.margin>
@@ -227,7 +227,7 @@
                                  <children>
                                     <VBox prefHeight="100.0" prefWidth="118.0">
                                        <children>
-                                          <Label prefHeight="17.0" prefWidth="73.0" text="FirstName">
+                                          <Label prefHeight="17.0" prefWidth="73.0" text="FirstName" textFill="LIGHTGRAY">
                                              <VBox.margin>
                                                 <Insets left="10.0" />
                                              </VBox.margin>
@@ -244,12 +244,12 @@
                                     </VBox>
                                     <VBox prefHeight="76.0" prefWidth="118.0">
                                        <children>
-                                          <Label prefHeight="17.0" prefWidth="98.0" text="LastName">
+                                          <Label prefHeight="17.0" prefWidth="98.0" text="LastName" textFill="#d3d3d3">
                                              <VBox.margin>
                                                 <Insets left="10.0" />
                                              </VBox.margin>
                                           </Label>
-                                          <TextField fx:id="lastname" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="118.0">
+                                          <TextField fx:id="lastname" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="118.0" styleClass="textf1">
                                              <VBox.margin>
                                                 <Insets left="10.0" />
                                              </VBox.margin>
@@ -268,7 +268,7 @@
                                  <children>
                                     <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="41.0" prefWidth="129.0">
                                        <children>
-                                          <Label prefHeight="17.0" prefWidth="80.0" text="cin">
+                                          <Label prefHeight="17.0" prefWidth="80.0" text="cin" textFill="LIGHTGRAY">
                                              <VBox.margin>
                                                 <Insets left="10.0" />
                                              </VBox.margin>
@@ -285,7 +285,7 @@
                                     </VBox>
                                     <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="54.0" prefWidth="136.0">
                                        <children>
-                                          <Label prefHeight="17.0" prefWidth="53.0" text="Address">
+                                          <Label prefHeight="17.0" prefWidth="53.0" text="Address" textFill="LIGHTGRAY">
                                              <VBox.margin>
                                                 <Insets left="10.0" />
                                              </VBox.margin>
@@ -306,7 +306,7 @@
                                  <children>
                                     <VBox prefHeight="100.0" prefWidth="118.0">
                                        <children>
-                                          <Label prefHeight="17.0" prefWidth="46.0" text="Age">
+                                          <Label prefHeight="17.0" prefWidth="46.0" text="Age" textFill="LIGHTGRAY">
                                              <VBox.margin>
                                                 <Insets left="10.0" />
                                              </VBox.margin>
@@ -323,7 +323,7 @@
                                     </VBox>
                                     <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="118.0">
                                        <children>
-                                          <Label prefHeight="17.0" prefWidth="98.0" text="email">
+                                          <Label prefHeight="17.0" prefWidth="98.0" text="email" textFill="LIGHTGRAY">
                                              <VBox.margin>
                                                 <Insets left="10.0" />
                                              </VBox.margin>
@@ -344,7 +344,7 @@
                                  <children>
                                     <VBox prefHeight="76.0" prefWidth="127.0">
                                        <children>
-                                          <Label prefHeight="17.0" prefWidth="46.0" text="Status">
+                                          <Label prefHeight="17.0" prefWidth="46.0" text="Status" textFill="LIGHTGRAY">
                                              <VBox.margin>
                                                 <Insets left="10.0" />
                                              </VBox.margin>
@@ -361,7 +361,7 @@
                                     </VBox>
                                     <VBox prefHeight="100.0" prefWidth="118.0">
                                        <children>
-                                          <Label prefHeight="17.0" prefWidth="98.0" text="Phone number">
+                                          <Label prefHeight="17.0" prefWidth="98.0" text="Phone number" textFill="LIGHTGRAY">
                                              <VBox.margin>
                                                 <Insets left="10.0" top="5.0" />
                                              </VBox.margin>
@@ -382,7 +382,7 @@
                                  <children>
                                     <VBox prefHeight="55.0" prefWidth="127.0">
                                        <children>
-                                          <Label prefHeight="17.0" prefWidth="73.0" text="date of brith">
+                                          <Label prefHeight="17.0" prefWidth="73.0" text="date of brith" textFill="LIGHTGRAY">
                                              <VBox.margin>
                                                 <Insets left="10.0" />
                                              </VBox.margin>
@@ -399,7 +399,7 @@
                                     </VBox>
                                     <VBox prefHeight="100.0" prefWidth="118.0">
                                        <children>
-                                          <Label prefHeight="17.0" prefWidth="110.0" text="date of enrolment">
+                                          <Label prefHeight="17.0" prefWidth="110.0" text="date of enrolment" textFill="LIGHTGRAY">
                                              <VBox.margin>
                                                 <Insets />
                                              </VBox.margin>

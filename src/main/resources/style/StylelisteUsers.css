@@ -73,8 +73,11 @@
 .Hbox1{
     -fx-border-radius: 10px; /* Rayon de courbure des coins du bord */
 }
-.Hbox1:pressed {
-    -fx-background-color: #777777;
+
+.Hbox1:hover {
+    -fx-background-color: lightgray; /* Couleur de fond lorsque survolé */
+    -fx-border-color: black; /* Couleur de la bordure lorsque survolé */
+    -fx-border-width: 1px; /* Largeur de la bordure lorsque survolé */
 }
 .hbox_filtre .button{
     -fx-background-color: transparent;
@@ -107,9 +110,10 @@
 }
 .vboxinfo{
 
- -fx-background-color:  #fdc847;
     -fx-border-radius: 20px;
-    -fx-border-color:  #fdc847;
+    -fx-background-color: transparent;
+    -fx-border-color: #d3d3d3;
+    -fx-background-radius:20px;
 
 
 }
@@ -119,8 +123,23 @@
     -fx-text-fill: black; /* Couleur du texte */
     -fx-font-size: 13px; /* Taille de la police */
     -fx-border-width: 1px; /* Largeur de la bordure */
-    -fx-border-radius: 10px;
+    -fx-border-radius: 5px;
+    -fx-background-color: transparent;
+    -fx-border-color: #d3d3d3;
+
 }
+.vboxinfo .date-picker{
+
+
+    -fx-text-fill: black; /* Couleur du texte */
+    -fx-font-size: 13px; /* Taille de la police */
+    -fx-border-width: 1px; /* Largeur de la bordure */
+    -fx-border-radius: 5px;
+    -fx-background-color: transparent;
+    -fx-border-color: #d3d3d3;
+
+}
+
 .add {
 
     -fx-text-fill: #000000;
@@ -148,6 +167,5 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 0, 0); /* Ombre portée avec couleur et rayon */
 
 }
-
 
 

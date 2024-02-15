@@ -1,13 +1,10 @@
 package pidev.javafx.Controller.User;
 import javafx.animation.FadeTransition;
-import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.fxml.FXML;
@@ -15,11 +12,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import java.io.IOException;
-import java.io.PipedReader;
 import java.time.LocalDate;
 import java.util.*;
 
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -34,6 +29,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import pidev.javafx.Controller.login.PasswordHasher;
 import pidev.javafx.Model.user.Role;
 import pidev.javafx.Model.user.User;
 
@@ -162,7 +158,20 @@ public class listUserController implements Initializable {
 
 
                             });
+                            ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), hBox);
+                            scaleTransition.setFromX(1); // Taille initiale sur l'axe X
+                            scaleTransition.setFromY(1); // Taille initiale sur l'axe Y
+                            scaleTransition.setToX(1.2); // Taille agrandie sur l'axe X
+                            scaleTransition.setToY(1.2); // Taille agrandie sur l'axe Y
 
+                            hBox.setOnMouseEntered(event -> {
+                                scaleTransition.playFromStart(); // Démarrer l'animation lorsque la souris entre dans le HBox
+                            });
+
+                            hBox.setOnMouseExited(event -> {
+                                scaleTransition.setRate(-1); // Inverser l'animation lors de la sortie de la souris
+                                scaleTransition.playFrom(Duration.millis(200));  // Démarrer l'animation inversée lorsque la souris quitte le HBox
+                            });
                             HBox.setMargin(hBox, new Insets(70, 0, 0, 0));
 
                             Userlayout.getChildren().add(hBox);

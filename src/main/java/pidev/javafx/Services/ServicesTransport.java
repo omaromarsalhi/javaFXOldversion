@@ -1,6 +1,8 @@
 package pidev.javafx.Services;
 
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import pidev.javafx.Controller.ConnectionDB;
 import pidev.javafx.entities.Transport.Abonnement;
 import pidev.javafx.entities.Transport.Transport;
@@ -41,8 +43,29 @@ public class ServicesTransport implements IServices <Transport> {
     }
 
     @Override
-    public void modifier(Transport transport) {
+    public void modifier(Transport T) {
+        cnx = ConnectionDB.connectDb();
+        String sql = "UPDATE transport\n" +
+                "SET Type_Vehicule=?, Depart=?, Arivee=?, Reference=?, Vehicule_Image=?, Prix=?, Heure=?\n" +
+                "WHERE idTransport=?;\n ";
 
+        try {
+            prepare = cnx.prepareStatement(sql);
+            prepare.setString(1, T.getType_vehicule());
+            prepare.setString(2, T.getDepart());
+            prepare.setString(3, T.getArivee());
+            prepare.setString(4, T.getReference());
+            prepare.setString(5, T.getVehicule_Image());
+            prepare.setFloat(6, T.getPrix());
+            prepare.setTime(7, T.getHeure());
+            prepare.setInt(8, T.getIdTransport());
+            prepare.executeUpdate();
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            System.out.println("Error inserting data.");
+        }
     }
 
     @Override
@@ -65,8 +88,34 @@ public class ServicesTransport implements IServices <Transport> {
     }
     @Override
     public Set<Transport> getAll() {
+Set<Transport> dataList =new HashSet<>();
+        String sql = "SELECT * FROM transport";
+        cnx = ConnectionDB.connectDb();
+
+        try (PreparedStatement preparedStatement = cnx.prepareStatement(sql);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
 
 
-     return null;
-    }
-}
+
+
+            while (resultSet.next()) {
+                Transport data = new Transport();
+
+                data.setIdTransport(Integer.parseInt(resultSet.getString("idTransport")));
+                data.setType_vehicule(resultSet.getString("Type_Vehicule"));
+                data.setReference(resultSet.getString("Reference"));
+                data.setDepart(resultSet.getString("Depart"));
+                data.setArivee(resultSet.getString("Arivee"));
+                data.setPrix((resultSet.getFloat("Prix")));
+                data.setHeure((resultSet.getTime("Heure")));
+                data.setVehicule_Image((resultSet.getString("Vehicule_Image")));
+
+                dataList.add(data);
+
+            }
+
+     return  dataList;
+    } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }}

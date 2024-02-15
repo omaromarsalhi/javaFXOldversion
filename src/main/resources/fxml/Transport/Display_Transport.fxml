@@ -36,7 +36,7 @@
                         <Font name="Souliyo Unicode" size="15.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="SearchText" layoutX="643.0" layoutY="133.0" onInputMethodTextChanged="#Recherche" onKeyTyped="#Recherche" prefHeight="20.0" prefWidth="306.0" promptText="Search...." styleClass="SearchBar">
+                  <TextField fx:id="SearchText" layoutX="643.0" layoutY="133.0" prefHeight="20.0" prefWidth="306.0" promptText="Search...." styleClass="SearchBar">
                      <font>
                         <Font name="Souliyo Unicode" size="13.0" />
                      </font>

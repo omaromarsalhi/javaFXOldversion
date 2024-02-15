@@ -160,33 +160,14 @@ Transport t;
 
      @FXML
      public void afficher() {
-         String sql = "SELECT * FROM transport";
-         connect = ConnectionDB.connectDb();
 
-         try (PreparedStatement preparedStatement = connect.prepareStatement(sql);
-              ResultSet resultSet = preparedStatement.executeQuery()) {
 
-             // Create an ObservableList to store your data
-             ObservableList<Transport> dataList = FXCollections.observableArrayList();
-
-             while (resultSet.next()) {
-                 Transport data = new Transport();
-
-                 data.setIdTransport(Integer.parseInt(resultSet.getString("idTransport")));
-                 data.setType_vehicule(resultSet.getString("Type_Vehicule"));
-                 data.setReference(resultSet.getString("Reference"));
-                 data.setDepart(resultSet.getString("Depart"));
-                 data.setArivee(resultSet.getString("Arivee"));
-                 data.setPrix((resultSet.getFloat("Prix")));
-                 data.setHeure((resultSet.getTime("Heure")));
-                 data.setVehicule_Image((resultSet.getString("Vehicule_Image")));
-
-                 dataList.add(data);
-
-             }
+        // dataList=st.getAll();
 
 
 
+
+Set<Transport> dataList=new HashSet<>();
 
              ReferenceCol.setCellValueFactory(new PropertyValueFactory<>("Reference"));
              HeureCol.setCellValueFactory(new PropertyValueFactory<>("Heure"));
@@ -220,127 +201,95 @@ Transport t;
                      }
                  }
              });
+             dataList=st.getAll();
+         ObservableList<Transport> observableList = FXCollections.observableArrayList(dataList);
 
-             Transport_table.setItems(dataList);
+             Transport_table.setItems(observableList);
 
-         } catch (Exception e) {
-             System.out.println(e.getMessage());
-         }
+
 
       }
+//
+//      public void Recherche(){
+//
+//
+//          String sql = "SELECT * FROM transport WHERE Type_Vehicule=?  ";
+//
+//          connect = ConnectionDB.connectDb();
+//
+//          System.out.println(SearchText.getText());
+//          try (PreparedStatement preparedStatement = connect.prepareStatement(sql);
+//
+//               ResultSet resultSet = preparedStatement.executeQuery()) {
+//              prepare = connect.prepareStatement(sql);
+//              prepare.setString(1,SearchText.getText());
+//
+//              // Create an ObservableList to store your data
+//              ObservableList<Transport> dataList = FXCollections.observableArrayList();
+//
+//              while (resultSet.next()) {
+//                  Transport data = new Transport();
+//
+//                  data.setIdTransport(Integer.parseInt(resultSet.getString("idTransport")));
+//                  data.setType_vehicule(resultSet.getString("Type_Vehicule"));
+//                  data.setReference(resultSet.getString("Reference"));
+//                  data.setDepart(resultSet.getString("Depart"));
+//                  data.setArivee(resultSet.getString("Arivee"));
+//                  data.setPrix((resultSet.getFloat("Prix")));
+//                  data.setHeure((resultSet.getTime("Heure")));
+//                  data.setVehicule_Image((resultSet.getString("Vehicule_Image")));
+//
+//                  dataList.add(data);
+//
+//              }
+//
+//
+//  List<String> nameList = dataList.stream()
+//           .map(Transport::getArivee)
+//           .collect(Collectors.toList());
+//              nameList.stream().anyMatch( str -> str.equals(SearchText.getText()));
+//
+//              ReferenceCol.setCellValueFactory(new PropertyValueFactory<>("Reference"));
+//              HeureCol.setCellValueFactory(new PropertyValueFactory<>("Heure"));
+//              DepartCol.setCellValueFactory(new PropertyValueFactory<>("depart"));
+//              ArriveCol.setCellValueFactory(new PropertyValueFactory<>("arivee"));
+//              TypeCol.setCellValueFactory(new PropertyValueFactory<>("type_vehicule"));
+//              PrixCol.setCellValueFactory(new PropertyValueFactory<>("Prix"));
+//              ImageCol.setCellValueFactory(new PropertyValueFactory<>("vehicule_Image"));
+//
+//              // Set the cell factory for rendering the image
+//              ImageCol.setCellFactory(param -> new TableCell<>() {
+//                  private final ImageView imageView = new ImageView();
+//
+//                  {
+//                      imageView.setFitWidth(50);
+//                      imageView.setFitHeight(50);
+//                  }
+//
+//                  @Override
+//                  protected void updateItem(String imagePath, boolean empty) {
+//                      super.updateItem(imagePath, empty);
+//
+//                      if (empty || imagePath == null) {
+//                          setGraphic(null);
+//                      } else {
+//                          // Set the image for the ImageView
+//                          Image image = new Image(imagePath);
+//                          imageView.setImage(image);
+//                          imageView.setStyle("-fx-border-radius: 12px; -fx-background-color: blue;");
+//                          setGraphic(imageView);
+//                      }
+//                  }
+//              });
+//
+//              Transport_table.setItems(dataList);
+//
+//          } catch (Exception e) {
+//              System.out.println(e.getMessage());
+//          }
+//      }
+//
 
-      public void Recherche(){
-
-
-          String sql = "SELECT * FROM transport WHERE Type_Vehicule=?  ";
-
-          connect = ConnectionDB.connectDb();
-
-          System.out.println(SearchText.getText());
-          try (PreparedStatement preparedStatement = connect.prepareStatement(sql);
-
-               ResultSet resultSet = preparedStatement.executeQuery()) {
-              prepare = connect.prepareStatement(sql);
-              prepare.setString(1,SearchText.getText());
-
-              // Create an ObservableList to store your data
-              ObservableList<Transport> dataList = FXCollections.observableArrayList();
-
-              while (resultSet.next()) {
-                  Transport data = new Transport();
-
-                  data.setIdTransport(Integer.parseInt(resultSet.getString("idTransport")));
-                  data.setType_vehicule(resultSet.getString("Type_Vehicule"));
-                  data.setReference(resultSet.getString("Reference"));
-                  data.setDepart(resultSet.getString("Depart"));
-                  data.setArivee(resultSet.getString("Arivee"));
-                  data.setPrix((resultSet.getFloat("Prix")));
-                  data.setHeure((resultSet.getTime("Heure")));
-                  data.setVehicule_Image((resultSet.getString("Vehicule_Image")));
-
-                  dataList.add(data);
-
-              }
-
-
-  List<String> nameList = dataList.stream()
-           .map(Transport::getArivee)
-           .collect(Collectors.toList());
-              nameList.stream().anyMatch( str -> str.equals(SearchText.getText()));
-
-              ReferenceCol.setCellValueFactory(new PropertyValueFactory<>("Reference"));
-              HeureCol.setCellValueFactory(new PropertyValueFactory<>("Heure"));
-              DepartCol.setCellValueFactory(new PropertyValueFactory<>("depart"));
-              ArriveCol.setCellValueFactory(new PropertyValueFactory<>("arivee"));
-              TypeCol.setCellValueFactory(new PropertyValueFactory<>("type_vehicule"));
-              PrixCol.setCellValueFactory(new PropertyValueFactory<>("Prix"));
-              ImageCol.setCellValueFactory(new PropertyValueFactory<>("vehicule_Image"));
-
-              // Set the cell factory for rendering the image
-              ImageCol.setCellFactory(param -> new TableCell<>() {
-                  private final ImageView imageView = new ImageView();
-
-                  {
-                      imageView.setFitWidth(50);
-                      imageView.setFitHeight(50);
-                  }
-
-                  @Override
-                  protected void updateItem(String imagePath, boolean empty) {
-                      super.updateItem(imagePath, empty);
-
-                      if (empty || imagePath == null) {
-                          setGraphic(null);
-                      } else {
-                          // Set the image for the ImageView
-                          Image image = new Image(imagePath);
-                          imageView.setImage(image);
-                          imageView.setStyle("-fx-border-radius: 12px; -fx-background-color: blue;");
-                          setGraphic(imageView);
-                      }
-                  }
-              });
-
-              Transport_table.setItems(dataList);
-
-          } catch (Exception e) {
-              System.out.println(e.getMessage());
-          }
-      }
-
-        public void update() {
-            String sql = "UPDATE  transport SET   WHERE ";
-            connect = ConnectionDB.connectDb();
-
-            try (PreparedStatement preparedStatement = connect.prepareStatement(sql);
-                 ResultSet resultSet = preparedStatement.executeQuery()) {
-
-                // Create an ObservableList to store your data
-
-
-                while (resultSet.next()) {
-                    Transport data = new Transport();
-
-                    data.setIdTransport(Integer.parseInt(resultSet.getString("idTransport")));
-                    data.setType_vehicule(resultSet.getString("Type_Vehicule"));
-                    data.setReference(resultSet.getString("Reference"));
-                    data.setDepart(resultSet.getString("Depart"));
-                    data.setArivee(resultSet.getString("Arivee"));
-                    data.setPrix((resultSet.getFloat("Prix")));
-                    data.setHeure((resultSet.getTime("Heure")));
-
-                }
-
-
-
-    } catch (Exception e) {
-        System.out.println(e.getMessage());
-    }
-            ObservableList<Transport> dataList = FXCollections.observableArrayList();
-            Transport_table.setItems(dataList);
-
-
-}
 
 
 
@@ -352,14 +301,7 @@ Transport t;
         };
 
 
-    public void show_Transport_ListView1(KeyEvent event) {
-        String keyPressed = event.getCode().toString();
 
-        if(keyPressed.equals("A")) {
-            System.out.println(Transport_list.getSelectionModel().getSelectedItem());
-            System.out.println(keyPressed);
-        }
-    }
 
 
 

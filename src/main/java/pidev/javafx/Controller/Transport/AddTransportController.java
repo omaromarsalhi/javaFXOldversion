@@ -1,5 +1,6 @@
 package pidev.javafx.Controller.Transport;
 
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,11 +12,16 @@ import javafx.scene.layout.Pane;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import pidev.javafx.Controller.ConnectionDB;
 import pidev.javafx.Services.ServicesTransport;
 import pidev.javafx.entities.Transport.Transport;
 import pidev.javafx.entities.Transport.Type_Vehicule;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.*;
 import java.util.*;
@@ -66,6 +72,7 @@ public class AddTransportController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
     intialiase_timer();
     }
 
@@ -82,6 +89,7 @@ public  void intialiase_timer(){
     });
 
      timeSpinner.getStyleClass().add(Spinner.STYLE_CLASS_SPLIT_ARROWS_VERTICAL);
+
 }
 
 
@@ -185,11 +193,27 @@ imagePath=selectedFile.getAbsolutePath() ;
                 Float Prix = Float.parseFloat(PrixText.getText());
                 Transport T = new Transport( Type,  DEPART, ARRIVEE, Reference, imagePath, Prix,time);
                 sp.ajouter(T);
-                Pane scrollPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/Transport/added_succesfully.fxml")));
-                scrollPane.setPrefHeight(mainBorderPain.getPrefHeight());
-                scrollPane.setPrefWidth(mainBorderPain.getPrefWidth());
-                mainBorderPain.setContent(scrollPane);
-                Return(event);
+            Pane successPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/Transport/added_succesfully.fxml")));
+
+            // Set content
+            successPane.setPrefHeight(mainBorderPain.getPrefHeight());
+            successPane.setPrefWidth(mainBorderPain.getPrefWidth());
+            mainBorderPain.setContent(successPane);
+
+            // Create PauseTransition for a 5-second delay
+            PauseTransition pause = new PauseTransition(Duration.seconds(2.33));
+            pause.setOnFinished(event -> {
+                // Load another FXML after 5 seconds
+                try {
+                    Return(event);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+
+            // Start the PauseTransition
+            pause.play();
+
               //  showDialog();
 
             return true;

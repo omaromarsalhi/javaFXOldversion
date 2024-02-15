@@ -1,14 +1,20 @@
 package pidev.javafx.Controller.Transport;
 
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 import pidev.javafx.Services.ServicesStation;
 import pidev.javafx.entities.Transport.Station;
 import pidev.javafx.entities.Transport.Type_Vehicule;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.*;
 import java.util.*;
@@ -32,7 +38,9 @@ public class AddStationController implements Initializable {
 
     private PreparedStatement prepare;
 
+
     ServicesStation ss=new ServicesStation();
+    String  Address;
 
 
 
@@ -57,26 +65,36 @@ public class AddStationController implements Initializable {
             BoxTypeVehicule.getItems().addAll( Type_Vehicule.values());
     }
 
-@FXML
-protected void insertStation() throws IOException {
-
-        String nomStation=NomStationText.getText();
-        String adress=AdressText.getText();
-
-      Station st= new Station(nomStation,adress,BoxTypeVehicule.getValue().toString());
-       ss.ajouter(st);
-
-        Pane scrollPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/Transport/added_succesfully.fxml")));
-        scrollPane.setPrefHeight(mainBorderPain.getPrefHeight());
-        scrollPane.setPrefWidth(mainBorderPain.getPrefWidth());
-        mainBorderPain.setContent(scrollPane);
-
-        //  showDialog();
 
 
-}
 
+    @FXML
+    protected void insertStation() throws IOException {
+        String nomStation = NomStationText.getText();
+        String address = AdressText.getText();  // Replace with the actual address or get it from a control
 
+        Station st = new Station(nomStation, address, BoxTypeVehicule.getValue().toString());
+        ss.ajouter(st);
+
+        Pane successPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/Transport/added_succesfully.fxml")));
+
+        successPane.setPrefHeight(mainBorderPain.getPrefHeight());
+        successPane.setPrefWidth(mainBorderPain.getPrefWidth());
+        mainBorderPain.setContent(successPane);
+
+        PauseTransition pause = new PauseTransition(Duration.seconds(2.33));
+        pause.setOnFinished(event -> {
+            try {
+                ScrollPane anotherPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/Transport/Station.fxml")));
+                anotherPane.setPrefHeight(mainBorderPain.getPrefHeight());
+                anotherPane.setPrefWidth(mainBorderPain.getPrefWidth());
+                mainBorderPain.setContent(anotherPane);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        pause.play();
+    }
 
 
     void mapView(){

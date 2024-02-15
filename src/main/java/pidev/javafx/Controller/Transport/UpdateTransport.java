@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import pidev.javafx.Controller.ConnectionDB;
+import pidev.javafx.Services.ServicesTransport;
 import pidev.javafx.entities.Transport.Transport;
 import pidev.javafx.entities.Transport.Type_Vehicule;
 
@@ -58,6 +59,7 @@ public class UpdateTransport implements Initializable {
     private ScrollPane mainBorderPain;
     String imagePath=loadedTransport.getVehicule_Image();
     private PreparedStatement prepare;
+    ServicesTransport st=new ServicesTransport();
 
     public static void setData(Transport transportData) {
         loadedTransport = transportData;
@@ -213,23 +215,9 @@ public class UpdateTransport implements Initializable {
             Float Prix = Float.parseFloat(PrixText.getText());
             Transport T = new Transport(    Type,  DEPART, ARRIVEE, Reference, imagePath, Prix,time );
             T.setIdTransport(loadedTransport.getIdTransport());
-            connect = ConnectionDB.connectDb();
-            String sql = "UPDATE transport\n" +
-                    "SET Type_Vehicule=?, Depart=?, Arivee=?, Reference=?, Vehicule_Image=?, Prix=?, Heure=?\n" +
-                    "WHERE idTransport=?;\n ";
 
-            try {
-                prepare = connect.prepareStatement(sql);
-                prepare.setString(1, T.getType_vehicule());
-                prepare.setString(2, T.getDepart());
-                prepare.setString(3, T.getArivee());
-                prepare.setString(4, T.getReference());
-                prepare.setString(5, T.getVehicule_Image());
-                prepare.setFloat(6, T.getPrix());
-                prepare.setTime(7, T.getHeure());
-                prepare.setInt(8, T.getIdTransport());
-                prepare.executeUpdate();
 
+               st.modifier(T);
 
                 Long StartTime =  System.currentTimeMillis();
                 annimation();
@@ -238,23 +226,13 @@ public class UpdateTransport implements Initializable {
 
                  }
 
-//                while(StartTime-12000> System.currentTimeMillis()) {
-//
-//                }
-//                 if (StartTime-12000<System.currentTimeMillis())
-//                {
                     ScrollPane scrollPane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/Transport/Display_Transport.fxml")));
 
                     scrollPane.setPrefHeight(mainBorderPain.getPrefHeight());
                     scrollPane.setPrefWidth(mainBorderPain.getPrefWidth());
                     mainBorderPain.setContent(scrollPane);
-//                }
-                return true;
-                //  showDialog();
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-                System.out.println("Error inserting data.");
-            }
+
+
             return true;
         }
 

@@ -4,10 +4,27 @@ import java.util.Date;
 
 public class Abonnement {
     private int idAboonnement;
-    private String type ;
+    private String Type;
     private Timestamp dateDebut;
     private Date dateFin;
     private String Nom;
+    private String  Image;
+
+    public Abonnement(String nom, String prenom, String type, String image) {
+
+        Nom = nom;
+        Image = image;
+        Prenom = prenom;
+        Type=type;
+    }
+
+    public String getImage() {
+        return Image;
+    }
+
+    public void setImage(String image) {
+        Image = image;
+    }
 
     public Abonnement() {
 
@@ -17,7 +34,7 @@ public class Abonnement {
     public String toString() {
         return "Abonnement{" +
                 "idAboonnement=" + idAboonnement +
-                ", type='" + type + '\'' +
+                ", type='" + Type + '\'' +
                 ", dateDebut=" + dateDebut +
                 ", dateFin=" + dateFin +
                 ", Nom='" + Nom + '\'' +
@@ -45,9 +62,15 @@ public class Abonnement {
 
     public Abonnement(int idAboonnement, String type, Timestamp  dateDebut, Date dateFin) {
         this.idAboonnement = idAboonnement;
-        this.type = type;
+        this.Type = type;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
+    }
+
+    public Abonnement(Date dateFin, String nom, String prenom) {
+        this.dateFin = dateFin;
+        Nom = nom;
+        Prenom = prenom;
     }
 
     public int getIdAboonnement() {
@@ -55,7 +78,7 @@ public class Abonnement {
     }
 
     public String getType() {
-        return type;
+        return Type;
     }
 
 
@@ -74,7 +97,7 @@ public class Abonnement {
     }
 
     public void setType(String type) {
-        this.type = type;
+        this.Type = type;
     }
 
 

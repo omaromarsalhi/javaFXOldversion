@@ -6,8 +6,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import pidev.javafx.Controller.ConnectionDB;
 import pidev.javafx.Services.ServicesAbonnement;
@@ -16,12 +21,16 @@ import pidev.javafx.entities.Transport.Transport;
 import javafx.scene.layout.Pane;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
+
+import static javafx.scene.input.KeyCode.T;
 
 public class AbonnementController implements Initializable {
 
@@ -33,7 +42,7 @@ public class AbonnementController implements Initializable {
     @FXML
     Pane paneToAnnimate;
 
-
+    private Stage primaryStage;
 
     @FXML
     private Label DebutLabel;
@@ -53,16 +62,26 @@ public class AbonnementController implements Initializable {
             private Button nextBtn;
     @FXML
             private Button previousBtn;
+    @FXML
+            private TextField NomText;
+    @FXML
+            private TextField PrenomText;
+    @FXML
+            private ComboBox <String> TypeAbonnementBox;
+
        int i;
        Set <Abonnement> abonnementSet;
     TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(1), paneToAnnimate);
-
+String imagePath;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        TypeAbonnementBox.getItems().addAll("Annuel","mensuel");
        // toolsBar.setVisible(false);
         afficher();
+      if(abonnementList.size()>0)
         remplir_abonnement();
+
         translateTransition.setNode(paneToAnnimate);
 
     }
@@ -75,12 +94,56 @@ public class AbonnementController implements Initializable {
         abonnementList = List.copyOf(abonnementSet);
 
             System.out.println(abonnementList.toString());
-//            System.out.println(abonnementList.get(1).toString());
-//            System.out.println(abonnementList.get(2).toString());
-
 
     }
+    public void insert_Image(){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose a File");
+        var selectedFile = fileChooser.showOpenDialog(primaryStage);
+        if (selectedFile != null) {
+            imagePath=selectedFile.getAbsolutePath() ;
 
+        }
+    }
+    public void add_load(){
+        UpdateBtn.setVisible(false);
+    }
+    public void ajouter(){
+
+
+
+      Abonnement p=new Abonnement(NomText.getText(),PrenomText.getText(),TypeAbonnementBox.getValue().toString(),imagePath);
+
+      sa.ajouter(p);
+        afficher();
+        remplir_abonnement();
+    };
+
+public void DeleteAbonnement(){
+
+       int id = abonnementList.get(i).getIdAboonnement();
+        sa.supprimer(id);
+        afficher();
+        remplir_abonnement();
+};
+
+    @FXML
+    protected void onTextChanged() {
+        String[] text = new String[10];
+
+        text[1] = NomText.getText();
+        text[2]= PrenomText.getText();
+
+        if (text[1].matches("[a-zA-Z0-9]*"))
+            NomText.setStyle("-fx-text-fill: #25c12c;");
+        else
+            NomText.setStyle("-fx-text-fill: #bb2020;");
+
+        if (text[2].matches("[0-9 -.]+"))
+            PrenomText.setStyle("-fx-text-fill: #25c12c");
+        else
+            PrenomText.setStyle("-fx-text-fill: #bb2020 ");
+    }
 
     public  void remplir_abonnement(){
         if (i==0)
@@ -99,8 +162,8 @@ String id=Integer.toString(abonnementList.get(i).getIdAboonnement());
     }
     @FXML
     public void nextAb() {
-        translateTransition.setToX(400);
-        translateTransition.play();
+     //   translateTransition.setToX(400);
+       // translateTransition.play();
         if (i < abonnementList.size() - 1) {
             nextBtn.setVisible(true);
             previousBtn.setVisible(true);
@@ -115,8 +178,8 @@ String id=Integer.toString(abonnementList.get(i).getIdAboonnement());
 
     @FXML
     public void previousAb() {
-        translateTransition.setToX(-400);
-        translateTransition.play();
+       // translateTransition.setToX(-400);
+       // translateTransition.play();
         if (i > 0) {
             previousBtn.setVisible(true);
             nextBtn.setVisible(true);
@@ -128,89 +191,130 @@ String id=Integer.toString(abonnementList.get(i).getIdAboonnement());
             nextBtn.setVisible(true);
         }
     }
+    public void LoadUpdate(){
+        UpdateBtn.setVisible(true);
+    NomText.setText(abonnementList.get(i).getNom());
+    PrenomText.setText(abonnementList.get(i).getPrenom());
+    TypeAbonnementBox.setValue(abonnementList.get(i).getType());
+    imagePath=abonnementList.get(i).getImage();
+    }
+    @FXML
+    Button UpdateBtn;
+    public void Update(){
+
+        Abonnement A = new Abonnement(NomText.getText(),PrenomText.getText(),TypeAbonnementBox.getValue(),imagePath);
+        System.out.println(NomText.getText());
+          A.setIdAboonnement(abonnementList.get(i).getIdAboonnement());
+        sa.modifier(A);
+        UpdateBtn.setVisible(false);
+        afficher();
+        remplir_abonnement();
+    }
 @FXML
     VBox statsPannel;
-    @FXML
-    VBox toolsBar;
+
     @FXML
     Pane statsPane;
     @FXML
     Button expandBtn;
-
-    @FXML
-    public void expand(){
-//        ScaleTransition st = new ScaleTransition(Duration.seconds(1), statsPannel);
-//        st.setFromX(1); // Initial horizontal scale factor
-//        st.setToX(0.5); // Final horizontal scale factor
-//        //st.setFromY(1); // Initial vertical scale factor
-//       // st.setToY(1); // Final vertical scale factor
-//        //st.setAutoReverse(true); // Reverse the animation when it reaches the end
-//        //st.setCycleCount(2); // Repeat the animation twice
+@FXML
+Button openBtn;
+//    @FXML
+//    public void expand(){
 //
-//        // Start the animation when the stage is shown
-//         st.play();
+//        Timeline timeline = new Timeline();
+//        timeline.setCycleCount(1);
+//        timeline.setAutoReverse(false);
+//        KeyValue initWidth = new KeyValue(statsPannel.prefWidthProperty(), 380);
+//        KeyValue initTranslateX = new KeyValue(statsPannel.translateXProperty(), 50);
+//        KeyValue finalWidth = new KeyValue(statsPannel.prefWidthProperty(), 50);
+//        KeyValue finalTranslateX = new KeyValue(statsPannel.translateXProperty(), 380);
+//        KeyFrame initFrame = new KeyFrame(Duration.ZERO, initWidth, initTranslateX);
+//        KeyFrame finalFrame = new KeyFrame(Duration.seconds(1), finalWidth, finalTranslateX);
+//        timeline.getKeyFrames().addAll(initFrame, finalFrame);
+//        openBtn.setVisible(true);
+//        statsPane.setVisible(false);
+//        expandBtn.setVisible(true);
+//         timeline.play();
+//
+//
+//
+//
+//    }
 
+//
+//    @FXML
+//    public void unexpand(){
+//
+//        Timeline timeline2 = new Timeline();
+//        timeline2.setCycleCount(1);
+//        timeline2.setAutoReverse(false);
+//        KeyValue initWidth2 = new KeyValue(statsPannel.prefWidthProperty(), 50);
+//        KeyValue initTranslateX2 = new KeyValue(statsPannel.translateXProperty(), 404);
+//        KeyValue finalWidth2 = new KeyValue(statsPannel.prefWidthProperty(), 404);
+//        KeyValue finalTranslateX2 = new KeyValue(statsPannel.translateXProperty(), 50);
+//        KeyFrame initFrame2 = new KeyFrame(Duration.ZERO, initWidth2, initTranslateX2);
+//        KeyFrame finalFrame2 = new KeyFrame(Duration.seconds(1), finalWidth2, finalTranslateX2);
+//        timeline2.getKeyFrames().addAll(initFrame2, finalFrame2);
+//        statsPane.setVisible(true);
+//        expandBtn.setVisible(true);
+//        openBtn.setVisible(false);
+//        timeline2.play();
+//
+//    }
+@FXML
+public void unexpand() {
+    Timeline timeline = new Timeline();
+    timeline.setCycleCount(1);
+    timeline.setAutoReverse(false);
 
-        Timeline timeline = new Timeline();
-        timeline.setCycleCount(1);
-        timeline.setAutoReverse(true);
+    double panelWidth = statsPannel.getWidth();
 
-        // Create the initial and final values for the width and the translateX properties of the VBox
-        KeyValue initWidth = new KeyValue(statsPannel.prefWidthProperty(), 260);
-        KeyValue initTranslateX = new KeyValue(statsPannel.translateXProperty(), 50);
-        KeyValue finalWidth = new KeyValue(statsPannel.prefWidthProperty(), 50);
-        KeyValue finalTranslateX = new KeyValue(statsPannel.translateXProperty(), 260);
+    KeyValue initTranslateX = new KeyValue(statsPannel.translateXProperty(), 0);
+    KeyValue finalTranslateX = new KeyValue(statsPannel.translateXProperty(), panelWidth-50);
+    KeyValue initWidth = new KeyValue(statsPannel.prefWidthProperty(), 404);
+    KeyValue finalWidth = new KeyValue(statsPannel.prefWidthProperty(), 50);
 
+    KeyFrame initFrame = new KeyFrame(Duration.ZERO, initWidth, initTranslateX);
+    KeyFrame finalFrame = new KeyFrame(Duration.seconds(3), finalWidth, finalTranslateX);
 
-        // Create a KeyFrame with the initial values and a duration of zero
-        KeyFrame initFrame = new KeyFrame(Duration.ZERO, initWidth, initTranslateX);
+    timeline.getKeyFrames().addAll(finalFrame, initFrame);
 
-        // Create a KeyFrame with the final values and a duration of one second
-        KeyFrame finalFrame = new KeyFrame(Duration.seconds(1), finalWidth, finalTranslateX);
+    openBtn.setVisible(true);
+    statsPane.setVisible(false);
+    expandBtn.setVisible(true);
 
-        // Add the KeyFrames to the Timeline
-        timeline.getKeyFrames().addAll(initFrame, finalFrame);
-        //toolsBar.setVisible(true);
-        statsPane.setVisible(false);
-        expandBtn.setVisible(true);
+    timeline.play();
+}
 
-        // Start the animation when the stage is shown
-         timeline.play();
-    }
 
 
     @FXML
-    public void unexpand(){
-        // Create another Timeline animation to open the VBox
+    public void expand() {
         Timeline timeline2 = new Timeline();
         timeline2.setCycleCount(1);
         timeline2.setAutoReverse(false);
 
-// Create the initial and final values for the width and the translateX properties of the VBox
+        double panelWidth = statsPannel.getWidth();
+
+        KeyValue initTranslateX2 = new KeyValue(statsPannel.translateXProperty(), panelWidth);
+        KeyValue finalTranslateX2 = new KeyValue(statsPannel.translateXProperty(), 0);
         KeyValue initWidth2 = new KeyValue(statsPannel.prefWidthProperty(), 50);
-        KeyValue initTranslateX2 = new KeyValue(statsPannel.translateXProperty(), 260);
-        KeyValue finalWidth2 = new KeyValue(statsPannel.prefWidthProperty(), 260);
-        KeyValue finalTranslateX2 = new KeyValue(statsPannel.translateXProperty(), 50);
-
-// Create a KeyFrame with the initial values and a duration of zero
+        KeyValue finalWidth2 = new KeyValue(statsPannel.prefWidthProperty(), 404);
         KeyFrame initFrame2 = new KeyFrame(Duration.ZERO, initWidth2, initTranslateX2);
-
-// Create a KeyFrame with the final values and a duration of one second
-        KeyFrame finalFrame2 = new KeyFrame(Duration.seconds(1), finalWidth2, finalTranslateX2);
-
-// Add the KeyFrames to the Timeline
+        KeyFrame finalFrame2 = new KeyFrame(Duration.seconds(3), finalWidth2, finalTranslateX2);
         timeline2.getKeyFrames().addAll(initFrame2, finalFrame2);
 
+        timeline2.play();
 
-            // Set the visibility of the toolsBar, the statsPane, and the expandBtn to the opposite of what they were before
-           // toolsBar.setVisible(false);
-            statsPane.setVisible(true);
-            expandBtn.setVisible(false);
-
-            // Play the second animation
-            timeline2.play();
-        ;
-
+        statsPane.setVisible(true);
+        expandBtn.setVisible(true);
+        openBtn.setVisible(false);
     }
+
+
+
+
+
 
 }

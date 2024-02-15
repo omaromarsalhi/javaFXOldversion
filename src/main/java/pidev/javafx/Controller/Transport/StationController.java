@@ -1,21 +1,32 @@
 package pidev.javafx.Controller.Transport;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import pidev.javafx.Controller.ConnectionDB;
+import pidev.javafx.Services.ServicesStation;
+import pidev.javafx.entities.Transport.Station;
+import pidev.javafx.entities.Transport.Transport;
 
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.ResourceBundle;
+import java.util.Set;
 
-public class StationController {
+public class StationController implements Initializable {
 
 
     @FXML
@@ -32,10 +43,15 @@ public class StationController {
     private Connection connect;
     private Statement statement;
     private PreparedStatement prepare;
+    @FXML
+    private ListView<Station> StationListView;
 
 
     @FXML
     private ScrollPane mainBorderPain;
+
+    private ServicesStation ss=new ServicesStation();
+
 @FXML
     protected void onTextChanged() {
     String[] name = new String[10];
@@ -46,72 +62,16 @@ public class StationController {
         Referance_text.setStyle("-fx-control-inner-background: #25c12c;");
     else
         Referance_text.setStyle("-fx-control-inner-background: #bb2020;");}
-//
-//    if (  name[2].matches("[(a-zA-Z)|(1-9)]+"))
-//        Name_area1.setStyle("-fx-control-inner-background: #25c12c;");
-//    else
-//        Name_area1.setStyle("-fx-control-inner-background: #bb2020;");
-//
-//
-//    if (  name[3].matches("[a-zA-Z]+"))
-//        Name_area2.setStyle("-fx-control-inner-background: #25c12c;");
-//    else
-//        Name_area2.setStyle("-fx-control-inner-background: #bb2020;");
-//
-//    if (  name[4].matches("[a-zA-Z]+"))
-//        Name_area3.setStyle("-fx-control-inner-background: #25c12c;");
-//    else
-//        Name_area3.setStyle("-fx-control-inner-background: #bb2020;");
-//
-//
-//    if (  name[5].matches("[a-zA-Z]+"))
-//        Name_area4.setStyle("-fx-control-inner-background: #25c12c;");
-//    else
-//        Name_area4.setStyle("-fx-control-inner-background: #bb2020;");
-//      }
-
-@FXML
-      public void afficher(){
-    String sql = "INSERT INTO name "
-                    + "(aa,bb) "
-                    + "VALUES(?,?)";
-
-            connect = ConnectionDB.connectDb();
-
-            try {
-                prepare = connect.prepareStatement(sql);
-                prepare.setString(1,  Referance_text.getText());
-                prepare.setString(2,  Referance_text.getText());
-
-                prepare.executeUpdate();
-
-            } catch (Exception e) {
-//            System.out.println("error");
-                System.out.println(e.getMessage());
-            }
-
-      };
-
-    @FXML
-    public void supprimer(){
-        String sql = "DELETE FROM name WHERE aa = ? ";
-
-        connect = ConnectionDB.connectDb();
-
-        try {
-            prepare = connect.prepareStatement(sql);
-            prepare.setString(1,  Referance_text.getText());
 
 
-            prepare.executeUpdate();
-            System.out.println(  " row(s) deleted.");
 
-        } catch (Exception e) {
-//            System.out.println("error");
-            System.out.println(e.getMessage());
-        }
 
-    };
+public void afficher (){
+    Set<Station> dataList;
+    dataList=ss.getAll();
+    ObservableList<Station> data = FXCollections.observableArrayList(dataList);
+    StationListView.setItems(data);
+}
 
     public void onInsertStationClicked(ActionEvent event)  throws IOException {
         ScrollPane scrollPane = FXMLLoader.load(Objects.requireNonNull( getClass().getResource("/fxml/Transport/AddStation.fxml")));
@@ -119,6 +79,11 @@ public class StationController {
         scrollPane.setPrefWidth( mainBorderPain.getPrefWidth() );
         mainBorderPain.setContent(scrollPane);
     };
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        afficher();
+    }
 
 }
 

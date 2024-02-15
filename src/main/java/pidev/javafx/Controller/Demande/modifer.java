@@ -72,6 +72,13 @@ public void initialize() {
     {
         Reclamation   rec = new Reclamation(privateKey.getText(), title.getText(),subject.getText() ,description.getText());
         si.modifier(rec);
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText(null);
+        alert.setContentText("Reclmation has been modified !");
+
+        // Show the alert
+        alert.show();
     }
     public void displayDetailsInTextField() {
         lista.setOnMouseClicked(event -> {
@@ -94,6 +101,13 @@ public void initialize() {
         clearFields();
 
         displayDetailsInTextField();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText(null);
+        alert.setContentText("Reclmation Delelte!");
+
+        // Show the alert
+        alert.showAndWait();
     }
     void clearFields() {
         privateKey.setText("");

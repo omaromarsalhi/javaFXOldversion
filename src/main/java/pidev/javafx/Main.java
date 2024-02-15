@@ -16,7 +16,11 @@ public class Main extends Application {
 
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader( Main.class.getResource( "/fxml/mainWindow.fxml" ));
+<<<<<<< HEAD
         //       FXMLLoader fxmlLoader = new FXMLLoader( Main.class.getResource( "/fxml/marketPlace/myMarket.fxml" ));
+=======
+//        FXMLLoader fxmlLoader = new FXMLLoader( Main.class.getResource( "/fxml/marketPlace/myMarket.fxml" ));
+>>>>>>> 2bfe4276af099b37f7920e215c3cd04636278f5f
 //        FXMLLoader fxmlLoader = new FXMLLoader( Main.class.getResource( "/fxml/Employe/showEmployee.fxml" ));
         Scene scene = new Scene(fxmlLoader.load());
 //        scene.getStylesheets().add( String.valueOf( getClass().getResource("/style/Buttons.css") ) );
@@ -27,7 +31,7 @@ public class Main extends Application {
 //        stage.setHeight(600);
         stage.setScene(scene);
         stage.show();
-        stage.setOnCloseRequest(event -> javafx.application.Platform.exit());
+        stage.setOnCloseRequest(event -> System.exit(0));
     }
 
 

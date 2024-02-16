@@ -27,29 +27,20 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 public class StationController implements Initializable {
-
-
     @FXML
    private TextArea Referance_text;
-
-
-
     @FXML
     private Button showBtn;
-
     @FXML
     private Button deleteBtn;
-
     private Connection connect;
     private Statement statement;
     private PreparedStatement prepare;
     @FXML
     private ListView<Station> StationListView;
 
-
     @FXML
     private ScrollPane mainBorderPain;
-
     private ServicesStation ss=new ServicesStation();
 
 @FXML

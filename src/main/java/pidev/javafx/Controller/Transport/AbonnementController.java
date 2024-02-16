@@ -5,10 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -121,7 +118,11 @@ String imagePath;
 
 public void DeleteAbonnement(){
 
-       int id = abonnementList.get(i).getIdAboonnement();
+        int id = abonnementList.get(i).getIdAboonnement();
+        Alert alert =new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setContentText("Vous voules vraiment effacer ce fichier ?");
+        alert.showAndWait();
         sa.supprimer(id);
         afficher();
         remplir_abonnement();
@@ -134,12 +135,12 @@ public void DeleteAbonnement(){
         text[1] = NomText.getText();
         text[2]= PrenomText.getText();
 
-        if (text[1].matches("[a-zA-Z0-9]*"))
+        if (text[1].matches("[a-zA-Z]*"))
             NomText.setStyle("-fx-text-fill: #25c12c;");
         else
             NomText.setStyle("-fx-text-fill: #bb2020;");
 
-        if (text[2].matches("[0-9 -.]+"))
+        if (text[2].matches("[a-zA-Z]+"))
             PrenomText.setStyle("-fx-text-fill: #25c12c");
         else
             PrenomText.setStyle("-fx-text-fill: #bb2020 ");
@@ -178,8 +179,7 @@ String id=Integer.toString(abonnementList.get(i).getIdAboonnement());
 
     @FXML
     public void previousAb() {
-       // translateTransition.setToX(-400);
-       // translateTransition.play();
+
         if (i > 0) {
             previousBtn.setVisible(true);
             nextBtn.setVisible(true);
@@ -206,6 +206,10 @@ String id=Integer.toString(abonnementList.get(i).getIdAboonnement());
         System.out.println(NomText.getText());
           A.setIdAboonnement(abonnementList.get(i).getIdAboonnement());
         sa.modifier(A);
+        Alert alert =new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setContentText("Vous voules vraiment effacer ce fichier ?");
+        alert.showAndWait();
         UpdateBtn.setVisible(false);
         afficher();
         remplir_abonnement();
@@ -276,7 +280,7 @@ public void unexpand() {
     KeyValue finalWidth = new KeyValue(statsPannel.prefWidthProperty(), 50);
 
     KeyFrame initFrame = new KeyFrame(Duration.ZERO, initWidth, initTranslateX);
-    KeyFrame finalFrame = new KeyFrame(Duration.seconds(3), finalWidth, finalTranslateX);
+    KeyFrame finalFrame = new KeyFrame(Duration.seconds(0.3), finalWidth, finalTranslateX);
 
     timeline.getKeyFrames().addAll(finalFrame, initFrame);
 
@@ -302,7 +306,7 @@ public void unexpand() {
         KeyValue initWidth2 = new KeyValue(statsPannel.prefWidthProperty(), 50);
         KeyValue finalWidth2 = new KeyValue(statsPannel.prefWidthProperty(), 404);
         KeyFrame initFrame2 = new KeyFrame(Duration.ZERO, initWidth2, initTranslateX2);
-        KeyFrame finalFrame2 = new KeyFrame(Duration.seconds(3), finalWidth2, finalTranslateX2);
+        KeyFrame finalFrame2 = new KeyFrame(Duration.seconds(0.3), finalWidth2, finalTranslateX2);
         timeline2.getKeyFrames().addAll(initFrame2, finalFrame2);
 
         timeline2.play();

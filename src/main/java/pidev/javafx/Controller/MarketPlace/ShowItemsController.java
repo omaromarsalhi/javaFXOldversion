@@ -17,18 +17,7 @@ public class ShowItemsController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         var showItemGridPane= new GridPane();
         var btn1=new Button("omar");
-//
-//        showItemGridPane.add( btn1,0,0 );
-//        showItemGridPane.add( btn1,0,1 );
-//        showItemGridPane.add( btn1,0,2 );
-//        showItemGridPane.add( btn1,1,0 );
-//        showItemGridPane.add( btn1,1,1 );
-//        showItemGridPane.add( btn1,1,2 );
-//        showItemGridPane.add( btn1,2,0 );
-//        showItemGridPane.add( btn1,2,1 );
-//        showItemGridPane.add( btn1,2,2 );
-//
-//        showItemsVbox.getChildren().addAll(showItemGridPane);
+
 
     }
 

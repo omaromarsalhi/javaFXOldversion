@@ -13,6 +13,7 @@
    <left>
       <VBox fx:id="sideBar" prefHeight="550.0" prefWidth="160.0" style="-fx-background-color: #171718;" BorderPane.alignment="CENTER">
          <children>
+<<<<<<< HEAD
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="6.0" style="-fx-background-color: #171718;">
                <children>
                   <Button fx:id="showEmp" mnemonicParsing="false" onAction="#onShowEmpClicked" prefWidth="110.0" text="show " textAlignment="CENTER">
@@ -25,6 +26,11 @@
                      </graphic>
                   </Button>
                   <Button fx:id="btn2" mnemonicParsing="false" prefWidth="110.0" text="Button 2">
+=======
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="160.0" spacing="6.0" style="-fx-background-color: #171718;">
+               <children>
+                  <Button fx:id="btn2" mnemonicParsing="false" onAction="#onBtn2Clicked" prefWidth="110.0" text="Button 2">
+>>>>>>> Aziz_Gmaty_branch
                      <graphic>
                         <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -43,6 +49,7 @@
                      </graphic>
                   </Button>
 <<<<<<< HEAD
+<<<<<<< HEAD
                   <Button fx:id="btnReclamtion" mnemonicParsing="false" prefWidth="110.0" text="Reclamtion">
 =======
                   <Button fx:id="MPD" mnemonicParsing="false" onAction="#onMPDClicked" prefWidth="110.0" text="MPD">
@@ -55,6 +62,8 @@
                         </ImageView>
                      </graphic>
                   </Button>
+=======
+>>>>>>> Aziz_Gmaty_branch
                   <Button fx:id="marketPlaceBtn" mnemonicParsing="false" onAction="#onMarketPlaceBtnClicked" prefHeight="30.0" prefWidth="110.0" text="MarketPlace">
                      <graphic>
                         <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
@@ -64,13 +73,44 @@
                         </ImageView>
                      </graphic>
                   </Button>
+                  <Button mnemonicParsing="false" onAction="#onTransportClicked" prefWidth="110.0" text="Transport">
+                     <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/79.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="GareBtn" mnemonicParsing="false" onAction="#onGareClicked" prefWidth="110.0" text="Abonné" textAlignment="CENTER">
+                     <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/4.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="StationBtn" mnemonicParsing="false" onAction="#onStationClicked" prefWidth="110.0" text="Stations">
+                     <graphic>
+                        <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/33.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                </children>
             </VBox>
+<<<<<<< HEAD
 <<<<<<< HEAD
             <Separator blendMode="OVERLAY" orientation="VERTICAL" prefHeight="300.0" style="-fx-background-color: #69818D; -fx-border-color: #69818D; -fx-color: #69818D;" />
 =======
             <Separator blendMode="OVERLAY" orientation="VERTICAL" prefHeight="360.0" style="-fx-background-color: #69818D; -fx-border-color: #69818D; -fx-color: #69818D;" />
 >>>>>>> 2bfe4276af099b37f7920e215c3cd04636278f5f
+=======
+            <Separator blendMode="OVERLAY" orientation="VERTICAL" prefHeight="300.0" style="-fx-background-color: #69818D; -fx-border-color: #69818D; -fx-color: #69818D;" />
+>>>>>>> Aziz_Gmaty_branch
             <VBox alignment="CENTER" prefHeight="80.0" prefWidth="100.0" spacing="7.0" style="-fx-background-color: #171718;">
                <children>
                   <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="100.0" text="Account">
@@ -101,6 +141,7 @@
    </left>
    <center>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <AnchorPane fx:id="MainAnchorPane" prefHeight="670.0" prefWidth="1040.0" style="-fx-background-color: #87878a;" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="10.0" right="10.0" top="10.0" />
@@ -109,6 +150,11 @@
          <BorderPane.margin>
             <Insets bottom="10.0" right="20.0" top="10.0" />
 >>>>>>> 2bfe4276af099b37f7920e215c3cd04636278f5f
+=======
+      <AnchorPane prefHeight="670.0" prefWidth="1040.0" style="-fx-background-color: #87878a;" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="10.0" right="10.0" top="10.0" />
+>>>>>>> Aziz_Gmaty_branch
          </BorderPane.margin>
       </AnchorPane>
    </center>

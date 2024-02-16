@@ -48,7 +48,18 @@
       <artifactId>junit-jupiter-engine</artifactId>
       <version>${junit.version}</version>
       <scope>test</scope>
-    </dependency>  </dependencies>
+    </dependency>
+      <dependency>
+          <groupId>com.gluonhq</groupId>
+          <artifactId>charm-glisten</artifactId>
+          <version>6.2.2</version>
+      </dependency>
+    <dependency>
+      <groupId>com.mysql</groupId>
+      <artifactId>mysql-connector-j</artifactId>
+      <version>8.0.33</version>
+    </dependency>
+  </dependencies>
 
   <build>
     <plugins>
@@ -70,7 +81,11 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
+<<<<<<< HEAD
               <mainClass>pidev.javafx.javafx/pidev.javafx.test.Main</mainClass>
+=======
+              <mainClass>pidev.javafx.javafx/pidev.javafx.tests.Main</mainClass>
+>>>>>>> Aziz_Gmaty_branch
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>

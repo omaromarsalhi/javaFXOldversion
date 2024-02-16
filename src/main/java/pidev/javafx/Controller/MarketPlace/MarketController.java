@@ -10,11 +10,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+<<<<<<< HEAD
 import javafx.util.Duration;
 import pidev.javafx.Controller.Crud.CrudBien;
 import pidev.javafx.Controller.Tools.MyListener;
 import pidev.javafx.Model.MarketPlace.Bien;
 import pidev.javafx.Model.MarketPlace.Product;
+=======
+import pidev.javafx.entities.Marketplace.Bien;
+import pidev.javafx.entities.Marketplace.Categorie;
+import pidev.javafx.MyListener;
+>>>>>>> Aziz_Gmaty_branch
 
 import java.io.IOException;
 import java.net.URL;

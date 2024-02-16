@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+<<<<<<< HEAD
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -19,6 +20,10 @@ import pidev.javafx.Controller.Tools.EventBus;
 import pidev.javafx.Controller.Tools.MyListener;
 import pidev.javafx.Model.MarketPlace.Bien;
 import pidev.javafx.Model.MarketPlace.Product;
+=======
+import pidev.javafx.entities.Marketplace.Bien;
+import pidev.javafx.MyListener;
+>>>>>>> Aziz_Gmaty_branch
 
 public class ItemController {
     @FXML
